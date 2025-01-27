@@ -1,14 +1,19 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { handleDeepseekRequest } from "./deepseek";
 
-// Initialize the Gemini API with your API key
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
-export async function handleChatRequest(message: string) {
-  try {
-    // For text-only input, use the gemini-pro model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+export type AIModel = "gemini" | "deepseek";
 
-    const result = await model.generateContent(message);
+export async function handleChatRequest(message: string, model: AIModel = "gemini") {
+  try {
+    if (model === "deepseek") {
+      return handleDeepseekRequest(message);
+    }
+
+    // For Gemini model
+    const geminiModel = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const result = await geminiModel.generateContent(message);
     const response = await result.response;
     const text = response.text();
     

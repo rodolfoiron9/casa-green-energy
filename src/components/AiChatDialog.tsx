@@ -8,15 +8,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { MessageSquare } from "lucide-react";
 import { toast } from "sonner";
-import { handleChatRequest } from "../api/chat";
+import { handleChatRequest, AIModel } from "../api/chat";
 
 export default function AiChatDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedModel, setSelectedModel] = useState<AIModel>("gemini");
 
   const handleSubmit = async () => {
     if (!message.trim()) {
@@ -26,8 +34,9 @@ export default function AiChatDialog() {
 
     setIsLoading(true);
     try {
-      const result = await handleChatRequest(message);
+      const result = await handleChatRequest(message, selectedModel);
       setResponse(result.response);
+      toast.success(`Response generated using ${selectedModel} model`);
     } catch (error) {
       toast.error("Failed to get response. Please try again.");
       console.error('Chat error:', error);
@@ -56,6 +65,18 @@ export default function AiChatDialog() {
           <DialogTitle>Chat with our AI Assistant</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4">
+          <Select
+            value={selectedModel}
+            onValueChange={(value) => setSelectedModel(value as AIModel)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select AI Model" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="gemini">Gemini</SelectItem>
+              <SelectItem value="deepseek">Deepseek</SelectItem>
+            </SelectContent>
+          </Select>
           <Textarea
             placeholder="Type your message here..."
             value={message}
