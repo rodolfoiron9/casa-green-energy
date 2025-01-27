@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 import {
   Select,
   SelectContent,
@@ -220,7 +219,6 @@ const Hero = () => {
             </motion.div>
           ))}
         </div>
-        </motion.div>
       </div>
     </div>
   );
