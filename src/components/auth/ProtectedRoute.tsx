@@ -26,13 +26,13 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       }
 
       // Check if user has admin role
-      const { data: roles, error } = await supabase
+      const { data: userRoles, error } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', session.user.id)
         .single();
 
-      if (error || !roles || roles.role !== 'admin') {
+      if (error || !userRoles || userRoles.role !== 'admin') {
         toast({
           variant: "destructive",
           title: "Access Denied",
