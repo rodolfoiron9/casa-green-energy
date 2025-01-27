@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "./ui/dialog";
 import {
   Select,
@@ -63,6 +64,9 @@ export default function AiChatDialog() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Chat with our AI Assistant</DialogTitle>
+          <DialogDescription>
+            Select a model and start chatting with our AI assistant.
+          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-4">
           <Select
