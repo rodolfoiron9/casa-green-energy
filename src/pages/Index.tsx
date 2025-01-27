@@ -7,17 +7,23 @@ import Contact from "@/components/Contact";
 
 const Index = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <Hero />
-      <Services />
-      <Projects />
-      <Testimonials />
-      <Contact />
-    </motion.div>
+    <div className="w-full">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="flex flex-col min-h-screen"
+      >
+        {/* Add padding-top to account for fixed navigation */}
+        <main className="flex-grow pt-16">
+          <Hero />
+          <Services />
+          <Projects />
+          <Testimonials />
+          <Contact />
+        </main>
+      </motion.div>
+    </div>
   );
 };
 
