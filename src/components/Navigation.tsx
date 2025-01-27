@@ -1,4 +1,4 @@
-import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight } from "lucide-react";
+import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory } from "lucide-react";
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
@@ -12,15 +12,15 @@ const Navigation = () => {
     { title: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
     { 
       title: "Services",
-      href: "#services",
+      href: "/services",
       icon: <Briefcase className="w-4 h-4" />,
       submenu: [
-        { title: "Air Source Heat Pumps", href: "#services" },
-        { title: "Electrical Services", href: "#services" },
-        { title: "Home Energy Solutions", href: "#services" },
-        { title: "Maintenance Services", href: "#services" },
-        { title: "Green Energy Systems", href: "#services" },
-        { title: "Warranty & Protection", href: "#services" },
+        { title: "Air Source Heat Pumps", href: "/services", icon: <Factory className="w-4 h-4" /> },
+        { title: "Electrical Services", href: "/services", icon: <Server className="w-4 h-4" /> },
+        { title: "Home Energy Solutions", href: "/services", icon: <Building2 className="w-4 h-4" /> },
+        { title: "Maintenance Services", href: "/services", icon: <Computer className="w-4 h-4" /> },
+        { title: "Green Energy Systems", href: "/services", icon: <Globe className="w-4 h-4" /> },
+        { title: "Warranty & Protection", href: "/services", icon: <Database className="w-4 h-4" /> },
       ]
     },
     { 
@@ -28,10 +28,10 @@ const Navigation = () => {
       href: "#",
       icon: <BookOpen className="w-4 h-4" />,
       submenu: [
-        { title: "Energy Saving Tips", href: "/blog" },
-        { title: "Government Grants", href: "/blog" },
-        { title: "Case Studies", href: "/blog" },
-        { title: "FAQs", href: "/blog" },
+        { title: "Energy Saving Tips", href: "/blog", icon: <Globe className="w-4 h-4" /> },
+        { title: "Government Grants", href: "/blog", icon: <Building2 className="w-4 h-4" /> },
+        { title: "Case Studies", href: "/blog", icon: <Database className="w-4 h-4" /> },
+        { title: "FAQs", href: "/blog", icon: <MessageSquare className="w-4 h-4" /> },
       ]
     },
     { title: "Contact", href: "/contact", icon: <MessageSquare className="w-4 h-4" /> },
