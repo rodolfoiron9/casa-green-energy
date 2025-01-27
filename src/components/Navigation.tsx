@@ -15,12 +15,12 @@ const Navigation = () => {
       href: "/services",
       icon: <Briefcase className="w-4 h-4" />,
       submenu: [
-        { title: "Air Source Heat Pumps", href: "/services", icon: <Factory className="w-4 h-4" /> },
-        { title: "Electrical Services", href: "/services", icon: <Server className="w-4 h-4" /> },
-        { title: "Home Energy Solutions", href: "/services", icon: <Building2 className="w-4 h-4" /> },
-        { title: "Maintenance Services", href: "/services", icon: <Computer className="w-4 h-4" /> },
-        { title: "Green Energy Systems", href: "/services", icon: <Globe className="w-4 h-4" /> },
-        { title: "Warranty & Protection", href: "/services", icon: <Database className="w-4 h-4" /> },
+        { title: "Air Source Heat Pumps", href: "/services/air-source-heat-pumps", icon: <Factory className="w-4 h-4" /> },
+        { title: "Electrical Services", href: "/services/electrical-services", icon: <Server className="w-4 h-4" /> },
+        { title: "Home Energy Solutions", href: "/services/home-energy-solutions", icon: <Building2 className="w-4 h-4" /> },
+        { title: "Maintenance Services", href: "/services/maintenance-services", icon: <Computer className="w-4 h-4" /> },
+        { title: "Green Energy Systems", href: "/services/green-energy-systems", icon: <Globe className="w-4 h-4" /> },
+        { title: "Warranty & Protection", href: "/services/warranty-protection", icon: <Database className="w-4 h-4" /> },
       ]
     },
     { 
@@ -28,10 +28,10 @@ const Navigation = () => {
       href: "#",
       icon: <BookOpen className="w-4 h-4" />,
       submenu: [
-        { title: "Energy Saving Tips", href: "/blog", icon: <Globe className="w-4 h-4" /> },
-        { title: "Government Grants", href: "/blog", icon: <Building2 className="w-4 h-4" /> },
-        { title: "Case Studies", href: "/blog", icon: <Database className="w-4 h-4" /> },
-        { title: "FAQs", href: "/blog", icon: <MessageSquare className="w-4 h-4" /> },
+        { title: "Energy Saving Tips", href: "/resources/energy-saving-tips", icon: <Globe className="w-4 h-4" /> },
+        { title: "Government Grants", href: "/resources/government-grants", icon: <Building2 className="w-4 h-4" /> },
+        { title: "Case Studies", href: "/resources/case-studies", icon: <Database className="w-4 h-4" /> },
+        { title: "FAQs", href: "/resources/faqs", icon: <MessageSquare className="w-4 h-4" /> },
       ]
     },
     { title: "Contact", href: "/contact", icon: <MessageSquare className="w-4 h-4" /> },

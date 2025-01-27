@@ -14,6 +14,13 @@ import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import AiChatDialog from "./components/AiChatDialog";
 
+// Service Pages
+import AirSourceHeatPumps from "./pages/services/AirSourceHeatPumps";
+import ElectricalServices from "./pages/services/ElectricalServices";
+
+// Resource Pages
+import EnergySavingTips from "./pages/resources/EnergySavingTips";
+
 const queryClient = new QueryClient();
 
 // Wrapper component to handle conditional footer rendering
@@ -35,6 +42,13 @@ const AppContent = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
+          
+          {/* Service Routes */}
+          <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
+          <Route path="/services/electrical-services" element={<ElectricalServices />} />
+          
+          {/* Resource Routes */}
+          <Route path="/resources/energy-saving-tips" element={<EnergySavingTips />} />
         </Routes>
       </div>
       {!isDashboard && <Footer />}
