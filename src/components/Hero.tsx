@@ -46,6 +46,15 @@ const Hero = () => {
         postcode={postcode}
       />
       
+      {/* Heat Pump Background Image */}
+      <div 
+        className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/heat-pump-background.jpg')`,
+          backgroundBlendMode: 'overlay'
+        }}
+      />
+      
       {/* Background Pattern Overlay */}
       <div 
         className="absolute inset-0 opacity-20"
