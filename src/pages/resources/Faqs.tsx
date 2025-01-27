@@ -29,6 +29,7 @@ const Faqs = () => {
 
   const categories = [
     { id: "all", label: "All Questions" },
+    { id: "general", label: "General" },
     { id: "installation", label: "Installation" },
     { id: "maintenance", label: "Maintenance" },
     { id: "costs", label: "Costs & Savings" },

@@ -201,6 +201,7 @@ export type Database = {
           question: string
           updated_at: string
           user_id: string
+          category: string
         }
         Insert: {
           answer: string
@@ -209,6 +210,7 @@ export type Database = {
           question: string
           updated_at?: string
           user_id: string
+          category?: string
         }
         Update: {
           answer?: string
@@ -217,6 +219,7 @@ export type Database = {
           question?: string
           updated_at?: string
           user_id?: string
+          category?: string
         }
         Relationships: [
           {
