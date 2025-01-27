@@ -5,10 +5,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const Blog = () => {
   const [selectedPost, setSelectedPost] = useState<any>(null);
   const [email, setEmail] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const { toast } = useToast();
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -154,6 +163,12 @@ const Blog = () => {
     }
   ];
 
+  const postsPerPage = 20;
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentPosts = posts.slice(startIndex, endIndex);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5] pt-24">
       <div className="container mx-auto px-4">
@@ -210,13 +225,13 @@ const Blog = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {posts.map((post, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+          {currentPosts.map((post, index) => (
             <motion.article
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-gradient-to-br from-[#f8f8f8] to-[#f1f1f1] backdrop-blur-lg rounded-xl overflow-hidden border border-gray-200 hover:border-casa-gold transition-all duration-300 group shadow-lg cursor-pointer"
               onClick={() => setSelectedPost(post)}
             >
@@ -260,7 +275,36 @@ const Blog = () => {
             </motion.article>
           ))}
         </div>
-      </div>
+
+        {/* Pagination */}
+        <div className="mb-20">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious 
+                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                  className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+                />
+              </PaginationItem>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(page)}
+                    isActive={currentPage === page}
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                  className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
 
       <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
         <DialogContent className="max-w-4xl w-[90vw] bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl border border-white/20">
@@ -333,6 +377,7 @@ const Blog = () => {
           )}
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 };
