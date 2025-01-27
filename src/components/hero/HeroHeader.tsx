@@ -10,11 +10,11 @@ const HeroHeader = () => {
       className="max-w-4xl mx-auto text-center"
     >
       <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-        Quality Building Supplies for Every Project
+        Transform Your Home with Green Energy Solutions
       </h1>
       <p className="text-xl md:text-2xl text-white/80 mb-8 leading-relaxed">
-        Your trusted partner in roofing and building materials. Professional service, 
-        expert advice, and top-quality products.
+        Expert installation of heat pumps, solar panels, and smart energy systems. 
+        Save money while saving the planet with our professional services.
       </p>
     </motion.div>
   );
