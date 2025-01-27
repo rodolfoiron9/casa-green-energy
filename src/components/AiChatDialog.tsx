@@ -10,6 +10,7 @@ import {
 } from "./ui/dialog";
 import { MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import { handleChatRequest } from "../api/chat";
 
 export default function AiChatDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,22 +26,11 @@ export default function AiChatDialog() {
 
     setIsLoading(true);
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to get response");
-      }
-
-      const data = await response.json();
-      setResponse(data.response);
+      const result = await handleChatRequest(message);
+      setResponse(result.response);
     } catch (error) {
       toast.error("Failed to get response. Please try again.");
+      console.error('Chat error:', error);
     } finally {
       setIsLoading(false);
     }
