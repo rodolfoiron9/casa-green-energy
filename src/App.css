@@ -6,16 +6,26 @@
 }
 
 .logo {
-  height: 4em; /* Made smaller for sleeker look */
-  padding: 1em; /* Reduced padding */
+  height: 4em;
+  padding: 1em;
   will-change: filter;
-  transition: all 300ms ease-in-out; /* Smooth transition for all changes */
-  filter: drop-shadow(0 0 0.5em rgba(255, 215, 0, 0.2)); /* Subtle initial gold shadow */
+  transition: all 300ms ease-in-out;
+  filter: drop-shadow(0 0 0.5em rgba(255, 215, 0, 0.2));
+  /* 3D text effect with thin yellow stroke */
+  text-shadow: 
+    1px 1px 0 #FFD700,
+    -1px -1px 0 #FFD700,
+    1px -1px 0 #FFD700,
+    -1px 1px 0 #FFD700,
+    0px 2px 2px rgba(0, 0, 0, 0.3),
+    0px 4px 4px rgba(0, 0, 0, 0.2),
+    0px 6px 8px rgba(0, 0, 0, 0.1);
+  -webkit-text-stroke: 0.5px #FFD700;
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 1em rgba(255, 215, 0, 0.8)); /* Golden glow on hover */
-  transform: scale(1.05); /* Slight scale effect on hover */
+  filter: drop-shadow(0 0 1em rgba(255, 215, 0, 0.8));
+  transform: scale(1.05);
   animation: glow 2s ease-in-out infinite;
 }
 
