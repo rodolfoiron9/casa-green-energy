@@ -12,6 +12,7 @@ const Hero = () => {
   const [selectedService, setSelectedService] = useState("heat-pumps");
   const [postcode, setPostcode] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+  const [showChatDialog, setShowChatDialog] = useState(false);
 
   const services = [
     { id: "heat-pumps", label: "Air Source Heat Pumps" },
@@ -27,7 +28,7 @@ const Hero = () => {
       toast.error("Please select a service and enter your postcode");
       return;
     }
-    setShowDialog(true);
+    setShowChatDialog(true);
   };
 
   return (
@@ -53,7 +54,7 @@ const Hero = () => {
           services={services}
         />
 
-        {showHelp && <AiChatDialog />}
+        {showHelp && <AiChatDialog defaultOpen={showChatDialog} onOpenChange={setShowChatDialog} />}
         
         <FeatureCards />
       </div>

@@ -20,12 +20,22 @@ import { MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 import { handleChatRequest, AIModel } from "../api/chat";
 
-export default function AiChatDialog() {
-  const [isOpen, setIsOpen] = useState(false);
+interface AiChatDialogProps {
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export default function AiChatDialog({ defaultOpen = false, onOpenChange }: AiChatDialogProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState<AIModel>("gemini");
+
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    onOpenChange?.(open);
+  };
 
   const handleSubmit = async () => {
     if (!message.trim()) {
@@ -47,7 +57,7 @@ export default function AiChatDialog() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
