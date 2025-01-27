@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Leaf, Thermometer, Home, Zap, Tool, Shield } from "lucide-react";
+import { Leaf, Thermometer, Home, Zap, Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const Services = () => {
@@ -22,7 +22,7 @@ const Services = () => {
     {
       title: "Maintenance Services",
       description: "Regular maintenance and servicing to keep your systems running at peak efficiency.",
-      icon: Tool,
+      icon: Shield, // Changed from Tool to Shield
     },
     {
       title: "Green Energy Systems",
