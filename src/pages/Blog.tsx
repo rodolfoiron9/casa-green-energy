@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Calendar, ArrowRight, Tag, Mail, PhoneCall, Download, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
@@ -170,16 +171,16 @@ const Blog = () => {
   const currentPosts = posts.slice(startIndex, endIndex);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5] pt-24">
+    <div className="min-h-screen bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5] pt-16 md:pt-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-casa-navy mb-4">Energy Insights & Savings Guide</h1>
-          <p className="text-casa-navy/80 text-lg max-w-2xl mx-auto">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-casa-navy mb-4">Energy Insights & Savings Guide</h1>
+          <p className="text-casa-navy/80 text-base md:text-lg max-w-2xl mx-auto px-4">
             Expert advice, latest technologies, and money-saving tips to transform your home's energy efficiency.
           </p>
         </motion.div>
@@ -189,7 +190,7 @@ const Blog = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-xl mx-auto mb-16"
+          className="max-w-xl mx-auto mb-12 md:mb-16 px-4"
         >
           <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-casa-navy mb-4">Get Exclusive Energy Saving Tips</h2>
@@ -225,7 +226,7 @@ const Blog = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-8">
           {currentPosts.map((post, index) => (
             <motion.article
               key={index}
@@ -306,77 +307,79 @@ const Blog = () => {
           </Pagination>
         </div>
 
-      <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-        <DialogContent className="max-w-4xl w-[90vw] bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl border border-white/20">
-          {selectedPost && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-casa-navy">
-                  {selectedPost.title}
-                </DialogTitle>
-                <DialogDescription className="text-casa-navy/60">
-                  Published on {new Date(selectedPost.date).toLocaleDateString()} • {selectedPost.readTime}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="mt-4">
-                <div className="aspect-video relative overflow-hidden rounded-lg mb-6">
-                  <img
-                    src={selectedPost.image}
-                    alt={selectedPost.title}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <div className="prose prose-lg max-w-none text-casa-navy/80 mb-6 whitespace-pre-line">
-                  {selectedPost.fullContent}
-                </div>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {selectedPost.tags.map((tag: string, index: number) => (
-                    <span
-                      key={index}
-                      className="text-xs px-2 py-1 rounded-full bg-casa-navy/5 text-casa-navy/70 flex items-center gap-1"
-                    >
-                      <Tag className="w-3 h-3" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="space-y-6">
-                  <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6">
-                    <h3 className="text-xl font-semibold text-casa-navy mb-4">Ready to Start Saving?</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 w-full">
-                        Book Free Consultation
-                        <PhoneCall className="ml-2 h-4 w-4" />
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        Download Guide
-                        <Download className="ml-2 h-4 w-4" />
-                      </Button>
+        <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
+          <DialogContent className="w-[95vw] max-w-4xl max-h-[90vh] bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl border border-white/20 p-0">
+            {selectedPost && (
+              <ScrollArea className="h-[85vh] w-full rounded-md">
+                <div className="p-6">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl sm:text-2xl font-bold text-casa-navy">
+                      {selectedPost.title}
+                    </DialogTitle>
+                    <DialogDescription className="text-casa-navy/60">
+                      Published on {new Date(selectedPost.date).toLocaleDateString()} • {selectedPost.readTime}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-4">
+                    <div className="aspect-video relative overflow-hidden rounded-lg mb-6">
+                      <img
+                        src={selectedPost.image}
+                        alt={selectedPost.title}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <div className="prose prose-lg max-w-none text-casa-navy/80 mb-6 whitespace-pre-line">
+                      {selectedPost.fullContent}
+                    </div>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {selectedPost.tags.map((tag: string, index: number) => (
+                        <span
+                          key={index}
+                          className="text-xs px-2 py-1 rounded-full bg-casa-navy/5 text-casa-navy/70 flex items-center gap-1"
+                        >
+                          <Tag className="w-3 h-3" />
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-4 sm:p-6">
+                        <h3 className="text-lg sm:text-xl font-semibold text-casa-navy mb-4">Ready to Start Saving?</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                          <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 w-full">
+                            Book Free Consultation
+                            <PhoneCall className="ml-2 h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" className="w-full">
+                            Download Guide
+                            <Download className="ml-2 h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-4 sm:p-6">
+                        <h3 className="text-lg font-semibold text-casa-navy mb-4">Stay Updated</h3>
+                        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                          <Input
+                            type="email"
+                            placeholder="Enter your email for exclusive updates"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="flex-1 bg-white/50 border-white/30"
+                            required
+                          />
+                          <Button type="submit" className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 whitespace-nowrap">
+                            Subscribe
+                            <Mail className="ml-2 h-4 w-4" />
+                          </Button>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                  <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6">
-                    <h3 className="text-lg font-semibold text-casa-navy mb-4">Stay Updated</h3>
-                    <form onSubmit={handleSubscribe} className="flex gap-2">
-                      <Input
-                        type="email"
-                        placeholder="Enter your email for exclusive updates"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="flex-1 bg-white/50 border-white/30"
-                        required
-                      />
-                      <Button type="submit" className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90">
-                        Subscribe
-                        <Mail className="ml-2 h-4 w-4" />
-                      </Button>
-                    </form>
-                  </div>
                 </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+              </ScrollArea>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
