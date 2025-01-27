@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Truck, Headphones } from "lucide-react";
+import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle } from "lucide-react";
+import { Button } from "./ui/button";
+import { useState } from "react";
 
 const Hero = () => {
+  const [showHelp, setShowHelp] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-casa-navy via-casa-navy/95 to-casa-blue/90 overflow-hidden">
       {/* Background Pattern Overlay */}
@@ -28,6 +32,72 @@ const Hero = () => {
             Your trusted partner in roofing and building materials. Professional service, 
             expert advice, and top-quality products.
           </p>
+          
+          {/* How Can I Help You Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-12"
+          >
+            <Button
+              onClick={() => setShowHelp(!showHelp)}
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white 
+                       text-casa-navy font-semibold rounded-full 
+                       hover:bg-casa-gold transition-all duration-300"
+            >
+              <HelpCircle className="w-5 h-5" />
+              How Can I Help You?
+            </Button>
+
+            {showHelp && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+              >
+                <Button
+                  variant="outline"
+                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20
+                           flex items-center gap-3 p-6 rounded-xl"
+                  onClick={() => window.location.href = '/contact'}
+                >
+                  <Calculator className="w-6 h-6" />
+                  <div className="text-left">
+                    <h3 className="font-semibold">Get a Quote</h3>
+                    <p className="text-sm opacity-80">Quick estimate for your project</p>
+                  </div>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20
+                           flex items-center gap-3 p-6 rounded-xl"
+                  onClick={() => window.location.href = '/contact'}
+                >
+                  <Phone className="w-6 h-6" />
+                  <div className="text-left">
+                    <h3 className="font-semibold">Talk to an Expert</h3>
+                    <p className="text-sm opacity-80">Get professional advice</p>
+                  </div>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20
+                           flex items-center gap-3 p-6 rounded-xl"
+                  onClick={() => window.location.href = '/blog'}
+                >
+                  <FileText className="w-6 h-6" />
+                  <div className="text-left">
+                    <h3 className="font-semibold">Browse Resources</h3>
+                    <p className="text-sm opacity-80">Guides and documentation</p>
+                  </div>
+                </Button>
+              </motion.div>
+            )}
+          </motion.div>
+
           <motion.button
             whileHover={{ scale: 1.05 }}
             className="inline-flex items-center gap-2 px-8 py-4 bg-casa-gold 
