@@ -33,7 +33,7 @@ const menuItems = [
   { title: "API Keys", icon: Key, path: "/dashboard/api-keys" },
   { title: "Database", icon: Database, path: "/dashboard/database" },
   { title: "Blog Posts", icon: FileText, path: "/dashboard/blog-posts" },
-  { title: "Books", icon: BookOpen, path: "/dashboard/books" },
+  { title: "Booking", icon: BookOpen, path: "/dashboard/booking" },
   { title: "Downloads", icon: Download, path: "/dashboard/downloads" },
   { title: "Leads", icon: Users, path: "/dashboard/leads" },
   { title: "Subscribers", icon: Users, path: "/dashboard/subscribers" },
