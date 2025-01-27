@@ -10,7 +10,7 @@ interface NavigationLinkProps {
 export const NavigationLink = ({ href, icon, title }: NavigationLinkProps) => (
   <Link
     to={href}
-    className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 flex items-center gap-2"
+    className="text-casa-navy hover:text-casa-blue transition-colors px-4 py-2 flex items-center gap-2 font-medium"
   >
     {icon}
     {title}
