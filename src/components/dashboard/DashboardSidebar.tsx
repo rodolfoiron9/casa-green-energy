@@ -11,8 +11,8 @@ import {
   HelpCircle,
   FooterIcon,
   Server,
-  Templates,
-  Forms,
+  LayoutTemplate,
+  FormInput,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -29,7 +29,7 @@ import {
 const menuItems = [
   { title: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
   { title: "Content", icon: FileText, path: "/dashboard/content" },
-  { title: "Forms", icon: Forms, path: "/dashboard/forms" },
+  { title: "Forms", icon: FormInput, path: "/dashboard/forms" },
   { title: "AI Chat Bot", icon: MessageSquare, path: "/dashboard/chatbot" },
   { title: "API Keys", icon: Key, path: "/dashboard/api-keys" },
   { title: "Database", icon: Database, path: "/dashboard/database" },
@@ -39,9 +39,9 @@ const menuItems = [
   { title: "Leads", icon: Users, path: "/dashboard/leads" },
   { title: "Subscribers", icon: Users, path: "/dashboard/subscribers" },
   { title: "FAQs", icon: HelpCircle, path: "/dashboard/faqs" },
-  { title: "Footer Content", icon: FooterIcon, path: "/dashboard/footer" },
+  { title: "Footer Content", icon: Settings, path: "/dashboard/footer" },
   { title: "Server Content", icon: Server, path: "/dashboard/server" },
-  { title: "Templates", icon: Templates, path: "/dashboard/templates" },
+  { title: "Templates", icon: LayoutTemplate, path: "/dashboard/templates" },
 ];
 
 export function DashboardSidebar() {
