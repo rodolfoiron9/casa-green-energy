@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight, Tag, Mail } from "lucide-react";
+import { Calendar, ArrowRight, Tag, Mail, PhoneCall, Download, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -15,12 +15,89 @@ const Blog = () => {
     e.preventDefault();
     toast({
       title: "Thanks for subscribing!",
-      description: "We'll keep you updated with the latest news.",
+      description: "We'll keep you updated with the latest news and exclusive offers.",
     });
     setEmail("");
   };
 
   const posts = [
+    {
+      title: "Revolutionary Air Source Heat Pumps: Your Path to Energy Independence",
+      excerpt: "Discover how modern air source heat pumps can slash your energy bills by up to 50% while providing year-round comfort. Learn about the latest technology that's transforming home heating and cooling.",
+      date: "2024-02-20",
+      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837",
+      category: "Heat Pumps",
+      readTime: "5 min read",
+      tags: ["Energy Efficiency", "Cost Savings", "Sustainability"],
+      fullContent: `
+        Transform your home's energy efficiency with our cutting-edge air source heat pump solutions. Here's what you need to know:
+
+        🌟 Key Benefits:
+        • Save up to 50% on energy bills
+        • Reduce your carbon footprint by 3-4 tonnes annually
+        • Enjoy consistent temperatures year-round
+        • Qualify for £7,500 government grants
+        
+        💡 How It Works:
+        Our heat pumps extract natural heat from the air, even in temperatures as low as -15°C, providing efficient heating and hot water for your home. Using advanced technology, they deliver up to 4 times more energy than they consume.
+
+        💰 Financial Benefits:
+        • Average annual savings: £500-£1,000
+        • Government grants available
+        • Increased property value
+        • Return on investment within 5-7 years
+
+        🌍 Environmental Impact:
+        By switching to a heat pump, you're not just saving money – you're helping save the planet. Each installation reduces CO2 emissions equivalent to taking a car off the road for two years.
+
+        ✅ Why Act Now:
+        • Limited-time government incentives
+        • Rising energy costs
+        • Growing environmental regulations
+        • Increasing property value requirements
+      `
+    },
+    {
+      title: "2024 Heat Pump Grants: Your Complete Guide to £7,500 Government Support",
+      excerpt: "Everything you need to know about claiming your £7,500 heat pump grant in 2024. We break down the application process, eligibility criteria, and how to maximize your benefits.",
+      date: "2024-02-18",
+      image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51",
+      category: "Grants",
+      readTime: "4 min read",
+      tags: ["Funding", "Government Support", "Installation"],
+      fullContent: `
+        Don't miss out on your share of the government's renewable energy initiative. Here's your step-by-step guide to securing your £7,500 grant:
+
+        🏆 Grant Overview:
+        • Up to £7,500 available per household
+        • No repayment required
+        • Simple application process
+        • Quick approval times
+
+        ✅ Eligibility Criteria:
+        • UK homeowner or private landlord
+        • Property built before 2019
+        • Valid EPC certificate
+        • No previous heat pump funding
+
+        📝 Application Process:
+        1. Initial assessment
+        2. Property survey
+        3. Grant application
+        4. Installation planning
+        5. System installation
+        6. Final certification
+
+        💡 Expert Tips:
+        • Apply early - funds are limited
+        • Get multiple quotes
+        • Consider additional insulation
+        • Plan for optimal installation timing
+
+        🚀 Next Steps:
+        Book your free consultation today to start your journey toward energy independence and significant savings.
+      `
+    },
     {
       title: "The Benefits of Air Source Heat Pumps",
       excerpt: "Discover how air source heat pumps can reduce your energy bills and carbon footprint while providing efficient heating for your home.",
@@ -86,9 +163,9 @@ const Blog = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-casa-navy mb-4">Energy Insights</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-casa-navy mb-4">Energy Insights & Savings Guide</h1>
           <p className="text-casa-navy/80 text-lg max-w-2xl mx-auto">
-            Stay updated with the latest news, guides, and insights about renewable energy solutions and sustainable living.
+            Expert advice, latest technologies, and money-saving tips to transform your home's energy efficiency.
           </p>
         </motion.div>
 
@@ -100,18 +177,33 @@ const Blog = () => {
           className="max-w-xl mx-auto mb-16"
         >
           <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6 shadow-lg">
-            <h2 className="text-2xl font-bold text-casa-navy mb-4">Subscribe to Our Newsletter</h2>
+            <h2 className="text-2xl font-bold text-casa-navy mb-4">Get Exclusive Energy Saving Tips</h2>
+            <p className="text-casa-navy/80 mb-4">Join our community and receive:</p>
+            <ul className="list-none space-y-2 mb-4">
+              <li className="flex items-center gap-2 text-casa-navy/80">
+                <CheckCircle className="w-5 h-5 text-casa-gold" />
+                Latest grant updates and deadlines
+              </li>
+              <li className="flex items-center gap-2 text-casa-navy/80">
+                <CheckCircle className="w-5 h-5 text-casa-gold" />
+                Energy-saving tips and tricks
+              </li>
+              <li className="flex items-center gap-2 text-casa-navy/80">
+                <CheckCircle className="w-5 h-5 text-casa-gold" />
+                Exclusive offers and discounts
+              </li>
+            </ul>
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Enter your email for savings"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 bg-white/50 border-white/30"
                 required
               />
               <Button type="submit" className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90">
-                Subscribe
+                Get Updates
                 <Mail className="ml-2 h-4 w-4" />
               </Button>
             </form>
@@ -171,7 +263,7 @@ const Blog = () => {
       </div>
 
       <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-        <DialogContent className="max-w-3xl w-[90vw] bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl border border-white/20">
+        <DialogContent className="max-w-4xl w-[90vw] bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-xl border border-white/20">
           {selectedPost && (
             <>
               <DialogHeader>
@@ -190,7 +282,9 @@ const Blog = () => {
                     className="object-cover w-full h-full"
                   />
                 </div>
-                <p className="text-casa-navy/80 mb-6">{selectedPost.excerpt}</p>
+                <div className="prose prose-lg max-w-none text-casa-navy/80 mb-6 whitespace-pre-line">
+                  {selectedPost.fullContent}
+                </div>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {selectedPost.tags.map((tag: string, index: number) => (
                     <span
@@ -202,22 +296,37 @@ const Blog = () => {
                     </span>
                   ))}
                 </div>
-                <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6">
-                  <h3 className="text-lg font-semibold text-casa-navy mb-4">Want to learn more?</h3>
-                  <form onSubmit={handleSubscribe} className="flex gap-2">
-                    <Input
-                      type="email"
-                      placeholder="Enter your email for updates"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="flex-1 bg-white/50 border-white/30"
-                      required
-                    />
-                    <Button type="submit" className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90">
-                      Subscribe
-                      <Mail className="ml-2 h-4 w-4" />
-                    </Button>
-                  </form>
+                <div className="space-y-6">
+                  <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6">
+                    <h3 className="text-xl font-semibold text-casa-navy mb-4">Ready to Start Saving?</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 w-full">
+                        Book Free Consultation
+                        <PhoneCall className="ml-2 h-4 w-4" />
+                      </Button>
+                      <Button variant="outline" className="w-full">
+                        Download Guide
+                        <Download className="ml-2 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-xl p-6">
+                    <h3 className="text-lg font-semibold text-casa-navy mb-4">Stay Updated</h3>
+                    <form onSubmit={handleSubscribe} className="flex gap-2">
+                      <Input
+                        type="email"
+                        placeholder="Enter your email for exclusive updates"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="flex-1 bg-white/50 border-white/30"
+                        required
+                      />
+                      <Button type="submit" className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90">
+                        Subscribe
+                        <Mail className="ml-2 h-4 w-4" />
+                      </Button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </>
