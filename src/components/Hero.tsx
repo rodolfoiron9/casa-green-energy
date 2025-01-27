@@ -8,7 +8,7 @@ import ServiceSelector from "./hero/ServiceSelector";
 import FeatureCards from "./hero/FeatureCards";
 
 const Hero = () => {
-  const [showHelp, setShowHelp] = useState(false);
+  const [showHelp] = useState(true); // Set to true by default
   const [selectedService, setSelectedService] = useState("heat-pumps");
   const [postcode, setPostcode] = useState("");
   const [showDialog, setShowDialog] = useState(false);
@@ -54,7 +54,7 @@ const Hero = () => {
           services={services}
         />
 
-        {showHelp && <AiChatDialog defaultOpen={showChatDialog} onOpenChange={setShowChatDialog} />}
+        <AiChatDialog defaultOpen={showChatDialog} onOpenChange={setShowChatDialog} />
         
         <FeatureCards />
       </div>
