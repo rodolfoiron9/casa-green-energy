@@ -1,28 +1,43 @@
 import { motion } from "framer-motion";
-import { Leaf, Thermometer, Home } from "lucide-react";
+import { Leaf, Thermometer, Home, Zap, Tool, Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const Services = () => {
   const services = [
     {
       title: "Air Source Heat Pumps",
-      description: "Efficient heating solutions that reduce carbon footprint and energy costs.",
+      description: "Efficient heating solutions that reduce carbon footprint and energy costs. Government grant of £7,500 available.",
       icon: Thermometer,
     },
     {
+      title: "Electrical Services",
+      description: "Complete electrical solutions from installation to maintenance, ensuring safety and efficiency.",
+      icon: Zap,
+    },
+    {
       title: "Home Energy Solutions",
-      description: "Complete home energy assessments and sustainable improvements.",
+      description: "Comprehensive home energy assessments and sustainable improvements for modern living.",
       icon: Home,
     },
     {
+      title: "Maintenance Services",
+      description: "Regular maintenance and servicing to keep your systems running at peak efficiency.",
+      icon: Tool,
+    },
+    {
       title: "Green Energy Systems",
-      description: "Renewable energy installations for a sustainable future.",
+      description: "Renewable energy installations for a sustainable future, including solar and wind solutions.",
       icon: Leaf,
+    },
+    {
+      title: "Warranty & Protection",
+      description: "Extended warranty options and protection plans for your peace of mind.",
+      icon: Shield,
     },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-casa-navy/95 to-casa-blue/90">
+    <section id="services" className="py-20 bg-gradient-to-br from-casa-navy/95 to-casa-blue/90">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,8 +47,7 @@ const Services = () => {
         >
           <h2 className="text-4xl font-bold text-white mb-4">Our Services</h2>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Transform your home with our sustainable energy solutions and take advantage
-            of the £7,500 government grant.
+            Comprehensive renewable energy solutions for your home and business.
           </p>
         </motion.div>
 
