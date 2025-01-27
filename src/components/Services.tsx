@@ -37,7 +37,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-casa-navy/95 to-casa-blue/90">
+    <section id="services" className="py-20 bg-gradient-to-br from-white to-gray-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -45,8 +45,8 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">Our Services</h2>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-casa-navy mb-4">Our Services</h2>
+          <p className="text-casa-navy/80 text-lg max-w-2xl mx-auto">
             Comprehensive renewable energy solutions for your home and business.
           </p>
         </motion.div>
@@ -59,20 +59,20 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <Card className="bg-white/10 backdrop-blur-lg border-white/20 hover:border-casa-gold 
-                             transition-all duration-300 group">
+              <Card className="bg-gradient-to-br from-white to-gray-50 border-white/20 hover:border-casa-gold 
+                             transition-all duration-300 group shadow-lg">
                 <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-casa-gold/20 
-                                flex items-center justify-center group-hover:bg-casa-gold/30 
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-gold/20 to-casa-gold/30
+                                flex items-center justify-center group-hover:from-casa-gold/30 group-hover:to-casa-gold/40
                                 transition-all duration-300">
                     <service.icon className="w-8 h-8 text-casa-gold" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-white">
+                  <CardTitle className="text-2xl font-bold text-casa-navy">
                     {service.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-white/80 text-center">
+                  <p className="text-casa-navy/80 text-center">
                     {service.description}
                   </p>
                 </CardContent>

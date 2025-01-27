@@ -3,13 +3,13 @@ import { Phone, Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
   return (
-    <div className="py-20 px-4 bg-casa-navy">
+    <div className="py-20 px-4 bg-gradient-to-br from-white to-gray-50">
       <div className="max-w-4xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold text-white mb-8"
+          className="text-3xl md:text-4xl font-bold text-casa-navy mb-8"
         >
           Get in Touch
         </motion.h2>
@@ -17,7 +17,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-white/80 mb-12 text-lg"
+          className="text-casa-navy/80 mb-12 text-lg"
         >
           Ready to start your journey towards sustainable energy? Contact us today!
         </motion.p>
@@ -41,10 +41,10 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="flex flex-col items-center text-white"
+              className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-lg border border-gray-200 hover:border-casa-gold transition-all duration-300"
             >
               <div className="mb-4 text-casa-gold">{item.icon}</div>
-              <p className="text-white/80">{item.text}</p>
+              <p className="text-casa-navy/80">{item.text}</p>
             </motion.div>
           ))}
         </div>

@@ -34,7 +34,7 @@ const Projects = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-casa-navy to-casa-blue pt-24">
+    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 pt-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,8 +42,8 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Our Projects</h1>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold text-casa-navy mb-4">Our Projects</h1>
+          <p className="text-casa-navy/80 text-lg max-w-2xl mx-auto">
             Explore our latest projects and see how we're helping customers achieve their energy efficiency goals.
           </p>
         </motion.div>
@@ -55,7 +55,7 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden border border-white/20 hover:border-casa-gold transition-all duration-300 group"
+              className="bg-gradient-to-br from-white to-gray-50 backdrop-blur-lg rounded-xl overflow-hidden border border-gray-200 hover:border-casa-gold transition-all duration-300 group shadow-lg"
             >
               <div className="aspect-video relative overflow-hidden">
                 <img
