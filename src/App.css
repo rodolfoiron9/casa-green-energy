@@ -21,6 +21,7 @@
     0px 4px 4px rgba(0, 0, 0, 0.2),
     0px 6px 8px rgba(0, 0, 0, 0.1);
   -webkit-text-stroke: 0.5px #FFD700;
+  font-weight: bold;
 }
 
 .logo:hover {
