@@ -1,0 +1,76 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Button } from '../ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import { Input } from '../ui/input';
+
+interface ServiceSelectorProps {
+  selectedService: string;
+  setSelectedService: (value: string) => void;
+  postcode: string;
+  setPostcode: (value: string) => void;
+  handleSubmit: () => void;
+  services: Array<{ id: string; label: string; }>;
+}
+
+const ServiceSelector = ({
+  selectedService,
+  setSelectedService,
+  postcode,
+  setPostcode,
+  handleSubmit,
+  services
+}: ServiceSelectorProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="flex flex-col md:flex-row gap-4 justify-center items-center mb-12"
+    >
+      <Select
+        value={selectedService}
+        onValueChange={setSelectedService}
+      >
+        <SelectTrigger className="w-full md:w-[200px] bg-white/10 border-white/20 text-white">
+          <SelectValue placeholder="I need help with..." />
+        </SelectTrigger>
+        <SelectContent className="bg-white/95 backdrop-blur-lg border-white/20">
+          {services.map((service) => (
+            <SelectItem
+              key={service.id}
+              value={service.id}
+              className="text-casa-navy hover:text-casa-gold transition-colors"
+            >
+              {service.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Input
+        type="text"
+        placeholder="Enter postcode"
+        value={postcode}
+        onChange={(e) => setPostcode(e.target.value)}
+        className="w-full md:w-[200px] bg-white/10 border-white/20 text-white placeholder:text-white/50"
+      />
+
+      <Button
+        onClick={handleSubmit}
+        className="w-full md:w-auto bg-casa-gold text-casa-navy hover:bg-white 
+                 transition-all duration-300 font-semibold"
+      >
+        Book Now
+      </Button>
+    </motion.div>
+  );
+};
+
+export default ServiceSelector;
