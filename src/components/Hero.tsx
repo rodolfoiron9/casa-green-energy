@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle } from "lucide-react";
+import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle, MessageSquare } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import {
@@ -10,12 +10,15 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
+import CustomerInfoDialog from "./CustomerInfoDialog";
 
 const Hero = () => {
   const [showHelp, setShowHelp] = useState(false);
   const [selectedService, setSelectedService] = useState("heat-pumps");
   const [postcode, setPostcode] = useState("");
+  const [showDialog, setShowDialog] = useState(false);
 
   const services = [
     { id: "heat-pumps", label: "Air Source Heat Pumps" },
@@ -31,11 +34,18 @@ const Hero = () => {
       toast.error("Please select a service and enter your postcode");
       return;
     }
-    toast.success(`Booking submitted for ${selectedService} service in ${postcode}`);
+    setShowDialog(true);
   };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-casa-navy via-casa-navy/95 to-casa-blue/90 overflow-hidden">
+      <CustomerInfoDialog
+        open={showDialog}
+        onOpenChange={setShowDialog}
+        selectedService={selectedService}
+        postcode={postcode}
+      />
+      
       {/* Background Pattern Overlay */}
       <div 
         className="absolute inset-0 opacity-20"
