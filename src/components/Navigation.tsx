@@ -1,16 +1,16 @@
-import { Menu } from "lucide-react";
+import { Menu, Phone, Mail, MapPin, Home, Briefcase, BookOpen, MessageSquare, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "./ui/navigation-menu";
-import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const menuItems = [
-    { title: "Home", href: "/" },
+    { title: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
     { 
       title: "Services",
       href: "#services",
+      icon: <Briefcase className="w-4 h-4" />,
       submenu: [
         { title: "Air Source Heat Pumps", href: "#services" },
         { title: "Electrical Services", href: "#services" },
@@ -23,6 +23,7 @@ const Navigation = () => {
     { 
       title: "Resources",
       href: "#",
+      icon: <BookOpen className="w-4 h-4" />,
       submenu: [
         { title: "Energy Saving Tips", href: "/blog" },
         { title: "Government Grants", href: "/blog" },
@@ -30,9 +31,9 @@ const Navigation = () => {
         { title: "FAQs", href: "/blog" },
       ]
     },
-    { title: "Projects", href: "#projects" },
-    { title: "Blog", href: "/blog" },
-    { title: "Contact", href: "#contact" },
+    { title: "Projects", href: "/projects", icon: <Briefcase className="w-4 h-4" /> },
+    { title: "Blog", href: "/blog", icon: <BookOpen className="w-4 h-4" /> },
+    { title: "Contact", href: "/contact", icon: <MessageSquare className="w-4 h-4" /> },
   ];
 
   return (
@@ -51,13 +52,17 @@ const Navigation = () => {
                   <NavigationMenuItem key={item.title}>
                     {item.submenu ? (
                       <NavigationMenuTrigger className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 transition-colors">
-                        {item.title}
+                        <span className="flex items-center gap-2">
+                          {item.icon}
+                          {item.title}
+                        </span>
                       </NavigationMenuTrigger>
                     ) : (
                       <Link
                         to={item.href}
-                        className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2"
+                        className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 flex items-center gap-2"
                       >
+                        {item.icon}
                         {item.title}
                       </Link>
                     )}
@@ -83,9 +88,11 @@ const Navigation = () => {
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
-            <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90">
-              Get Quote
-            </Button>
+            <Link to="/contact">
+              <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2">
+                Get Quote <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Navigation */}
@@ -101,8 +108,9 @@ const Navigation = () => {
                   <div key={item.title}>
                     <Link
                       to={item.href}
-                      className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 block"
+                      className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 block flex items-center gap-2"
                     >
+                      {item.icon}
                       {item.title}
                     </Link>
                     {item.submenu && (
@@ -120,9 +128,11 @@ const Navigation = () => {
                     )}
                   </div>
                 ))}
-                <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 mt-4">
-                  Get Quote
-                </Button>
+                <Link to="/contact">
+                  <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 w-full mt-4 flex items-center gap-2">
+                    Get Quote <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>
