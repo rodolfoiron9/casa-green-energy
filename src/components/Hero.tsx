@@ -10,9 +10,9 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
 import CustomerInfoDialog from "./CustomerInfoDialog";
+import AiChatDialog from "./AiChatDialog";
 
 const Hero = () => {
   const [showHelp, setShowHelp] = useState(false);
@@ -164,31 +164,11 @@ const Hero = () => {
                   </div>
                 </Button>
 
-                <Button
-                  variant="outline"
-                  className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20
-                           flex items-center gap-3 p-6 rounded-xl"
-                  onClick={() => window.location.href = '/blog'}
-                >
-                  <FileText className="w-6 h-6" />
-                  <div className="text-left">
-                    <h3 className="font-semibold">Browse Resources</h3>
-                    <p className="text-sm opacity-80">Guides and documentation</p>
-                  </div>
-                </Button>
+                <AiChatDialog />
               </motion.div>
             )}
           </motion.div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-casa-gold 
-                     text-casa-navy font-semibold rounded-full 
-                     hover:bg-white transition-all duration-300"
-          >
-            Explore Our Products
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
         </motion.div>
 
         {/* Feature Cards */}
