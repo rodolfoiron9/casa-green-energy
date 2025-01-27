@@ -20,7 +20,7 @@ const projects = [
 
 const Projects = () => {
   return (
-    <div className="py-20 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="py-20 px-4 bg-gradient-to-br from-[#f1f1f1] via-[#e8e8e8] to-[#e5e5e5]">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

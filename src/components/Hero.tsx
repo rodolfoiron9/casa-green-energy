@@ -3,7 +3,7 @@ import { ArrowRight, Package, Truck, Headphones } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-casa-navy to-casa-blue overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-casa-navy via-casa-navy/95 to-casa-blue/90 overflow-hidden">
       {/* Background Pattern Overlay */}
       <div 
         className="absolute inset-0 opacity-20"
@@ -63,7 +63,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 * (index + 1) }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl p-6
+              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-xl p-6
                          border border-white/20 hover:bg-white/20
                          transition-all duration-300"
             >

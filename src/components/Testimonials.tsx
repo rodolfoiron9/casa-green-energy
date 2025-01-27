@@ -24,7 +24,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <div className="py-20 px-4 bg-gradient-to-br from-casa-navy/95 to-casa-blue/95">
+    <div className="py-20 px-4 bg-gradient-to-br from-casa-navy/98 via-casa-navy/95 to-casa-blue/90">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

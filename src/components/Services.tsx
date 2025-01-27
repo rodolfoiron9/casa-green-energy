@@ -37,7 +37,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-white to-gray-50">
+    <section id="services" className="py-20 bg-gradient-to-br from-[#f8f8f8] via-[#f1f1f1] to-[#e5e5e5]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,8 +59,8 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <Card className="bg-gradient-to-br from-white to-gray-50 border-white/20 hover:border-casa-gold 
-                             transition-all duration-300 group shadow-lg">
+              <Card className="bg-gradient-to-br from-white via-[#fafafa] to-[#f5f5f5] border-white/20 
+                             hover:border-casa-gold transition-all duration-300 group shadow-lg">
                 <CardHeader className="text-center">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-gold/20 to-casa-gold/30
                                 flex items-center justify-center group-hover:from-casa-gold/30 group-hover:to-casa-gold/40

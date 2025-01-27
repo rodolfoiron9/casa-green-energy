@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
   return (
-    <div className="py-20 px-4 bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5]">
+    <div className="py-20 px-4 bg-gradient-to-br from-[#f8f8f8] via-[#f1f1f1] to-[#e5e5e5]">
       <div className="max-w-4xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
