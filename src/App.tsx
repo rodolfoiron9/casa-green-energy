@@ -10,6 +10,7 @@ import Blog from "./pages/Blog";
 import Projects from "./pages/Projects";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import AiChatDialog from "./components/AiChatDialog";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,9 @@ const App = () => (
             </Routes>
           </div>
           <Footer />
+          <div className="fixed bottom-6 right-6 z-50">
+            <AiChatDialog />
+          </div>
         </BrowserRouter>
       </div>
     </TooltipProvider>
