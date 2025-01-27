@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-casa-navy to-casa-blue pt-24">
-      <div className="container mx-auto px-4">
+    <div className="bg-gradient-to-br from-casa-navy to-casa-blue">
+      <div className="container mx-auto px-4 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -18,7 +18,7 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
