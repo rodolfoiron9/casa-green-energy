@@ -2,9 +2,18 @@ import { motion } from "framer-motion";
 import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
 
 const Hero = () => {
   const [showHelp, setShowHelp] = useState(false);
+  const [selectedService, setSelectedService] = useState("roofing");
+
+  const services = [
+    { id: "roofing", label: "Roofing" },
+    { id: "building", label: "Building" },
+    { id: "heating", label: "Heating" },
+    { id: "electrical", label: "Electrical" }
+  ];
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-casa-navy via-casa-navy/95 to-casa-blue/90 overflow-hidden">
@@ -28,10 +37,40 @@ const Hero = () => {
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             Quality Building Supplies for Every Project
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-12 leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/80 mb-8 leading-relaxed">
             Your trusted partner in roofing and building materials. Professional service, 
             expert advice, and top-quality products.
           </p>
+
+          {/* Services Toggle Group */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-8"
+          >
+            <ToggleGroup
+              type="single"
+              value={selectedService}
+              onValueChange={(value) => {
+                if (value) setSelectedService(value);
+              }}
+              className="flex flex-wrap justify-center gap-2"
+              aria-label="Select a service"
+            >
+              {services.map((service) => (
+                <ToggleGroupItem
+                  key={service.id}
+                  value={service.id}
+                  aria-label={service.label}
+                  className="px-6 py-3 bg-white/10 text-white hover:bg-white/20 data-[state=on]:bg-casa-gold 
+                           data-[state=on]:text-casa-navy rounded-full transition-all duration-300"
+                >
+                  {service.label}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </motion.div>
           
           {/* How Can I Help You Section */}
           <motion.div
