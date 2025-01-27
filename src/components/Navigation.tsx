@@ -31,8 +31,6 @@ const Navigation = () => {
         { title: "FAQs", href: "/blog" },
       ]
     },
-    { title: "Projects", href: "/projects", icon: <Briefcase className="w-4 h-4" /> },
-    { title: "Blog", href: "/blog", icon: <BookOpen className="w-4 h-4" /> },
     { title: "Contact", href: "/contact", icon: <MessageSquare className="w-4 h-4" /> },
   ];
 
