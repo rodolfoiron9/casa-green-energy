@@ -26,13 +26,24 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       }
 
       // Check if user has admin role
-      const { data: userRoles, error } = await supabase
+      const { data: userRole, error } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', session.user.id)
-        .single();
+        .maybeSingle();
 
-      if (error || !userRoles || userRoles.role !== 'admin') {
+      if (error) {
+        console.error('Error checking user role:', error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An error occurred while checking permissions",
+        });
+        navigate("/");
+        return;
+      }
+
+      if (!userRole || userRole.role !== 'admin') {
         toast({
           variant: "destructive",
           title: "Access Denied",
