@@ -17,9 +17,16 @@ import AiChatDialog from "./components/AiChatDialog";
 // Service Pages
 import AirSourceHeatPumps from "./pages/services/AirSourceHeatPumps";
 import ElectricalServices from "./pages/services/ElectricalServices";
+import HomeEnergySolutions from "./pages/services/HomeEnergySolutions";
+import MaintenanceServices from "./pages/services/MaintenanceServices";
+import GreenEnergySystems from "./pages/services/GreenEnergySystems";
+import WarrantyProtection from "./pages/services/WarrantyProtection";
 
 // Resource Pages
 import EnergySavingTips from "./pages/resources/EnergySavingTips";
+import GovernmentGrants from "./pages/resources/GovernmentGrants";
+import CaseStudies from "./pages/resources/CaseStudies";
+import Faqs from "./pages/resources/Faqs";
 
 const queryClient = new QueryClient();
 
@@ -46,9 +53,16 @@ const AppContent = () => {
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
           <Route path="/services/electrical-services" element={<ElectricalServices />} />
+          <Route path="/services/home-energy-solutions" element={<HomeEnergySolutions />} />
+          <Route path="/services/maintenance-services" element={<MaintenanceServices />} />
+          <Route path="/services/green-energy-systems" element={<GreenEnergySystems />} />
+          <Route path="/services/warranty-protection" element={<WarrantyProtection />} />
           
           {/* Resource Routes */}
           <Route path="/resources/energy-saving-tips" element={<EnergySavingTips />} />
+          <Route path="/resources/government-grants" element={<GovernmentGrants />} />
+          <Route path="/resources/case-studies" element={<CaseStudies />} />
+          <Route path="/resources/faqs" element={<Faqs />} />
         </Routes>
       </div>
       {!isDashboard && <Footer />}
