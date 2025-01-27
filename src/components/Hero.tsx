@@ -15,14 +15,16 @@ import { toast } from "sonner";
 
 const Hero = () => {
   const [showHelp, setShowHelp] = useState(false);
-  const [selectedService, setSelectedService] = useState("roofing");
+  const [selectedService, setSelectedService] = useState("heat-pumps");
   const [postcode, setPostcode] = useState("");
 
   const services = [
-    { id: "roofing", label: "Roofing" },
-    { id: "building", label: "Building" },
-    { id: "heating", label: "Heating" },
-    { id: "electrical", label: "Electrical" }
+    { id: "heat-pumps", label: "Air Source Heat Pumps" },
+    { id: "electrical-services", label: "Electrical Services" },
+    { id: "energy-solutions", label: "Home Energy Solutions" },
+    { id: "maintenance", label: "Maintenance Services" },
+    { id: "green-energy", label: "Green Energy Systems" },
+    { id: "warranty", label: "Warranty & Protection" }
   ];
 
   const handleSubmit = () => {
@@ -104,36 +106,6 @@ const Hero = () => {
             </Button>
           </motion.div>
 
-          {/* Services Toggle Group */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-8"
-          >
-            <ToggleGroup
-              type="single"
-              value={selectedService}
-              onValueChange={(value) => {
-                if (value) setSelectedService(value);
-              }}
-              className="flex flex-wrap justify-center gap-2"
-              aria-label="Select a service"
-            >
-              {services.map((service) => (
-                <ToggleGroupItem
-                  key={service.id}
-                  value={service.id}
-                  aria-label={service.label}
-                  className="px-6 py-3 bg-white/10 text-white hover:bg-white/20 data-[state=on]:bg-casa-gold 
-                           data-[state=on]:text-casa-navy rounded-full transition-all duration-300"
-                >
-                  {service.label}
-                </ToggleGroupItem>
-              ))}
-            </ToggleGroup>
-          </motion.div>
-          
           {/* How Can I Help You Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -248,6 +220,7 @@ const Hero = () => {
             </motion.div>
           ))}
         </div>
+        </motion.div>
       </div>
     </div>
   );
