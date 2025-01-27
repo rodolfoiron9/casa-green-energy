@@ -6,16 +6,21 @@
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 4em; /* Made smaller for sleeker look */
+  padding: 1em; /* Reduced padding */
   will-change: filter;
-  transition: filter 300ms;
+  transition: all 300ms ease-in-out; /* Smooth transition for all changes */
+  filter: drop-shadow(0 0 0.5em rgba(255, 215, 0, 0.2)); /* Subtle initial gold shadow */
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 1em rgba(255, 215, 0, 0.8)); /* Golden glow on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+  animation: glow 2s ease-in-out infinite;
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em rgba(255, 215, 0, 0.8));
 }
 
 @keyframes logo-spin {
