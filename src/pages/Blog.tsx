@@ -61,7 +61,7 @@ const Blog = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F1F1F1] to-[#f3f3f3] pt-24">
+    <div className="min-h-screen bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5] pt-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -90,7 +90,7 @@ const Blog = () => {
                   alt={post.title}
                   className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                <div className="absolute top-4 left-4">
                   <span className="px-3 py-1 bg-casa-gold text-casa-navy text-sm font-medium rounded-full">
                     {post.category}
                   </span>
@@ -105,7 +105,7 @@ const Blog = () => {
                   <span>•</span>
                   <span>{post.readTime}</span>
                 </div>
-                <h2 className="text-xl font-bold text-casa-navy mb-2 group-hover:text-casa-gold transition-colors">
+                <h2 className="text-xl font-bold text-casa-navy mb-2 group-hover:text-casa-blue transition-colors">
                   {post.title}
                 </h2>
                 <p className="text-casa-navy/80 mb-4">{post.excerpt}</p>
@@ -122,7 +122,7 @@ const Blog = () => {
                 </div>
                 <Button
                   variant="ghost"
-                  className="text-casa-gold hover:text-casa-gold/80 hover:bg-casa-navy/5 transition-colors p-0 flex items-center gap-2"
+                  className="text-casa-blue hover:text-casa-blue/80 hover:bg-casa-navy/5 transition-colors p-0 flex items-center gap-2"
                 >
                   Read More
                   <ArrowRight className="w-4 h-4" />

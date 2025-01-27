@@ -34,7 +34,7 @@ const Projects = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 pt-24">
+    <div className="min-h-screen bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5] pt-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,7 +55,7 @@ const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-gradient-to-br from-white to-gray-50 backdrop-blur-lg rounded-xl overflow-hidden border border-gray-200 hover:border-casa-gold transition-all duration-300 group shadow-lg"
+              className="bg-gradient-to-br from-[#f8f8f8] to-[#f1f1f1] backdrop-blur-lg rounded-xl overflow-hidden border border-gray-200 hover:border-casa-gold transition-all duration-300 group shadow-lg"
             >
               <div className="aspect-video relative overflow-hidden">
                 <img
@@ -70,7 +70,7 @@ const Projects = () => {
                 </div>
               </div>
               <div className="p-6">
-                <div className="flex items-center gap-4 text-white/60 text-sm mb-3">
+                <div className="flex items-center gap-4 text-casa-navy/60 text-sm mb-3">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <time>{project.date}</time>
@@ -81,15 +81,15 @@ const Projects = () => {
                     <span>{project.location}</span>
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-white mb-2 group-hover:text-casa-gold transition-colors">
+                <h2 className="text-xl font-bold text-casa-navy mb-2 group-hover:text-casa-blue transition-colors">
                   {project.title}
                 </h2>
-                <p className="text-white/80 mb-4">{project.description}</p>
+                <p className="text-casa-navy/80 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="text-xs px-2 py-1 rounded-full bg-white/10 text-white/70 flex items-center gap-1"
+                      className="text-xs px-2 py-1 rounded-full bg-casa-navy/5 text-casa-navy/70 flex items-center gap-1"
                     >
                       <Tag className="w-3 h-3" />
                       {tag}
@@ -98,7 +98,7 @@ const Projects = () => {
                 </div>
                 <Button
                   variant="ghost"
-                  className="text-casa-gold hover:text-casa-gold/80 hover:bg-white/5 transition-colors p-0 flex items-center gap-2"
+                  className="text-casa-blue hover:text-casa-blue/80 hover:bg-casa-navy/5 transition-colors p-0 flex items-center gap-2"
                 >
                   View Details
                   <ArrowRight className="w-4 h-4" />

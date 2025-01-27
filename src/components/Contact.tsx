@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
   return (
-    <div className="py-20 px-4 bg-gradient-to-br from-white to-gray-50">
+    <div className="py-20 px-4 bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5]">
       <div className="max-w-4xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -41,9 +41,9 @@ const Contact = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-lg border border-gray-200 hover:border-casa-gold transition-all duration-300"
+              className="bg-gradient-to-br from-[#f8f8f8] to-[#f1f1f1] p-6 rounded-xl shadow-lg border border-gray-200 hover:border-casa-gold transition-all duration-300"
             >
-              <div className="mb-4 text-casa-gold">{item.icon}</div>
+              <div className="mb-4 text-casa-blue">{item.icon}</div>
               <p className="text-casa-navy/80">{item.text}</p>
             </motion.div>
           ))}
