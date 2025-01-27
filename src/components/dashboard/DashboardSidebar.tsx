@@ -9,7 +9,6 @@ import {
   Download,
   Users,
   HelpCircle,
-  FooterIcon,
   Server,
   LayoutTemplate,
   FormInput,
