@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { Tool, Clock, Shield, ClipboardCheck } from "lucide-react";
+import { Wrench, Clock, Shield, ClipboardCheck } from "lucide-react";
 
 const MaintenanceServices = () => {
   const services = [
     {
       title: "Preventive Maintenance",
       description: "Regular check-ups and maintenance to prevent system failures.",
-      icon: <Tool className="w-8 h-8 text-casa-gold" />
+      icon: <Wrench className="w-8 h-8 text-casa-gold" />
     },
     {
       title: "24/7 Emergency Service",
