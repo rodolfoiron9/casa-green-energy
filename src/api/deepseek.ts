@@ -2,11 +2,17 @@ const DEEPSEEK_API_ENDPOINT = "https://api.deepseek.com/v1/chat/completions";
 
 export async function handleDeepseekRequest(message: string) {
   try {
+    const apiKey = import.meta.env.VITE_DEEPSEEK_API_KEY;
+    
+    if (!apiKey) {
+      throw new Error('Deepseek API key is not configured');
+    }
+
     const response = await fetch(DEEPSEEK_API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
+        "Authorization": `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         model: "deepseek-chat",
@@ -16,13 +22,14 @@ export async function handleDeepseekRequest(message: string) {
     });
 
     if (!response.ok) {
-      throw new Error('Deepseek API request failed');
+      const errorData = await response.json();
+      throw new Error(errorData.error?.message || 'Deepseek API request failed');
     }
 
     const data = await response.json();
     return { response: data.choices[0].message.content };
   } catch (error) {
     console.error('Error in Deepseek request:', error);
-    throw new Error('Failed to get AI response');
+    throw error;
   }
 }

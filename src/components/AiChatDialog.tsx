@@ -38,8 +38,8 @@ export default function AiChatDialog() {
       const result = await handleChatRequest(message, selectedModel);
       setResponse(result.response);
       toast.success(`Response generated using ${selectedModel} model`);
-    } catch (error) {
-      toast.error("Failed to get response. Please try again.");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to get response. Please try again.");
       console.error('Chat error:', error);
     } finally {
       setIsLoading(false);

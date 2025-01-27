@@ -18,8 +18,8 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
     const text = response.text();
     
     return { response: text };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in chat request:', error);
-    throw new Error('Failed to get AI response');
+    throw new Error(error.message || 'Failed to get AI response');
   }
 }
