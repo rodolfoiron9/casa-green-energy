@@ -46,16 +46,20 @@ const Testimonials = () => {
                          transition-all duration-300 shadow-lg 
                          hover:shadow-casa-blue/20"
             >
-              <Quote className="w-8 h-8 text-casa-gold mb-4" />
-              <p className="text-white/90 mb-4">{testimonial.text}</p>
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-casa-gold text-casa-gold" />
-                ))}
+              <div className="flex items-center justify-between mb-4">
+                <Quote className="w-8 h-8 text-casa-gold" />
+                <div className="flex items-center gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-casa-gold text-casa-gold" />
+                  ))}
+                </div>
               </div>
-              <div>
-                <p className="text-white font-semibold">{testimonial.name}</p>
-                <p className="text-white/70 text-sm">{testimonial.role}</p>
+              <p className="text-white/90 mb-6">{testimonial.text}</p>
+              <div className="flex items-center space-x-2">
+                <div>
+                  <p className="text-white font-semibold">{testimonial.name}</p>
+                  <p className="text-white/70 text-sm">{testimonial.role}</p>
+                </div>
               </div>
             </motion.div>
           ))}
