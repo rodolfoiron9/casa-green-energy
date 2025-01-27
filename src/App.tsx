@@ -10,6 +10,7 @@ import Blog from "./pages/Blog";
 import Projects from "./pages/Projects";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
 import AiChatDialog from "./components/AiChatDialog";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/projects" element={<Projects />} />
               <Route path="/services" element={<Services />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/dashboard/*" element={<Dashboard />} />
             </Routes>
           </div>
           <Footer />
