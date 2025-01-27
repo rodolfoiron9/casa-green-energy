@@ -1,11 +1,14 @@
-import { Menu, Phone, Mail, MapPin, Home, Briefcase, BookOpen, MessageSquare, ArrowRight } from "lucide-react";
+import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
+import { NavigationLink } from "./navigation/NavigationLink";
+import { NavigationSubmenu } from "./navigation/NavigationSubmenu";
+import { MobileMenu } from "./navigation/MobileMenu";
+import { MenuItem } from "./navigation/types";
 
 const Navigation = () => {
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     { title: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
     { 
       title: "Services",
@@ -49,38 +52,17 @@ const Navigation = () => {
                 {menuItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     {item.submenu ? (
-                      <NavigationMenuTrigger className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 transition-colors">
-                        <span className="flex items-center gap-2">
-                          {item.icon}
-                          {item.title}
-                        </span>
-                      </NavigationMenuTrigger>
+                      <NavigationSubmenu
+                        title={item.title}
+                        icon={item.icon}
+                        items={item.submenu}
+                      />
                     ) : (
-                      <Link
-                        to={item.href}
-                        className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 flex items-center gap-2"
-                      >
-                        {item.icon}
-                        {item.title}
-                      </Link>
-                    )}
-                    {item.submenu && (
-                      <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 bg-casa-navy/95 backdrop-blur-lg border border-white/10">
-                          {item.submenu.map((subItem) => (
-                            <li key={subItem.title}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to={subItem.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-casa-gold/10 hover:text-casa-gold text-casa-gold/80"
-                                >
-                                  <div className="text-sm font-medium leading-none">{subItem.title}</div>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
+                      <NavigationLink
+                        href={item.href}
+                        icon={item.icon}
+                        title={item.title}
+                      />
                     )}
                   </NavigationMenuItem>
                 ))}
@@ -94,46 +76,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Navigation */}
-          <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-white">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="bg-casa-navy/95 backdrop-blur-lg border-l border-white/10">
-              <div className="flex flex-col gap-4 mt-8">
-                {menuItems.map((item) => (
-                  <div key={item.title}>
-                    <Link
-                      to={item.href}
-                      className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 block flex items-center gap-2"
-                    >
-                      {item.icon}
-                      {item.title}
-                    </Link>
-                    {item.submenu && (
-                      <div className="ml-4 mt-2 space-y-2">
-                        {item.submenu.map((subItem) => (
-                          <Link
-                            key={subItem.title}
-                            to={subItem.href}
-                            className="text-casa-gold/60 hover:text-casa-gold transition-colors px-4 py-1 block text-sm"
-                          >
-                            {subItem.title}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <Link to="/contact">
-                  <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 w-full mt-4 flex items-center gap-2">
-                    Get Quote <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <MobileMenu items={menuItems} />
         </div>
       </div>
     </nav>
