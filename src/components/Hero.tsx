@@ -1,12 +1,22 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle } from "lucide-react";
+import { ArrowRight, Package, Truck, Headphones, Calculator, Phone, FileText, HelpCircle, ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Input } from "./ui/input";
+import { toast } from "sonner";
 
 const Hero = () => {
   const [showHelp, setShowHelp] = useState(false);
   const [selectedService, setSelectedService] = useState("roofing");
+  const [postcode, setPostcode] = useState("");
 
   const services = [
     { id: "roofing", label: "Roofing" },
@@ -14,6 +24,14 @@ const Hero = () => {
     { id: "heating", label: "Heating" },
     { id: "electrical", label: "Electrical" }
   ];
+
+  const handleSubmit = () => {
+    if (!selectedService || !postcode) {
+      toast.error("Please select a service and enter your postcode");
+      return;
+    }
+    toast.success(`Booking submitted for ${selectedService} service in ${postcode}`);
+  };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-casa-navy via-casa-navy/95 to-casa-blue/90 overflow-hidden">
@@ -41,6 +59,50 @@ const Hero = () => {
             Your trusted partner in roofing and building materials. Professional service, 
             expert advice, and top-quality products.
           </p>
+
+          {/* Service Selection and Postcode Form */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row gap-4 justify-center items-center mb-12"
+          >
+            <Select
+              value={selectedService}
+              onValueChange={setSelectedService}
+            >
+              <SelectTrigger className="w-full md:w-[200px] bg-white/10 border-white/20 text-white">
+                <SelectValue placeholder="I need help with..." />
+              </SelectTrigger>
+              <SelectContent className="bg-white/95 backdrop-blur-lg border-white/20">
+                {services.map((service) => (
+                  <SelectItem
+                    key={service.id}
+                    value={service.id}
+                    className="text-casa-navy hover:text-casa-gold transition-colors"
+                  >
+                    {service.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Input
+              type="text"
+              placeholder="Enter postcode"
+              value={postcode}
+              onChange={(e) => setPostcode(e.target.value)}
+              className="w-full md:w-[200px] bg-white/10 border-white/20 text-white placeholder:text-white/50"
+            />
+
+            <Button
+              onClick={handleSubmit}
+              className="w-full md:w-auto bg-casa-gold text-casa-navy hover:bg-white 
+                       transition-all duration-300 font-semibold"
+            >
+              Book Now
+            </Button>
+          </motion.div>
 
           {/* Services Toggle Group */}
           <motion.div
