@@ -41,7 +41,7 @@ const Testimonials = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20"
+              className="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 shadow-lg"
             >
               <Quote className="w-8 h-8 text-casa-gold mb-4" />
               <p className="text-white/90 mb-4">{testimonial.text}</p>
