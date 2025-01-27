@@ -58,22 +58,12 @@ export default function AiChatDialog({ defaultOpen = false, onOpenChange }: AiCh
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20
-                   flex items-center gap-3 p-6 rounded-xl"
-        >
-          <MessageSquare className="w-6 h-6" />
-          <div className="text-left">
-            <h3 className="font-semibold">Chat with AI Assistant</h3>
-            <p className="text-sm opacity-80">Get instant help</p>
-          </div>
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Chat with our AI Assistant</DialogTitle>
+          <DialogTitle className="flex items-center gap-2">
+            <MessageSquare className="w-5 h-5" />
+            Chat with our AI Assistant
+          </DialogTitle>
           <DialogDescription>
             Select a model and start chatting with our AI assistant.
           </DialogDescription>

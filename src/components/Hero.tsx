@@ -8,7 +8,7 @@ import ServiceSelector from "./hero/ServiceSelector";
 import FeatureCards from "./hero/FeatureCards";
 
 const Hero = () => {
-  const [showHelp] = useState(true); // Set to true by default
+  const [showHelp] = useState(true);
   const [selectedService, setSelectedService] = useState("heat-pumps");
   const [postcode, setPostcode] = useState("");
   const [showDialog, setShowDialog] = useState(false);
