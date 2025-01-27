@@ -50,13 +50,13 @@ const Navigation = () => {
                 {menuItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
                     {item.submenu ? (
-                      <NavigationMenuTrigger className="text-white/80 hover:text-white transition-colors">
+                      <NavigationMenuTrigger className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 transition-colors">
                         {item.title}
                       </NavigationMenuTrigger>
                     ) : (
                       <Link
                         to={item.href}
-                        className="text-white/80 hover:text-white transition-colors px-4 py-2"
+                        className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2"
                       >
                         {item.title}
                       </Link>
@@ -69,7 +69,7 @@ const Navigation = () => {
                               <NavigationMenuLink asChild>
                                 <Link
                                   to={subItem.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-white text-white/80"
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-casa-gold/10 hover:text-casa-gold text-casa-gold/80"
                                 >
                                   <div className="text-sm font-medium leading-none">{subItem.title}</div>
                                 </Link>
@@ -101,7 +101,7 @@ const Navigation = () => {
                   <div key={item.title}>
                     <Link
                       to={item.href}
-                      className="text-white/80 hover:text-white transition-colors px-4 py-2 block"
+                      className="text-casa-gold hover:text-casa-gold/90 transition-colors px-4 py-2 block"
                     >
                       {item.title}
                     </Link>
@@ -111,7 +111,7 @@ const Navigation = () => {
                           <Link
                             key={subItem.title}
                             to={subItem.href}
-                            className="text-white/60 hover:text-white transition-colors px-4 py-1 block text-sm"
+                            className="text-casa-gold/60 hover:text-casa-gold transition-colors px-4 py-1 block text-sm"
                           >
                             {subItem.title}
                           </Link>
