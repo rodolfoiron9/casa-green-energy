@@ -8,7 +8,28 @@ import { Link } from "react-router-dom";
 const Navigation = () => {
   const menuItems = [
     { title: "Home", href: "/" },
-    { title: "Services", href: "#services" },
+    { 
+      title: "Services",
+      href: "#services",
+      submenu: [
+        { title: "Air Source Heat Pumps", href: "#services" },
+        { title: "Electrical Services", href: "#services" },
+        { title: "Home Energy Solutions", href: "#services" },
+        { title: "Maintenance Services", href: "#services" },
+        { title: "Green Energy Systems", href: "#services" },
+        { title: "Warranty & Protection", href: "#services" },
+      ]
+    },
+    { 
+      title: "Resources",
+      href: "#",
+      submenu: [
+        { title: "Energy Saving Tips", href: "/blog" },
+        { title: "Government Grants", href: "/blog" },
+        { title: "Case Studies", href: "/blog" },
+        { title: "FAQs", href: "/blog" },
+      ]
+    },
     { title: "Projects", href: "#projects" },
     { title: "Blog", href: "/blog" },
     { title: "Contact", href: "#contact" },
@@ -28,12 +49,36 @@ const Navigation = () => {
               <NavigationMenuList>
                 {menuItems.map((item) => (
                   <NavigationMenuItem key={item.title}>
-                    <Link
-                      to={item.href}
-                      className="text-white/80 hover:text-white transition-colors px-4 py-2"
-                    >
-                      {item.title}
-                    </Link>
+                    {item.submenu ? (
+                      <NavigationMenuTrigger className="text-white/80 hover:text-white transition-colors">
+                        {item.title}
+                      </NavigationMenuTrigger>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        className="text-white/80 hover:text-white transition-colors px-4 py-2"
+                      >
+                        {item.title}
+                      </Link>
+                    )}
+                    {item.submenu && (
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 bg-casa-navy/95 backdrop-blur-lg border border-white/10">
+                          {item.submenu.map((subItem) => (
+                            <li key={subItem.title}>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to={subItem.href}
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-white text-white/80"
+                                >
+                                  <div className="text-sm font-medium leading-none">{subItem.title}</div>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    )}
                   </NavigationMenuItem>
                 ))}
               </NavigationMenuList>
@@ -53,13 +98,27 @@ const Navigation = () => {
             <SheetContent side="right" className="bg-casa-navy/95 backdrop-blur-lg border-l border-white/10">
               <div className="flex flex-col gap-4 mt-8">
                 {menuItems.map((item) => (
-                  <Link
-                    key={item.title}
-                    to={item.href}
-                    className="text-white/80 hover:text-white transition-colors px-4 py-2"
-                  >
-                    {item.title}
-                  </Link>
+                  <div key={item.title}>
+                    <Link
+                      to={item.href}
+                      className="text-white/80 hover:text-white transition-colors px-4 py-2 block"
+                    >
+                      {item.title}
+                    </Link>
+                    {item.submenu && (
+                      <div className="ml-4 mt-2 space-y-2">
+                        {item.submenu.map((subItem) => (
+                          <Link
+                            key={subItem.title}
+                            to={subItem.href}
+                            className="text-white/60 hover:text-white transition-colors px-4 py-1 block text-sm"
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
                 <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 mt-4">
                   Get Quote
