@@ -1,33 +1,36 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Home } from "lucide-react";
+import { ArrowRight, Home, Leaf, Sun } from "lucide-react";
 
 const Hero = () => {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-casa-navy to-casa-blue">
       {/* Floating Icons Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            initial={{ y: Math.random() * 100 }}
-            animate={{
-              y: [Math.random() * 100, Math.random() * -100],
-              x: [Math.random() * 100, Math.random() * -100],
-            }}
-            transition={{
-              duration: 10 + Math.random() * 10,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          >
-            <Home className="w-12 h-12 text-casa-gold/20" />
-          </motion.div>
-        ))}
+        {[...Array(9)].map((_, i) => {
+          const Icon = i % 3 === 0 ? Home : i % 3 === 1 ? Leaf : Sun;
+          return (
+            <motion.div
+              key={i}
+              className="absolute"
+              initial={{ y: Math.random() * 100 }}
+              animate={{
+                y: [Math.random() * 100, Math.random() * -100],
+                x: [Math.random() * 100, Math.random() * -100],
+              }}
+              transition={{
+                duration: 10 + Math.random() * 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            >
+              <Icon className="w-12 h-12 text-casa-gold/20" />
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Content */}
@@ -44,9 +47,10 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl text-white/80 mb-8"
+          className="text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto"
         >
-          Efficiency. Sustainability. Comfort.
+          Transform your home with sustainable energy solutions. 
+          Take advantage of the £7,500 government grant today.
         </motion.p>
         <motion.button
           initial={{ opacity: 0, y: 20 }}
