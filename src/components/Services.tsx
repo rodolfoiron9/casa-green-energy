@@ -1,58 +1,73 @@
 import { motion } from "framer-motion";
-import { Zap, Droplets, Wrench } from "lucide-react";
-
-const services = [
-  {
-    icon: <Zap className="w-8 h-8" />,
-    title: "Air Source Heat Pumps",
-    description: "Energy-efficient heating solutions that reduce your carbon footprint.",
-  },
-  {
-    icon: <Droplets className="w-8 h-8" />,
-    title: "Plumbing Systems",
-    description: "Modern plumbing solutions for optimal water management.",
-  },
-  {
-    icon: <Wrench className="w-8 h-8" />,
-    title: "Electrical Services",
-    description: "Professional electrical installations and maintenance.",
-  },
-];
+import { Leaf, Thermometer, Home } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const Services = () => {
+  const services = [
+    {
+      title: "Air Source Heat Pumps",
+      description: "Efficient heating solutions that reduce carbon footprint and energy costs.",
+      icon: Thermometer,
+    },
+    {
+      title: "Home Energy Solutions",
+      description: "Complete home energy assessments and sustainable improvements.",
+      icon: Home,
+    },
+    {
+      title: "Green Energy Systems",
+      description: "Renewable energy installations for a sustainable future.",
+      icon: Leaf,
+    },
+  ];
+
   return (
-    <div className="py-20 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
+    <section className="py-20 bg-gradient-to-br from-casa-navy/95 to-casa-blue/90">
+      <div className="container mx-auto px-4">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-4xl font-bold text-casa-navy text-center mb-12"
+          className="text-center mb-12"
         >
-          Our Services
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="text-4xl font-bold text-white mb-4">Our Services</h2>
+          <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            Transform your home with our sustainable energy solutions and take advantage
+            of the £7,500 government grant.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              whileHover={{ scale: 1.05 }}
-              className="p-6 rounded-xl bg-white/80 backdrop-blur-lg
-                         border border-gray-200 shadow-lg
-                         hover:border-casa-gold transition-all duration-300"
+              transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <div className="text-casa-gold mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold text-casa-navy mb-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-600">{service.description}</p>
+              <Card className="bg-white/10 backdrop-blur-lg border-white/20 hover:border-casa-gold 
+                             transition-all duration-300 group">
+                <CardHeader className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-casa-gold/20 
+                                flex items-center justify-center group-hover:bg-casa-gold/30 
+                                transition-all duration-300">
+                    <service.icon className="w-8 h-8 text-casa-gold" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-white">
+                    {service.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-white/80 text-center">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
