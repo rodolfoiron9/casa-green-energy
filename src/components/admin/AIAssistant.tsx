@@ -5,11 +5,20 @@ import { Card } from "../ui/card";
 import { toast } from "sonner";
 import { handleChatRequest } from "@/api/chat";
 import { MessageSquare, Loader2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import type { AIModel } from "@/api/chat";
 
 export function AIAssistant() {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedModel, setSelectedModel] = useState<AIModel>("gemini");
 
   const handleSubmit = async () => {
     if (!message.trim()) {
@@ -19,12 +28,14 @@ export function AIAssistant() {
 
     setIsLoading(true);
     try {
-      const result = await handleChatRequest(message, "gemini");
+      console.log('Sending request to AI with model:', selectedModel);
+      const result = await handleChatRequest(message, selectedModel);
+      console.log('Received AI response:', result);
       setResponse(result.response);
-      toast.success("AI response received");
+      toast.success(`Response received from ${selectedModel}`);
     } catch (error: any) {
-      toast.error(error.message || "Failed to get AI response");
       console.error('AI Assistant error:', error);
+      toast.error(error.message || "Failed to get AI response. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -37,8 +48,21 @@ export function AIAssistant() {
         <h2 className="text-xl font-semibold">AI Assistant</h2>
       </div>
 
+      <Select
+        value={selectedModel}
+        onValueChange={(value) => setSelectedModel(value as AIModel)}
+      >
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Select AI Model" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="gemini">Gemini</SelectItem>
+          <SelectItem value="deepseek">Deepseek</SelectItem>
+        </SelectContent>
+      </Select>
+
       <Textarea
-        placeholder="Ask me anything about the admin panel, data management, or marketing tasks..."
+        placeholder="Ask me anything about leads, marketing, or administrative tasks..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         className="min-h-[100px]"
