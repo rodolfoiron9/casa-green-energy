@@ -6,9 +6,6 @@ import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import Dashboard from "@/pages/admin/Dashboard";
-import Activity from "@/pages/admin/Activity";
-import AIChatPage from "@/pages/admin/AIChatPage";
-import { AdminLayout } from "@/components/admin/layout/AdminLayout";
 
 export const router = createBrowserRouter([
   {
@@ -37,28 +34,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
-    children: [
-      {
-        path: "",
-        element: <Dashboard />,
-      },
-      {
-        path: "ai-chat",
-        element: <AIChatPage />,
-      },
-      {
-        path: "activity",
-        element: <Activity />,
-      },
-      {
-        path: "new-post",
-        element: <Dashboard />, // TODO: Implement NewPost component
-      },
-      {
-        path: "settings",
-        element: <Dashboard />, // TODO: Implement Settings component
-      },
-    ],
+    element: <Dashboard />,
   },
 ]);
