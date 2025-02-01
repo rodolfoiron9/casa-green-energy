@@ -14,10 +14,10 @@ import {
   Server,
   FileCode,
   MessageSquare,
-  Forms,
+  ClipboardList,
   Footprints,
   ScrollText,
-  Templates,
+  LayoutTemplate,
   LineChart,
   Activity,
 } from "lucide-react";
@@ -56,7 +56,7 @@ export const sidebarItems: SidebarSection[] = [
       {
         title: "Forms",
         href: "/admin/forms",
-        icon: <Forms className="h-4 w-4" />,
+        icon: <ClipboardList className="h-4 w-4" />,
         status: 'active',
       },
       {
@@ -109,7 +109,7 @@ export const sidebarItems: SidebarSection[] = [
       {
         title: "Templates",
         href: "/admin/templates",
-        icon: <Templates className="h-4 w-4" />,
+        icon: <LayoutTemplate className="h-4 w-4" />,
         status: 'active',
       },
     ],
