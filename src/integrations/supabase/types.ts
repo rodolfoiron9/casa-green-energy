@@ -829,6 +829,13 @@ export type Database = {
         }
         Returns: boolean
       }
+      update_ai_task_status: {
+        Args: {
+          task_id: number
+          new_status: string
+        }
+        Returns: undefined
+      }
       update_lead_conversion_score: {
         Args: {
           lead_id: number

@@ -15,6 +15,9 @@ export interface AIChatSession {
   user_message: string;
   ai_response: string;
   metadata: ChatMetadata;
+  lead_id?: string;
+  user_id: string;
+  updated_at: string;
 }
 
 export async function fetchChatSessions(limit = 10) {

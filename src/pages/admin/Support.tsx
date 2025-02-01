@@ -6,26 +6,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MessageSquare, Users, Clock, AlertCircle } from "lucide-react";
-import { AIChatSession } from "@/api/aiChatSessions";
+import { AIChatSession, fetchChatSessions } from "@/api/aiChatSessions";
 
 export default function Support() {
   const { data: supportStats } = useQuery({
     queryKey: ['supportStats'],
     queryFn: async () => {
-      const { data: interactions, error } = await supabase
-        .from('ai_chat_interactions')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-
-      const typedInteractions = (interactions || []) as AIChatSession[];
+      const interactions = await fetchChatSessions();
 
       return {
-        totalInteractions: typedInteractions.length,
-        resolvedInteractions: typedInteractions.filter(i => i.metadata?.status === 'completed').length,
-        pendingInteractions: typedInteractions.filter(i => i.metadata?.status === 'active').length,
-        errorInteractions: typedInteractions.filter(i => i.metadata?.status === 'error').length,
+        totalInteractions: interactions.length,
+        resolvedInteractions: interactions.filter(i => i.metadata.status === 'completed').length,
+        pendingInteractions: interactions.filter(i => i.metadata.status === 'active').length,
+        errorInteractions: interactions.filter(i => i.metadata.status === 'error').length,
       };
     },
   });
