@@ -66,8 +66,22 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
 
     if (updateError) throw updateError;
 
+    // Log successful completion
+    await supabase.from('ai_analytics').insert({
+      metric_name: 'chat_completion',
+      metric_value: {
+        model,
+        duration: endTime - startTime,
+        message_length: message.length,
+        response_length: response.response.length,
+      },
+      user_id: session.user.id
+    });
+
     return response;
   } catch (error: any) {
+    console.error('Error in chat request:', error);
+
     // Update metadata to reflect error state
     metadata = {
       ...metadata,
@@ -83,9 +97,19 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
         .update({ metadata: metadata as Json })
         .eq('user_id', session.user.id)
         .eq('metadata->>startTime', metadata.startTime.toString());
+
+      // Log error for monitoring
+      await supabase.from('ai_analytics').insert({
+        metric_name: 'chat_error',
+        metric_value: {
+          model,
+          error: error.message,
+          message_length: message.length,
+        },
+        user_id: session.user.id
+      });
     }
 
-    console.error('Error in chat request:', error);
     throw new Error(error.message || 'Failed to get AI response');
   }
 }

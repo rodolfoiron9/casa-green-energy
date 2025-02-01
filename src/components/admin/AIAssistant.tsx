@@ -13,12 +13,33 @@ import {
   SelectValue,
 } from "../ui/select";
 import type { AIModel } from "@/api/chat";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export function AIAssistant() {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedModel, setSelectedModel] = useState<AIModel>("gemini");
+
+  // Fetch recent AI interactions to provide context
+  const { data: recentInteractions } = useQuery({
+    queryKey: ['aiInteractions'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('ai_chat_interactions')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (error) {
+        console.error('Error fetching AI interactions:', error);
+        throw error;
+      }
+
+      return data;
+    },
+  });
 
   const handleSubmit = async () => {
     if (!message.trim()) {
@@ -33,9 +54,31 @@ export function AIAssistant() {
       console.log('Received AI response:', result);
       setResponse(result.response);
       toast.success(`Response received from ${selectedModel}`);
+
+      // Log successful interaction
+      await supabase.from('ai_analytics').insert({
+        metric_name: 'ai_interaction_success',
+        metric_value: {
+          model: selectedModel,
+          message_length: message.length,
+          response_length: result.response.length,
+          timestamp: new Date().toISOString()
+        }
+      });
+
     } catch (error: any) {
       console.error('AI Assistant error:', error);
       toast.error(error.message || "Failed to get AI response. Please try again.");
+
+      // Log error for monitoring
+      await supabase.from('ai_analytics').insert({
+        metric_name: 'ai_interaction_error',
+        metric_value: {
+          model: selectedModel,
+          error: error.message,
+          timestamp: new Date().toISOString()
+        }
+      });
     } finally {
       setIsLoading(false);
     }
@@ -88,6 +131,22 @@ export function AIAssistant() {
           'Send Message'
         )}
       </Button>
+
+      {recentInteractions && recentInteractions.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-sm font-medium mb-2">Recent Interactions</h3>
+          <div className="space-y-2">
+            {recentInteractions.map((interaction) => (
+              <div key={interaction.id} className="text-sm text-gray-500">
+                <p className="font-medium">{interaction.user_message.substring(0, 50)}...</p>
+                <p className="text-xs">
+                  {new Date(interaction.created_at).toLocaleString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </Card>
   );
 }
