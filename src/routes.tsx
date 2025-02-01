@@ -2,6 +2,10 @@ import { createBrowserRouter } from "react-router-dom";
 import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/Dashboard";
 import Overview from "@/pages/dashboard/Overview";
+import Leads from "@/pages/dashboard/Leads";
+import Subscribers from "@/pages/dashboard/Subscribers";
+import Forms from "@/pages/dashboard/Forms";
+import BlogPosts from "@/pages/dashboard/BlogPosts";
 import Index from "@/pages/Index";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
@@ -34,6 +38,22 @@ export const router = createBrowserRouter([
       {
         path: "",
         element: <Overview />,
+      },
+      {
+        path: "leads",
+        element: <Leads />,
+      },
+      {
+        path: "subscribers",
+        element: <Subscribers />,
+      },
+      {
+        path: "forms",
+        element: <Forms />,
+      },
+      {
+        path: "blog-posts",
+        element: <BlogPosts />,
       },
     ],
   },
