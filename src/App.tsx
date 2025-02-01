@@ -49,8 +49,7 @@ const AppContent = () => {
           <Route path="/auth" element={<Auth />} />
           
           {/* Admin Routes */}
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/dashboard" element={<Admin />} />
+          <Route path="/admin/*" element={<Admin />} />
           
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />

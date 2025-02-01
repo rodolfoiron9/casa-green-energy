@@ -494,6 +494,7 @@ export type Database = {
           property_type: string | null
           rating: number | null
           requirements: string | null
+          service_type: Database["public"]["Enums"]["service_type"] | null
           status: string | null
           updated_at: string
           urgency: number | null
@@ -516,6 +517,7 @@ export type Database = {
           property_type?: string | null
           rating?: number | null
           requirements?: string | null
+          service_type?: Database["public"]["Enums"]["service_type"] | null
           status?: string | null
           updated_at?: string
           urgency?: number | null
@@ -538,6 +540,7 @@ export type Database = {
           property_type?: string | null
           rating?: number | null
           requirements?: string | null
+          service_type?: Database["public"]["Enums"]["service_type"] | null
           status?: string | null
           updated_at?: string
           urgency?: number | null
@@ -546,6 +549,113 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "leads_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketing_campaigns: {
+        Row: {
+          budget: number | null
+          created_at: string
+          end_date: string | null
+          id: string
+          metrics: Json | null
+          name: string
+          start_date: string | null
+          status: string | null
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          budget?: number | null
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          metrics?: Json | null
+          name: string
+          start_date?: string | null
+          status?: string | null
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          budget?: number | null
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          metrics?: Json | null
+          name?: string
+          start_date?: string | null
+          status?: string | null
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketing_campaigns_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketing_content: {
+        Row: {
+          campaign_id: string | null
+          content: string
+          created_at: string
+          id: string
+          keywords: string[] | null
+          seo_score: number | null
+          status: string | null
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          campaign_id?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          keywords?: string[] | null
+          seo_score?: number | null
+          status?: string | null
+          title: string
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          campaign_id?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          keywords?: string[] | null
+          seo_score?: number | null
+          status?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketing_content_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "marketing_campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketing_content_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -686,6 +796,9 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      lead_type: "homeowner" | "landlord" | "tenant"
+      property_type: "house" | "apartment" | "commercial"
+      service_type: "plumbing" | "electrical" | "heating" | "maintenance"
     }
     CompositeTypes: {
       [_ in never]: never
