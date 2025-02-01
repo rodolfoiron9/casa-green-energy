@@ -36,14 +36,16 @@ export default function Templates() {
   const { data: templates, isLoading, error } = useQuery({
     queryKey: ['templates'],
     queryFn: fetchTemplates,
-    onError: (error) => {
-      console.error('Error fetching templates:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load templates. Please try again.",
-        variant: "destructive",
-      });
-    },
+    meta: {
+      onError: (error: Error) => {
+        console.error('Error fetching templates:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load templates. Please try again.",
+          variant: "destructive",
+        });
+      }
+    }
   });
 
   return (
