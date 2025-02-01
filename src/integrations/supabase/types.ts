@@ -139,6 +139,42 @@ export type Database = {
           },
         ]
       }
+      ai_tasks: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          metadata: Json | null
+          result: Json | null
+          status: string
+          task_type: Database["public"]["Enums"]["ai_task_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          metadata?: Json | null
+          result?: Json | null
+          status?: string
+          task_type: Database["public"]["Enums"]["ai_task_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          metadata?: Json | null
+          result?: Json | null
+          status?: string
+          task_type?: Database["public"]["Enums"]["ai_task_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       api_keys: {
         Row: {
           created_at: string
@@ -795,6 +831,13 @@ export type Database = {
       }
     }
     Enums: {
+      ai_task_type:
+        | "code_fix"
+        | "database_operation"
+        | "content_generation"
+        | "lead_management"
+        | "marketing"
+        | "system_monitoring"
       app_role: "admin" | "moderator" | "user"
       lead_type: "homeowner" | "landlord" | "tenant"
       property_type: "house" | "apartment" | "commercial"
