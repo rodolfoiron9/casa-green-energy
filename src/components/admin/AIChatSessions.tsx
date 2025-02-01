@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -16,32 +15,33 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare } from "lucide-react";
-
-interface ChatSession {
-  id: string;
-  created_at: string;
-  user_message: string;
-  ai_response: string;
-  metadata: {
-    status?: 'active' | 'completed' | 'error';
-    duration?: number;
-    tokens?: number;
-  };
-}
+import { Button } from "@/components/ui/button";
+import { MessageSquare, Trash2 } from "lucide-react";
+import { fetchChatSessions, deleteChatSession } from "@/api/aiChatSessions";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export function AIChatSessions() {
+  const queryClient = useQueryClient();
+
   const { data: sessions, isLoading } = useQuery({
     queryKey: ['ai-chat-sessions'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('ai_chat_interactions')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(10);
+    queryFn: () => fetchChatSessions(),
+  });
 
-      if (error) throw error;
-      return data as ChatSession[];
+  const deleteMutation = useMutation({
+    mutationFn: deleteChatSession,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ai-chat-sessions'] });
     },
   });
 
@@ -86,6 +86,7 @@ export function AIChatSessions() {
               <TableHead>AI Response</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Duration</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -109,6 +110,36 @@ export function AIChatSessions() {
                 </TableCell>
                 <TableCell>
                   {session.metadata?.duration ? `${session.metadata.duration}ms` : 'N/A'}
+                </TableCell>
+                <TableCell>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="hover:bg-destructive/10"
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Chat Session</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete this chat session? This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => deleteMutation.mutate(session.id)}
+                          className="bg-destructive hover:bg-destructive/90"
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </TableCell>
               </TableRow>
             ))}
