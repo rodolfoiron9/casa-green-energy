@@ -2,10 +2,6 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AIAssistantDashboard } from "@/components/admin/AIAssistantDashboard";
 import { AIChatSessions } from "@/components/admin/AIChatSessions";
-import { DashboardMetrics } from "@/components/admin/DashboardMetrics";
-import { MarketingMetrics } from "@/components/admin/MarketingMetrics";
-import { LeadManagement } from "@/components/admin/LeadManagement";
-import { SystemStatus } from "@/components/admin/SystemStatus";
 import { ProfileSettings } from "@/components/admin/settings/ProfileSettings";
 import { AISettings } from "@/components/admin/settings/AISettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,7 +10,12 @@ import {
   Bot, 
   Users, 
   Settings,
-  UserCircle 
+  UserCircle,
+  Database,
+  MessageSquare,
+  LineChart,
+  GitBranch,
+  Rocket
 } from "lucide-react";
 
 export default function Admin() {
@@ -23,41 +24,63 @@ export default function Admin() {
       <AdminLayout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="p-6">
-            <Tabs defaultValue="ai" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-8">
-                <TabsTrigger value="ai" className="flex items-center gap-2">
-                  <Bot className="h-4 w-4" />
-                  AI Management
+            <Tabs defaultValue="database" className="w-full">
+              <TabsList className="grid w-full grid-cols-5 mb-8">
+                <TabsTrigger value="database" className="flex items-center gap-2">
+                  <Database className="h-4 w-4" />
+                  Database & API
                 </TabsTrigger>
-                <TabsTrigger value="leads" className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  Leads
+                <TabsTrigger value="chatbot" className="flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4" />
+                  Chatbot & Leads
                 </TabsTrigger>
-                <TabsTrigger value="profile" className="flex items-center gap-2">
-                  <UserCircle className="h-4 w-4" />
-                  Profile
+                <TabsTrigger value="marketing" className="flex items-center gap-2">
+                  <LineChart className="h-4 w-4" />
+                  Marketing & SEO
                 </TabsTrigger>
-                <TabsTrigger value="settings" className="flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  Settings
+                <TabsTrigger value="monitoring" className="flex items-center gap-2">
+                  <GitBranch className="h-4 w-4" />
+                  System Monitor
+                </TabsTrigger>
+                <TabsTrigger value="automation" className="flex items-center gap-2">
+                  <Rocket className="h-4 w-4" />
+                  Automation
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="ai" className="space-y-6">
-                <AIAssistantDashboard />
-                <AIChatSessions />
+              <TabsContent value="database" className="space-y-6">
+                <div className="grid gap-6">
+                  <AIAssistantDashboard />
+                  <AIChatSessions />
+                </div>
               </TabsContent>
 
-              <TabsContent value="leads" className="space-y-6">
-                <LeadManagement />
+              <TabsContent value="chatbot" className="space-y-6">
+                <div className="grid gap-6">
+                  <AIAssistantDashboard />
+                  <AIChatSessions />
+                </div>
               </TabsContent>
 
-              <TabsContent value="profile" className="space-y-6">
-                <ProfileSettings />
+              <TabsContent value="marketing" className="space-y-6">
+                <div className="grid gap-6">
+                  <AIAssistantDashboard />
+                  <AIChatSessions />
+                </div>
               </TabsContent>
 
-              <TabsContent value="settings" className="space-y-6">
-                <AISettings />
+              <TabsContent value="monitoring" className="space-y-6">
+                <div className="grid gap-6">
+                  <AIAssistantDashboard />
+                  <AIChatSessions />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="automation" className="space-y-6">
+                <div className="grid gap-6">
+                  <AIAssistantDashboard />
+                  <AIChatSessions />
+                </div>
               </TabsContent>
             </Tabs>
           </Card>
