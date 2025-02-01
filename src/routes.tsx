@@ -5,6 +5,7 @@ import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
+import Dashboard from "@/pages/admin/Dashboard";
 import AIChatPage from "@/pages/admin/AIChatPage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
     path: "/admin",
     element: <AdminLayout />,
     children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
       {
         path: "ai-chat",
         element: <AIChatPage />,
