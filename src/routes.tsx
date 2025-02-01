@@ -6,6 +6,7 @@ import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import Dashboard from "@/pages/admin/Dashboard";
+import Activity from "@/pages/admin/Activity";
 import AIChatPage from "@/pages/admin/AIChatPage";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 
@@ -47,16 +48,16 @@ export const router = createBrowserRouter([
         element: <AIChatPage />,
       },
       {
+        path: "activity",
+        element: <Activity />,
+      },
+      {
         path: "new-post",
         element: <Dashboard />, // TODO: Implement NewPost component
       },
       {
         path: "settings",
         element: <Dashboard />, // TODO: Implement Settings component
-      },
-      {
-        path: "activity",
-        element: <Dashboard />, // TODO: Implement Activity component
       },
     ],
   },

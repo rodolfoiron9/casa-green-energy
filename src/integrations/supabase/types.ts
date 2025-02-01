@@ -396,35 +396,151 @@ export type Database = {
           },
         ]
       }
-      leads: {
+      lead_analytics: {
         Row: {
           created_at: string
-          email: string
           id: string
-          name: string
-          phone: string | null
-          status: string | null
+          lead_id: string | null
+          metric_name: string
+          metric_value: Json
           updated_at: string
-          user_id: string
         }
         Insert: {
           created_at?: string
-          email: string
           id?: string
-          name: string
-          phone?: string | null
-          status?: string | null
+          lead_id?: string | null
+          metric_name: string
+          metric_value: Json
           updated_at?: string
-          user_id: string
         }
         Update: {
           created_at?: string
-          email?: string
           id?: string
-          name?: string
+          lead_id?: string | null
+          metric_name?: string
+          metric_value?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_analytics_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lead_interactions: {
+        Row: {
+          created_at: string
+          id: string
+          interaction_data: Json | null
+          interaction_type: string
+          lead_id: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          interaction_data?: Json | null
+          interaction_type: string
+          lead_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          interaction_data?: Json | null
+          interaction_type?: string
+          lead_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_interactions_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lead_interactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      leads: {
+        Row: {
+          availability: Json | null
+          best_contact_time: string | null
+          budget: number | null
+          conversion_score: number | null
+          created_at: string
+          email: string
+          id: string
+          is_spam: boolean | null
+          lead_type: string | null
+          name: string
+          phone: string | null
+          postcode: string | null
+          preferred_contact_method: string | null
+          property_type: string | null
+          rating: number | null
+          requirements: string | null
+          status: string | null
+          updated_at: string
+          urgency: number | null
+          user_id: string
+        }
+        Insert: {
+          availability?: Json | null
+          best_contact_time?: string | null
+          budget?: number | null
+          conversion_score?: number | null
+          created_at?: string
+          email: string
+          id?: string
+          is_spam?: boolean | null
+          lead_type?: string | null
+          name: string
           phone?: string | null
+          postcode?: string | null
+          preferred_contact_method?: string | null
+          property_type?: string | null
+          rating?: number | null
+          requirements?: string | null
           status?: string | null
           updated_at?: string
+          urgency?: number | null
+          user_id: string
+        }
+        Update: {
+          availability?: Json | null
+          best_contact_time?: string | null
+          budget?: number | null
+          conversion_score?: number | null
+          created_at?: string
+          email?: string
+          id?: string
+          is_spam?: boolean | null
+          lead_type?: string | null
+          name?: string
+          phone?: string | null
+          postcode?: string | null
+          preferred_contact_method?: string | null
+          property_type?: string | null
+          rating?: number | null
+          requirements?: string | null
+          status?: string | null
+          updated_at?: string
+          urgency?: number | null
           user_id?: string
         }
         Relationships: [
