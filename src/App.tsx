@@ -10,7 +10,6 @@ import Blog from "./pages/Blog";
 import Projects from "./pages/Projects";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import AiChatDialog from "./components/AiChatDialog";
 
@@ -33,7 +32,6 @@ const queryClient = new QueryClient();
 // Wrapper component to handle conditional footer rendering
 const AppContent = () => {
   const location = useLocation();
-  const isDashboard = location.pathname.startsWith('/dashboard');
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -48,7 +46,6 @@ const AppContent = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard/*" element={<Dashboard />} />
           
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
@@ -65,7 +62,7 @@ const AppContent = () => {
           <Route path="/resources/faqs" element={<Faqs />} />
         </Routes>
       </div>
-      {!isDashboard && <Footer />}
+      <Footer />
       <div className="fixed bottom-6 right-6 z-50">
         <AiChatDialog />
       </div>
