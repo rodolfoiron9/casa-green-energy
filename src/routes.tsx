@@ -10,6 +10,11 @@ import Templates from "@/pages/dashboard/Templates";
 import Analytics from "@/pages/dashboard/Analytics";
 import EmailCampaigns from "@/pages/dashboard/EmailCampaigns";
 import Seo from "@/pages/dashboard/Seo";
+import ApiKeys from "@/pages/dashboard/ApiKeys";
+import Database from "@/pages/dashboard/Database";
+import ServerStatus from "@/pages/dashboard/ServerStatus";
+import Security from "@/pages/dashboard/Security";
+import Faqs from "@/pages/dashboard/Faqs";
 import Index from "@/pages/Index";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
@@ -17,7 +22,7 @@ import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import CaseStudies from "@/pages/resources/CaseStudies";
 import EnergySavingTips from "@/pages/resources/EnergySavingTips";
-import Faqs from "@/pages/resources/Faqs";
+import ResourceFaqs from "@/pages/resources/Faqs";
 import GovernmentGrants from "@/pages/resources/GovernmentGrants";
 import AirSourceHeatPumps from "@/pages/services/AirSourceHeatPumps";
 import ElectricalServices from "@/pages/services/ElectricalServices";
@@ -60,6 +65,10 @@ export const router = createBrowserRouter([
         element: <BlogPosts />,
       },
       {
+        path: "faqs",
+        element: <Faqs />,
+      },
+      {
         path: "templates",
         element: <Templates />,
       },
@@ -74,6 +83,22 @@ export const router = createBrowserRouter([
       {
         path: "seo",
         element: <Seo />,
+      },
+      {
+        path: "api-keys",
+        element: <ApiKeys />,
+      },
+      {
+        path: "database",
+        element: <Database />,
+      },
+      {
+        path: "server",
+        element: <ServerStatus />,
+      },
+      {
+        path: "security",
+        element: <Security />,
       },
     ],
   },
@@ -103,7 +128,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/resources/faqs",
-    element: <Faqs />,
+    element: <ResourceFaqs />,
   },
   {
     path: "/resources/government-grants",
