@@ -8,13 +8,18 @@ import Services from "@/pages/Services";
 import Admin from "@/pages/admin/Admin";
 import BlogManagement from "@/pages/admin/BlogManagement";
 import Templates from "@/pages/admin/Templates";
+import Settings from "@/pages/admin/Settings";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 // Create placeholder components for new routes
 const PlaceholderPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold mb-4">Coming Soon</h1>
-    <p>This page is under development.</p>
-  </div>
+  <AdminLayout>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Coming Soon</h1>
+      <p>This page is under development.</p>
+    </div>
+  </AdminLayout>
 );
 
 export const router = createBrowserRouter([
@@ -42,81 +47,106 @@ export const router = createBrowserRouter([
     path: "/services",
     element: <Services />,
   },
+  // Admin routes wrapped with ProtectedRoute and AdminLayout
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Admin />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin/blog",
-    element: <BlogManagement />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <BlogManagement />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin/templates",
-    element: <Templates />,
-  },
-  // New admin routes
-  {
-    path: "/admin/forms",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/faqs",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/footer",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/server-content",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/leads",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/bookings",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/downloads",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/subscribers",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/database",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/chatbot",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/api-keys",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/analytics",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/activity",
-    element: <PlaceholderPage />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Templates />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin/settings",
-    element: <PlaceholderPage />,
+    element: (
+      <ProtectedRoute>
+        <AdminLayout>
+          <Settings />
+        </AdminLayout>
+      </ProtectedRoute>
+    ),
+  },
+  // New admin routes with proper wrapping
+  {
+    path: "/admin/forms",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/faqs",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/footer",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/server-content",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/leads",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/bookings",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/downloads",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/subscribers",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/database",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/chatbot",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/api-keys",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/analytics",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
+  },
+  {
+    path: "/admin/activity",
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
   },
   {
     path: "/admin/docs",
-    element: <PlaceholderPage />,
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
   },
   {
     path: "/admin/support",
-    element: <PlaceholderPage />,
+    element: <ProtectedRoute><PlaceholderPage /></ProtectedRoute>,
   },
 ]);
