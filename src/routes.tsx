@@ -6,8 +6,6 @@ import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import Admin from "@/pages/admin/Admin";
-import Profile from "@/pages/admin/Profile";
-import Settings from "@/pages/admin/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -35,15 +33,7 @@ export const router = createBrowserRouter([
     element: <Services />,
   },
   {
-    path: "/admin",
+    path: "/admin/*",
     element: <Admin />,
-  },
-  {
-    path: "/admin/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/admin/settings",
-    element: <Settings />,
   },
 ]);
