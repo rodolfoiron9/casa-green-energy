@@ -37,10 +37,19 @@ export default function ApiKeys() {
   // Create new API key
   const createKeyMutation = useMutation({
     mutationFn: async (name: string) => {
+      // Get the current user's ID
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      if (userError) throw userError;
+      if (!user) throw new Error("No user found");
+
       const key = crypto.randomUUID(); // Generate a random key
       const { data, error } = await supabase
         .from('api_keys')
-        .insert([{ name, key }])
+        .insert([{ 
+          name, 
+          key,
+          user_id: user.id // Include the user_id
+        }])
         .select()
         .single();
 
