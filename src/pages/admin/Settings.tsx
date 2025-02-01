@@ -12,6 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+// Define the task type enum to match the database
+type AITaskType = "code_fix" | "database_operation" | "content_generation" | "lead_management" | "marketing" | "system_monitoring";
+
 export default function Settings() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -113,7 +116,7 @@ export default function Settings() {
     }
   };
 
-  const createAiTask = async (taskType: string, description: string) => {
+  const createAiTask = async (taskType: AITaskType, description: string) => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.user?.id) throw new Error('Not authenticated');
@@ -121,7 +124,8 @@ export default function Settings() {
       const { error } = await supabase.from('ai_tasks').insert({
         task_type: taskType,
         description,
-        user_id: session.user.id
+        user_id: session.user.id,
+        status: 'pending'
       });
 
       if (error) throw error;
