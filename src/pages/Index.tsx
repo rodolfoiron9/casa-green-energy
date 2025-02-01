@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Hero } from "@/features/home/components/Hero";
-import { Services } from "@/features/home/components/Services";
 import { Projects } from "@/features/home/components/Projects";
-import { Testimonials } from "@/features/home/components/Testimonials";
 import { Contact } from "@/features/home/components/Contact";
+import { Services } from "@/features/home/components/Services";
+import { Testimonials } from "@/features/home/components/Testimonials";
 
 export default function Index() {
   return (
