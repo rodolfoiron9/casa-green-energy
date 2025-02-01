@@ -2,7 +2,6 @@ import { useState } from "react";
 import { LayoutDashboard, UserCog, Settings, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
 export function AdminSidebar() {
@@ -37,60 +36,57 @@ export function AdminSidebar() {
     },
   ];
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
-    <Sidebar open={open} setOpen={setOpen}>
-      <SidebarBody className="justify-between gap-10">
-        <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-          {open ? <Logo /> : <LogoIcon />}
-          <div className="mt-8 flex flex-col gap-2">
-            {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} />
-            ))}
+    <motion.div
+      className={cn(
+        "h-full px-4 py-4 hidden md:flex md:flex-col bg-white dark:bg-neutral-900 flex-shrink-0 border-r border-neutral-200 dark:border-neutral-800",
+        open ? "w-64" : "w-20"
+      )}
+      animate={{ width: open ? "256px" : "80px" }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <div className="flex flex-col flex-1">
+        <Link to="/admin" className="flex items-center gap-2 mb-8">
+          <div className="h-8 w-8 bg-casa-navy rounded-lg flex items-center justify-center">
+            <span className="text-casa-gold font-bold">A</span>
           </div>
-        </div>
-        <div>
-          <SidebarLink
-            link={{
-              label: "Admin User",
-              href: "/admin/profile",
-              icon: (
-                <div className="h-7 w-7 flex-shrink-0 rounded-full bg-neutral-300 dark:bg-neutral-700" />
-              ),
-            }}
-          />
-        </div>
-      </SidebarBody>
-    </Sidebar>
+          {open && (
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="font-semibold text-lg"
+            >
+              Admin Panel
+            </motion.span>
+          )}
+        </Link>
+        <nav className="flex-1">
+          <ul className="space-y-2">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  to={link.href}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                >
+                  {link.icon}
+                  {open && (
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-sm"
+                    >
+                      {link.label}
+                    </motion.span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </motion.div>
   );
 }
-
-const Logo = () => {
-  return (
-    <Link
-      to="/admin"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
-      >
-        Admin Panel
-      </motion.span>
-    </Link>
-  );
-};
-
-const LogoIcon = () => {
-  return (
-    <Link
-      to="/admin"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </Link>
-  );
-};
