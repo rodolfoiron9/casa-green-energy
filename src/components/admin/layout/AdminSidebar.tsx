@@ -23,7 +23,7 @@ export function AdminSidebar() {
     <Sidebar className="border-r border-blue-800 bg-casa-navy">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-400">Admin Panel</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-gray-200">Admin Panel</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -31,7 +31,7 @@ export function AdminSidebar() {
                   <SidebarMenuButton asChild>
                     <a 
                       href={item.url} 
-                      className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:bg-blue-800 hover:text-white rounded-md transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 text-gray-100 hover:bg-blue-800 hover:text-white rounded-md transition-colors"
                     >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
