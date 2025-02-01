@@ -11,7 +11,6 @@ import { AISettings } from "@/components/admin/settings/AISettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { 
-  LayoutDashboard, 
   Bot, 
   Users, 
   Settings,
@@ -24,12 +23,8 @@ export default function Admin() {
       <AdminLayout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="p-6">
-            <Tabs defaultValue="dashboard" className="w-full">
-              <TabsList className="grid w-full grid-cols-5 mb-8">
-                <TabsTrigger value="dashboard" className="flex items-center gap-2">
-                  <LayoutDashboard className="h-4 w-4" />
-                  Dashboard
-                </TabsTrigger>
+            <Tabs defaultValue="ai" className="w-full">
+              <TabsList className="grid w-full grid-cols-4 mb-8">
                 <TabsTrigger value="ai" className="flex items-center gap-2">
                   <Bot className="h-4 w-4" />
                   AI Management
@@ -47,14 +42,6 @@ export default function Admin() {
                   Settings
                 </TabsTrigger>
               </TabsList>
-
-              <TabsContent value="dashboard" className="space-y-6">
-                <DashboardMetrics />
-                <div className="grid gap-6 md:grid-cols-2">
-                  <MarketingMetrics />
-                  <SystemStatus />
-                </div>
-              </TabsContent>
 
               <TabsContent value="ai" className="space-y-6">
                 <AIAssistantDashboard />
