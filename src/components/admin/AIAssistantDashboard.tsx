@@ -82,6 +82,14 @@ export function AIAssistantDashboard() {
     }
   };
 
+  // Helper function to safely access metric_value status
+  const getSystemStatus = () => {
+    if (typeof systemStatus?.metric_value === 'object' && systemStatus?.metric_value !== null) {
+      return (systemStatus.metric_value as { status?: string })?.status || 'unknown';
+    }
+    return 'unknown';
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -91,8 +99,10 @@ export function AIAssistantDashboard() {
               <Bot className="h-6 w-6 text-casa-blue" />
               AI Assistant Dashboard
             </CardTitle>
-            <Badge variant={systemStatus?.metric_value?.status === 'active' ? 'success' : 'destructive'}>
-              {systemStatus?.metric_value?.status || 'Unknown'}
+            <Badge 
+              variant={getSystemStatus() === 'active' ? 'success' : 'destructive'}
+            >
+              {getSystemStatus()}
             </Badge>
           </div>
         </CardHeader>
