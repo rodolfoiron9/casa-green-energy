@@ -16,7 +16,7 @@ import {
   Globe,
   Shield,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -70,6 +70,8 @@ const menuItems = [
 ];
 
 export function DashboardSidebar() {
+  const location = useLocation();
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -85,8 +87,14 @@ export function DashboardSidebar() {
               <SidebarMenu>
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link to={item.path} className="flex items-center gap-2">
+                    <SidebarMenuButton 
+                      asChild
+                      data-active={location.pathname === item.path}
+                    >
+                      <Link 
+                        to={item.path} 
+                        className="flex items-center gap-2"
+                      >
                         <item.icon className="w-4 h-4" />
                         <span>{item.title}</span>
                       </Link>
