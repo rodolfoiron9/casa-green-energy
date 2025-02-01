@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MessageSquare, Users, Clock, AlertCircle } from "lucide-react";
+import { AIChatSession } from "@/api/aiChatSessions";
 
 export default function Support() {
   const { data: supportStats } = useQuery({
@@ -18,11 +19,13 @@ export default function Support() {
 
       if (error) throw error;
 
+      const typedInteractions = (interactions || []) as AIChatSession[];
+
       return {
-        totalInteractions: interactions?.length || 0,
-        resolvedInteractions: interactions?.filter(i => i.metadata?.status === 'completed')?.length || 0,
-        pendingInteractions: interactions?.filter(i => i.metadata?.status === 'active')?.length || 0,
-        errorInteractions: interactions?.filter(i => i.metadata?.status === 'error')?.length || 0,
+        totalInteractions: typedInteractions.length,
+        resolvedInteractions: typedInteractions.filter(i => i.metadata?.status === 'completed').length,
+        pendingInteractions: typedInteractions.filter(i => i.metadata?.status === 'active').length,
+        errorInteractions: typedInteractions.filter(i => i.metadata?.status === 'error').length,
       };
     },
   });
