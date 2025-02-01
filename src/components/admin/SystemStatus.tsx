@@ -9,6 +9,7 @@ type SystemStatus = {
   status: 'operational' | 'degraded' | 'down';
   progress: number;
   lastChecked: string;
+  description: string;
 };
 
 export function SystemStatus() {
@@ -21,37 +22,41 @@ export function SystemStatus() {
         .order('created_at', { ascending: false })
         .limit(7);
 
-      // Transform analytics data into system statuses
       const statuses: SystemStatus[] = [
         {
           name: 'Lead Management AI',
           status: 'operational',
           progress: 100,
           lastChecked: new Date().toISOString(),
+          description: 'Matching and prioritizing leads'
         },
         {
           name: 'Marketing Automation',
           status: 'operational',
           progress: 100,
           lastChecked: new Date().toISOString(),
+          description: 'Managing campaigns and content'
         },
         {
           name: 'AI Chatbot',
           status: 'operational',
           progress: 100,
           lastChecked: new Date().toISOString(),
+          description: 'Handling user queries 24/7'
         },
         {
           name: 'Database Management',
           status: 'operational',
           progress: 100,
           lastChecked: new Date().toISOString(),
+          description: 'Optimizing data operations'
         },
         {
           name: 'Content Generation',
           status: 'operational',
           progress: 100,
           lastChecked: new Date().toISOString(),
+          description: 'Creating SEO-optimized content'
         },
       ];
 
@@ -69,11 +74,12 @@ export function SystemStatus() {
               <h3 className="font-semibold">{status.name}</h3>
               <Badge 
                 variant={status.status === 'operational' ? 'default' : 'destructive'}
-                className="bg-green-500"
+                className={status.status === 'operational' ? 'bg-green-500' : 'bg-red-500'}
               >
                 {status.status}
               </Badge>
             </div>
+            <p className="text-sm text-gray-300 mb-2">{status.description}</p>
             <Progress value={status.progress} className="my-2" />
             <p className="text-sm text-gray-300">
               Last checked: {new Date(status.lastChecked).toLocaleTimeString()}

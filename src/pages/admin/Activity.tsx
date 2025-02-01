@@ -1,6 +1,6 @@
 import { SystemStatus } from "@/components/admin/SystemStatus";
 import { RecentActivity } from "@/components/admin/RecentActivity";
-import { DashboardMetrics } from "@/components/admin/DashboardMetrics";
+import { AISystemMetrics } from "@/components/admin/AISystemMetrics";
 
 export default function Activity() {
   return (
@@ -12,12 +12,9 @@ export default function Activity() {
         </div>
       </div>
 
+      <AISystemMetrics />
       <SystemStatus />
-      
-      <div className="grid gap-6 md:grid-cols-2">
-        <RecentActivity />
-        <DashboardMetrics />
-      </div>
+      <RecentActivity />
     </div>
   );
 }
