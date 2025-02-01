@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,20 @@ import { useToast } from "@/components/ui/use-toast";
 
 const ApiKeys = () => {
   const [newKeyName, setNewKeyName] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  // Get current user's ID on component mount
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.id) {
+        setUserId(session.user.id);
+      }
+    };
+    getCurrentUser();
+  }, []);
 
   // Fetch API keys
   const { data: apiKeys, isLoading } = useQuery({
@@ -30,10 +42,16 @@ const ApiKeys = () => {
   // Create new API key
   const createKeyMutation = useMutation({
     mutationFn: async (name: string) => {
+      if (!userId) throw new Error("User not authenticated");
+      
       const key = `casa_${crypto.randomUUID()}`;
       const { data, error } = await supabase
         .from('api_keys')
-        .insert([{ name, key }])
+        .insert({
+          name,
+          key,
+          user_id: userId
+        })
         .select()
         .single();
       
@@ -52,7 +70,7 @@ const ApiKeys = () => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to create API key",
+        description: error instanceof Error ? error.message : "Failed to create API key",
       });
       console.error('Error creating API key:', error);
     }
@@ -92,6 +110,14 @@ const ApiKeys = () => {
         variant: "destructive",
         title: "Error",
         description: "Please enter a key name",
+      });
+      return;
+    }
+    if (!userId) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please login to create API keys",
       });
       return;
     }
