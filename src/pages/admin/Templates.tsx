@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/table";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { format } from "date-fns";
-import { Loader2 } from "lucide-react";
+import { Loader2, FileText, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Template {
   id: string;
@@ -28,15 +29,18 @@ export default function Templates() {
   const { data: templates, isLoading, error } = useQuery({
     queryKey: ["templates"],
     queryFn: async () => {
+      console.log("Fetching templates...");
       const { data, error } = await supabase
         .from("templates")
         .select("*")
         .order("created_at", { ascending: false });
 
       if (error) {
+        console.error("Error fetching templates:", error);
         throw error;
       }
 
+      console.log("Templates fetched:", data);
       return data as Template[];
     },
     meta: {
@@ -74,32 +78,44 @@ export default function Templates() {
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold">Templates</h1>
+            <Button className="flex items-center gap-2">
+              <Plus className="h-4 w-4" /> New Template
+            </Button>
           </div>
 
           {templates && templates.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Created At</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {templates.map((template) => (
-                  <TableRow key={template.id}>
-                    <TableCell>{template.name}</TableCell>
-                    <TableCell className="capitalize">{template.type}</TableCell>
-                    <TableCell>
-                      {format(new Date(template.created_at), "PPP")}
-                    </TableCell>
+            <div className="bg-background rounded-lg border">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Created At</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {templates.map((template) => (
+                    <TableRow key={template.id} className="hover:bg-muted/50">
+                      <TableCell className="flex items-center gap-2">
+                        <FileText className="h-4 w-4 text-muted-foreground" />
+                        {template.name}
+                      </TableCell>
+                      <TableCell className="capitalize">{template.type}</TableCell>
+                      <TableCell>
+                        {format(new Date(template.created_at), "PPP")}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           ) : (
-            <div className="text-center py-10">
-              <p className="text-muted-foreground">No templates found</p>
+            <div className="text-center py-10 border rounded-lg bg-background">
+              <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <p className="text-muted-foreground mb-2">No templates found</p>
+              <p className="text-sm text-muted-foreground">
+                Create your first template to get started
+              </p>
             </div>
           )}
         </div>
