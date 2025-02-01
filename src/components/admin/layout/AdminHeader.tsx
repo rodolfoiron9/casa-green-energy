@@ -4,29 +4,37 @@ import { Input } from "@/components/ui/input";
 
 export function AdminHeader() {
   return (
-    <header className="border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-casa-navy p-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-casa-navy dark:text-white">Dashboard</h1>
-          <div className="hidden md:flex items-center gap-2 ml-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 max-w-screen-2xl items-center">
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <div className="w-full flex-1 md:w-auto md:flex-none">
             <Input
               type="search"
               placeholder="Search..."
-              className="w-64 bg-white dark:bg-casa-navy/50 text-casa-navy dark:text-white"
+              className="h-9 md:w-[300px] lg:w-[400px]"
             />
-            <Button variant="ghost" size="icon" className="text-casa-navy dark:text-white">
-              <Search className="h-4 w-4" />
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              aria-label="Notifications"
+            >
+              <Bell className="h-4 w-4" />
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-casa-gold text-[10px] font-medium text-casa-navy">
+                3
+              </span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              aria-label="Profile"
+            >
+              <User className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="relative text-casa-navy dark:text-white">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 h-4 w-4 bg-casa-gold rounded-full text-xs flex items-center justify-center text-casa-navy font-bold">3</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-casa-navy dark:text-white">
-            <User className="h-5 w-5" />
-          </Button>
         </div>
       </div>
     </header>
