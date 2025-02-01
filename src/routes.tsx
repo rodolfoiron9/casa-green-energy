@@ -6,6 +6,10 @@ import Leads from "@/pages/dashboard/Leads";
 import Subscribers from "@/pages/dashboard/Subscribers";
 import Forms from "@/pages/dashboard/Forms";
 import BlogPosts from "@/pages/dashboard/BlogPosts";
+import Templates from "@/pages/dashboard/Templates";
+import Analytics from "@/pages/dashboard/Analytics";
+import EmailCampaigns from "@/pages/dashboard/EmailCampaigns";
+import Seo from "@/pages/dashboard/Seo";
 import Index from "@/pages/Index";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
@@ -54,6 +58,22 @@ export const router = createBrowserRouter([
       {
         path: "blog-posts",
         element: <BlogPosts />,
+      },
+      {
+        path: "templates",
+        element: <Templates />,
+      },
+      {
+        path: "analytics",
+        element: <Analytics />,
+      },
+      {
+        path: "email-campaigns",
+        element: <EmailCampaigns />,
+      },
+      {
+        path: "seo",
+        element: <Seo />,
       },
     ],
   },
