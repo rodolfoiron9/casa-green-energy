@@ -12,6 +12,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import AiChatDialog from "./components/AiChatDialog";
+import Dashboard from "./pages/admin/Dashboard";
 
 // Service Pages
 import AirSourceHeatPumps from "./pages/services/AirSourceHeatPumps";
@@ -29,15 +30,15 @@ import Faqs from "./pages/resources/Faqs";
 
 const queryClient = new QueryClient();
 
-// Wrapper component to handle conditional footer rendering
 const AppContent = () => {
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
     <div className="relative min-h-screen flex flex-col">
       <Toaster />
       <Sonner />
-      <Navigation />
+      {!isAdminRoute && <Navigation />}
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Index />} />
@@ -46,6 +47,10 @@ const AppContent = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
           
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
@@ -62,7 +67,7 @@ const AppContent = () => {
           <Route path="/resources/faqs" element={<Faqs />} />
         </Routes>
       </div>
-      <Footer />
+      {!isAdminRoute && <Footer />}
       <div className="fixed bottom-6 right-6 z-50">
         <AiChatDialog />
       </div>
