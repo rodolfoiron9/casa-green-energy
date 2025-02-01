@@ -51,7 +51,7 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
     const endTime = Date.now();
     metadata = {
       ...metadata,
-      status: "completed",
+      status: "completed" as const,
       duration: endTime - startTime,
     };
 
@@ -71,20 +71,18 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
     // Update metadata to reflect error state
     metadata = {
       ...metadata,
-      status: "error",
+      status: "error" as const,
       error: error.message,
     };
 
     // Try to update the interaction with error status
-    if (metadata.startTime) {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user?.id) {
-        await supabase
-          .from('ai_chat_interactions')
-          .update({ metadata: metadata as Json })
-          .eq('user_id', session.user.id)
-          .eq('metadata->startTime', metadata.startTime);
-      }
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user?.id) {
+      await supabase
+        .from('ai_chat_interactions')
+        .update({ metadata: metadata as Json })
+        .eq('user_id', session.user.id)
+        .eq('metadata->>startTime', metadata.startTime.toString());
     }
 
     console.error('Error in chat request:', error);
