@@ -2,7 +2,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ interface Template {
   id: string;
   name: string;
   content: string;
-  type: 'page' | 'email' | 'form';
+  type: string;
   created_at: string;
 }
 
