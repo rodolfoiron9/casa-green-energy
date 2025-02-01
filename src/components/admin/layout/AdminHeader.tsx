@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { Bell, LogOut, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -28,15 +28,23 @@ export function AdminHeader() {
   return (
     <header className="border-b border-white/10 p-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
-        <Button 
-          variant="ghost" 
-          onClick={handleLogout}
-          className="text-white hover:text-white/80"
-        >
-          <LogOut className="w-4 h-4 mr-2" />
-          Logout
-        </Button>
+        <h1 className="text-2xl font-bold text-white">AI Admin Dashboard</h1>
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" className="text-white">
+            <Bell className="h-5 w-5" />
+          </Button>
+          <Button variant="ghost" size="icon" className="text-white">
+            <Settings className="h-5 w-5" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            onClick={handleLogout}
+            className="text-white hover:text-white/80"
+          >
+            <LogOut className="h-5 w-5 mr-2" />
+            Logout
+          </Button>
+        </div>
       </div>
     </header>
   );

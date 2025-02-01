@@ -1,4 +1,14 @@
 import {
+  LayoutDashboard,
+  MessageSquare,
+  Users,
+  FileText,
+  Settings,
+  Activity,
+  BarChart,
+  Bot,
+} from "lucide-react";
+import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -8,14 +18,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {
-  LayoutDashboard,
-  MessageSquare,
-  Users,
-  FileText,
-  Settings,
-  Activity,
-} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const menuItems = [
@@ -30,7 +32,7 @@ const menuItems = [
     path: "/admin/ai-chat",
   },
   {
-    title: "Leads",
+    title: "Lead Management",
     icon: Users,
     path: "/admin/leads",
   },
@@ -38,6 +40,16 @@ const menuItems = [
     title: "Content",
     icon: FileText,
     path: "/admin/content",
+  },
+  {
+    title: "Analytics",
+    icon: BarChart,
+    path: "/admin/analytics",
+  },
+  {
+    title: "Chatbot Config",
+    icon: Bot,
+    path: "/admin/chatbot",
   },
   {
     title: "Activity",

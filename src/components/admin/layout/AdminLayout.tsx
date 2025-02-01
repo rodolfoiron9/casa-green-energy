@@ -6,7 +6,7 @@ import { AdminHeader } from "./AdminHeader";
 export function AdminLayout() {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-casa-navy">
+      <div className="min-h-screen flex w-full bg-gradient-to-br from-casa-navy to-blue-900">
         <AdminSidebar />
         <div className="flex-1 flex flex-col">
           <AdminHeader />
