@@ -1,17 +1,20 @@
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Json } from "@/integrations/supabase/types";
+
+export interface ChatMetadata {
+  status: 'active' | 'completed' | 'error';
+  duration?: number;
+  model?: string;
+  error?: string;
+}
 
 export interface AIChatSession {
   id: string;
   created_at: string;
   user_message: string;
   ai_response: string;
-  metadata: {
-    status: 'active' | 'completed' | 'error';
-    duration?: number;
-    model?: string;
-    error?: string;
-  };
+  metadata: ChatMetadata;
 }
 
 export async function fetchChatSessions(limit = 10) {
@@ -23,7 +26,12 @@ export async function fetchChatSessions(limit = 10) {
       .limit(limit);
 
     if (error) throw error;
-    return data as AIChatSession[];
+
+    // Transform the data to ensure metadata is properly typed
+    return (data || []).map(session => ({
+      ...session,
+      metadata: session.metadata as ChatMetadata
+    })) as AIChatSession[];
   } catch (error: any) {
     console.error('Error fetching chat sessions:', error);
     toast.error('Failed to fetch chat sessions');
@@ -72,7 +80,15 @@ export async function getChatSessionById(sessionId: string) {
       .maybeSingle();
 
     if (error) throw error;
-    return data as AIChatSession | null;
+    
+    if (data) {
+      return {
+        ...data,
+        metadata: data.metadata as ChatMetadata
+      } as AIChatSession;
+    }
+    
+    return null;
   } catch (error: any) {
     console.error('Error fetching chat session:', error);
     toast.error('Failed to fetch chat session');
