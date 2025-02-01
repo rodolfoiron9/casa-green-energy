@@ -1,16 +1,4 @@
 import { Link } from "react-router-dom";
-import {
-  Database,
-  Monitor,
-  MessageSquare,
-  Code,
-  Settings,
-  Users,
-  LineChart,
-  Bot,
-  Rocket,
-  Bug,
-} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
