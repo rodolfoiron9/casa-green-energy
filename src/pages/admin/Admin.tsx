@@ -1,50 +1,57 @@
 import { useState } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { DashboardOverview } from "@/components/admin/DashboardOverview";
-import { AISystemMetrics } from "@/components/admin/AISystemMetrics";
+import { AIAssistantDashboard } from "@/components/admin/AIAssistantDashboard";
+import { AIChatSessions } from "@/components/admin/AIChatSessions";
 import { MarketingMetrics } from "@/components/admin/MarketingMetrics";
-import { ProfileSettings } from "@/components/admin/settings/ProfileSettings";
-import { NotificationSettings } from "@/components/admin/settings/NotificationSettings";
-import { AppearanceSettings } from "@/components/admin/settings/AppearanceSettings";
-import { AISettings } from "@/components/admin/settings/AISettings";
+import { LeadManagement } from "@/components/admin/LeadManagement";
+import { RecentActivity } from "@/components/admin/RecentActivity";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import { User, Settings, Bell } from "lucide-react";
 
 export default function Admin() {
   const [currentView, setCurrentView] = useState<'dashboard' | 'profile' | 'settings'>('dashboard');
 
-  const renderContent = () => {
-    switch (currentView) {
-      case 'profile':
-        return (
-          <div className="space-y-6">
-            <ProfileSettings />
-            <NotificationSettings />
-          </div>
-        );
-      case 'settings':
-        return (
-          <div className="space-y-6">
-            <AppearanceSettings />
-            <AISettings />
-          </div>
-        );
-      default:
-        return (
-          <div className="space-y-6">
-            <DashboardOverview />
-            <div className="grid gap-6 md:grid-cols-2">
-              <AISystemMetrics />
-              <MarketingMetrics />
-            </div>
-          </div>
-        );
-    }
-  };
-
   return (
     <ProtectedRoute>
       <AdminLayout>
-        {renderContent()}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Card className="p-6">
+            <Tabs defaultValue="dashboard" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 mb-8">
+                <TabsTrigger value="dashboard" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Dashboard
+                </TabsTrigger>
+                <TabsTrigger value="ai" className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  AI Management
+                </TabsTrigger>
+                <TabsTrigger value="leads" className="flex items-center gap-2">
+                  <Bell className="h-4 w-4" />
+                  Lead Management
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="dashboard" className="space-y-6">
+                <div className="grid gap-6 md:grid-cols-2">
+                  <MarketingMetrics />
+                  <RecentActivity />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="ai" className="space-y-6">
+                <AIAssistantDashboard />
+                <AIChatSessions />
+              </TabsContent>
+
+              <TabsContent value="leads" className="space-y-6">
+                <LeadManagement />
+              </TabsContent>
+            </Tabs>
+          </Card>
+        </div>
       </AdminLayout>
     </ProtectedRoute>
   );
