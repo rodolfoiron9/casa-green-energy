@@ -12,7 +12,7 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import AiChatDialog from "./components/AiChatDialog";
-import Dashboard from "./pages/admin/Dashboard";
+import Admin from "./pages/admin/Admin";
 
 // Service Pages
 import AirSourceHeatPumps from "./pages/services/AirSourceHeatPumps";
@@ -49,8 +49,8 @@ const AppContent = () => {
           <Route path="/auth" element={<Auth />} />
           
           {/* Admin Routes */}
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/dashboard" element={<Admin />} />
           
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
