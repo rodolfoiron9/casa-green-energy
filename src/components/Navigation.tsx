@@ -1,4 +1,4 @@
-import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory, UserCog } from "lucide-react";
+import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory, UserCog, LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
@@ -23,7 +23,6 @@ const Navigation = () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
       setIsAuthenticated(true);
-      // Check if user has admin role
       const { data: userRole } = await supabase
         .from('user_roles')
         .select('role')
@@ -82,10 +81,10 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#f1f1f1] to-[#e5e5e5] shadow-sm">
+    <nav className="fixed top-0 w-full z-50 bg-casa-navy shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-2xl font-bold text-casa-navy flex items-center gap-2">
+          <Link to="/" className="text-2xl font-bold text-casa-gold flex items-center gap-2">
             CASA
           </Link>
 
@@ -113,39 +112,40 @@ const Navigation = () => {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {isAuthenticated ? (
-                <>
+                <div className="flex items-center gap-3">
                   {isAdmin && (
                     <Button
                       variant="outline"
-                      className="flex items-center gap-2"
+                      className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2"
                       asChild
                     >
                       <Link to="/dashboard">
                         <UserCog className="w-4 h-4" />
-                        Admin
+                        Admin Panel
                       </Link>
                     </Button>
                   )}
                   <Button
-                    variant="destructive"
+                    variant="ghost"
                     onClick={handleLogout}
-                    className="bg-red-500 hover:bg-red-600"
+                    className="text-casa-gold hover:bg-casa-gold/10 flex items-center gap-2"
                   >
+                    <LogOut className="w-4 h-4" />
                     Logout
                   </Button>
-                </>
+                </div>
               ) : (
                 <Button
-                  className="bg-casa-blue text-white hover:bg-casa-blue/90"
+                  className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2"
                   asChild
                 >
                   <Link to="/auth">Login</Link>
                 </Button>
               )}
               <Link to="/contact">
-                <Button className="bg-casa-blue text-white hover:bg-casa-blue/90 flex items-center gap-2">
+                <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2">
                   Get Quote <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
