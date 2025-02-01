@@ -1,93 +1,100 @@
-import { useQuery } from "@tanstack/react-query";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { TableInfo, TableName } from "@/types/database";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { TableName } from "@/types/database";
+import { useToast } from "@/components/ui/use-toast";
 
-const TABLES: TableName[] = [
-  "content",
-  "leads",
-  "blog_posts",
-  "marketing_campaigns",
-  "subscribers"
-];
+interface TableInfo {
+  table_name: TableName;
+  row_count: number;
+  last_updated: string;
+}
 
 export function DatabaseTables() {
-  const { data: tables } = useQuery({
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const { data: tables, isLoading } = useQuery({
     queryKey: ["database-tables"],
     queryFn: async () => {
-      const results = await Promise.all(
-        TABLES.map(async (tableName) => {
-          const { count, error: countError } = await supabase
+      const tableNames: TableName[] = ["content", "leads", "blog_posts", "marketing_campaigns", "subscribers", "templates"];
+      
+      const tablesInfo = await Promise.all(
+        tableNames.map(async (tableName) => {
+          const { count: rowCount } = await supabase
             .from(tableName)
             .select("*", { count: "exact", head: true });
 
-          if (countError) {
-            toast.error(`Error fetching ${tableName} count: ${countError.message}`);
-            return null;
-          }
-
-          const { data: lastRecord, error: lastRecordError } = await supabase
+          const { data: lastRecord } = await supabase
             .from(tableName)
             .select("updated_at")
             .order("updated_at", { ascending: false })
             .limit(1);
 
-          if (lastRecordError) {
-            toast.error(`Error fetching ${tableName} last update: ${lastRecordError.message}`);
-            return null;
-          }
-
           return {
             table_name: tableName,
-            row_count: count || 0,
-            last_updated: lastRecord?.[0]?.updated_at || "Never"
-          } as TableInfo;
+            row_count: rowCount || 0,
+            last_updated: lastRecord?.[0]?.updated_at || new Date().toISOString(),
+          };
         })
       );
 
-      return results.filter((result): result is TableInfo => result !== null);
-    }
+      return tablesInfo;
+    },
   });
 
+  const handleRefresh = async () => {
+    try {
+      await queryClient.invalidateQueries({ queryKey: ["database-tables"] });
+      toast({
+        title: "Cache cleared",
+        description: "Database information has been refreshed",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to refresh database information",
+        variant: "destructive",
+      });
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading database information...</div>;
+  }
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Database Tables</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Table Name</TableHead>
-              <TableHead>Row Count</TableHead>
-              <TableHead>Last Updated</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {tables?.map((table) => (
-              <TableRow key={table.table_name}>
-                <TableCell className="font-medium">
-                  {table.table_name.charAt(0).toUpperCase() + 
-                   table.table_name.slice(1).replace(/_/g, ' ')}
-                </TableCell>
-                <TableCell>{table.row_count}</TableCell>
-                <TableCell>
-                  {new Date(table.last_updated).toLocaleString()}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-semibold">Database Tables</h2>
+        <Button onClick={handleRefresh} size="sm" variant="outline">
+          <RefreshCw className="w-4 h-4 mr-2" />
+          Refresh
+        </Button>
+      </div>
+      
+      <div className="grid gap-4">
+        {tables?.map((table) => (
+          <div
+            key={table.table_name}
+            className="p-4 rounded-lg border bg-card text-card-foreground"
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-medium">{table.table_name}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {table.row_count} rows
+                </p>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Last updated: {format(new Date(table.last_updated), "PPp")}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
