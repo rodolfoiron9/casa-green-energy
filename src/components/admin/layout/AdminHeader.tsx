@@ -4,25 +4,26 @@ import { Input } from "@/components/ui/input";
 
 export function AdminHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800">
+      <div className="flex h-16 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+          <div className="relative flex flex-1 items-center">
+            <Search className="pointer-events-none absolute left-4 h-5 w-5 text-gray-400" />
             <Input
               type="search"
               placeholder="Search..."
-              className="h-9 md:w-[300px] lg:w-[400px]"
+              className="h-10 w-full border-0 pl-11 pr-4 text-sm bg-gray-50 dark:bg-gray-800 focus-visible:ring-0"
             />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-x-4 lg:gap-x-6">
             <Button
               variant="ghost"
               size="icon"
               className="relative"
               aria-label="Notifications"
             >
-              <Bell className="h-4 w-4" />
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-casa-gold text-[10px] font-medium text-casa-navy">
+              <Bell className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-casa-gold text-[10px] font-medium text-casa-navy">
                 3
               </span>
             </Button>
@@ -32,7 +33,7 @@ export function AdminHeader() {
               className="rounded-full"
               aria-label="Profile"
             >
-              <User className="h-4 w-4" />
+              <User className="h-5 w-5 text-gray-500 dark:text-gray-400" />
             </Button>
           </div>
         </div>
