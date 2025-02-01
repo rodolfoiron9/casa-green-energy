@@ -4,9 +4,8 @@ import { AIAssistant } from "@/components/admin/AIAssistant";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
 import { MessageSquare, Users, Clock, AlertCircle } from "lucide-react";
-import { AIChatSession, fetchChatSessions } from "@/api/aiChatSessions";
+import { fetchChatSessions } from "@/api/aiChatSessions";
 
 export default function Support() {
   const { data: supportStats } = useQuery({
