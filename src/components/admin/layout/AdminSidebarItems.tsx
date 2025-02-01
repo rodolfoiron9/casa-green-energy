@@ -14,22 +14,33 @@ import {
   FormInput,
   Key,
   Download,
-  UserPlus,
   Mail,
   HelpCircle,
   Server,
   Calendar,
 } from "lucide-react";
 
-export const sidebarItems = [
+interface SidebarItem {
+  title: string;
+  href: string;
+  icon: JSX.Element;
+  status: 'active' | 'coming-soon' | 'in-development';
+}
+
+interface SidebarSection {
+  title: string;
+  items: SidebarItem[];
+}
+
+export const sidebarItems: SidebarSection[] = [
   {
     title: "Overview",
     items: [
       {
         title: "Dashboard",
-        href: "/admin/dashboard",
+        href: "/admin",
         icon: <Layout className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
     ],
   },
@@ -40,31 +51,25 @@ export const sidebarItems = [
         title: "Database Management",
         href: "/admin/database",
         icon: <Database className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "System Monitoring",
         href: "/admin/monitoring",
         icon: <Monitor className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "Chat Interface",
         href: "/admin/chat",
         icon: <MessageSquare className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "Code Management",
         href: "/admin/code",
         icon: <Code className="h-4 w-4" />,
-        status: 'in-development' as const,
-      },
-      {
-        title: "Bug Detection",
-        href: "/admin/bugs",
-        icon: <Bug className="h-4 w-4" />,
-        status: 'in-development' as const,
+        status: 'in-development',
       },
     ],
   },
@@ -75,25 +80,19 @@ export const sidebarItems = [
         title: "Blog Posts",
         href: "/admin/blog",
         icon: <FileText className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "Forms",
         href: "/admin/forms",
         icon: <FormInput className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "FAQs",
         href: "/admin/faqs",
         icon: <HelpCircle className="h-4 w-4" />,
-        status: 'active' as const,
-      },
-      {
-        title: "Templates",
-        href: "/admin/templates",
-        icon: <FileText className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
     ],
   },
@@ -104,25 +103,19 @@ export const sidebarItems = [
         title: "Leads",
         href: "/admin/leads",
         icon: <Users className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "Bookings",
         href: "/admin/bookings",
         icon: <Calendar className="h-4 w-4" />,
-        status: 'coming-soon' as const,
+        status: 'coming-soon',
       },
       {
         title: "Subscribers",
         href: "/admin/subscribers",
         icon: <Mail className="h-4 w-4" />,
-        status: 'active' as const,
-      },
-      {
-        title: "Downloads",
-        href: "/admin/downloads",
-        icon: <Download className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
     ],
   },
@@ -133,19 +126,19 @@ export const sidebarItems = [
         title: "Content Generation",
         href: "/admin/content",
         icon: <Bot className="h-4 w-4" />,
-        status: 'in-development' as const,
+        status: 'in-development',
       },
       {
         title: "Growth Analytics",
         href: "/admin/growth",
         icon: <Rocket className="h-4 w-4" />,
-        status: 'coming-soon' as const,
+        status: 'coming-soon',
       },
       {
         title: "Revenue Analytics",
         href: "/admin/revenue",
         icon: <LineChart className="h-4 w-4" />,
-        status: 'coming-soon' as const,
+        status: 'coming-soon',
       },
     ],
   },
@@ -156,19 +149,19 @@ export const sidebarItems = [
         title: "API Keys",
         href: "/admin/api-keys",
         icon: <Key className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "Server",
         href: "/admin/server",
         icon: <Server className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
       {
         title: "Settings",
         href: "/admin/settings",
         icon: <Settings className="h-4 w-4" />,
-        status: 'active' as const,
+        status: 'active',
       },
     ],
   },

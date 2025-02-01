@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -6,12 +6,14 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items: {
     href: string;
     title: string;
-    icon: any;
+    icon: JSX.Element;
     status?: 'active' | 'coming-soon' | 'in-development';
   }[];
 }
 
 export function AdminSidebarNav({ className, items, ...props }: SidebarNavProps) {
+  const location = useLocation();
+
   return (
     <nav
       className={cn(
@@ -30,6 +32,7 @@ export function AdminSidebarNav({ className, items, ...props }: SidebarNavProps)
             variant="ghost"
             className={cn(
               "w-full justify-start gap-2",
+              location.pathname === item.href && "bg-accent",
               item.status === 'coming-soon' && "opacity-70",
               item.status === 'in-development' && "text-blue-500"
             )}
