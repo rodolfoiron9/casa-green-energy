@@ -1,54 +1,96 @@
-import { Home, Users, MessageSquare, Settings, Database, LayoutDashboard, ChartBar } from "lucide-react";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar";
-
-const menuItems = [
-  { title: "Dashboard", icon: LayoutDashboard, url: "/admin" },
-  { title: "Analytics", icon: ChartBar, url: "/admin/analytics" },
-  { title: "Customers", icon: Users, url: "/admin/customers" },
-  { title: "Messages", icon: MessageSquare, url: "/admin/messages" },
-  { title: "Database", icon: Database, url: "/admin/database" },
-  { title: "Settings", icon: Settings, url: "/admin/settings" },
-];
+import { useState } from "react";
+import { LayoutDashboard, UserCog, Settings, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 
 export function AdminSidebar() {
+  const links = [
+    {
+      label: "Dashboard",
+      href: "/admin",
+      icon: (
+        <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Profile",
+      href: "/admin/profile",
+      icon: (
+        <UserCog className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Settings",
+      href: "/admin/settings",
+      icon: (
+        <Settings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Logout",
+      href: "/logout",
+      icon: (
+        <LogOut className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+  ];
+
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sidebar className="border-r border-white/10 bg-white/5 backdrop-blur-lg">
-      <SidebarContent>
-        <SidebarGroup>
-          <div className="p-4">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <Home className="h-6 w-6 text-casa-gold" />
-              <span>Admin</span>
-            </h2>
+    <Sidebar open={open} setOpen={setOpen}>
+      <SidebarBody className="justify-between gap-10">
+        <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          {open ? <Logo /> : <LogoIcon />}
+          <div className="mt-8 flex flex-col gap-2">
+            {links.map((link, idx) => (
+              <SidebarLink key={idx} link={link} />
+            ))}
           </div>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a 
-                      href={item.url} 
-                      className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
-                    >
-                      <item.icon className="h-5 w-5 text-casa-gold" />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
+        </div>
+        <div>
+          <SidebarLink
+            link={{
+              label: "Admin User",
+              href: "/admin/profile",
+              icon: (
+                <div className="h-7 w-7 flex-shrink-0 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+              ),
+            }}
+          />
+        </div>
+      </SidebarBody>
     </Sidebar>
   );
 }
+
+const Logo = () => {
+  return (
+    <Link
+      to="/admin"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-medium text-black dark:text-white whitespace-pre"
+      >
+        Admin Panel
+      </motion.span>
+    </Link>
+  );
+};
+
+const LogoIcon = () => {
+  return (
+    <Link
+      to="/admin"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    </Link>
+  );
+};
