@@ -12,13 +12,17 @@ import {
   Server,
   LayoutTemplate,
   FormInput,
+  Bell,
+  BarChart,
+  Mail,
+  Globe,
+  Shield,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
@@ -26,21 +30,28 @@ import {
 } from "@/components/ui/sidebar";
 
 const menuItems = [
-  { title: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-  { title: "Content", icon: FileText, path: "/dashboard/content" },
+  { title: "Overview", icon: LayoutDashboard, path: "/dashboard" },
+  
+  // Lead Management
+  { title: "Leads", icon: Users, path: "/dashboard/leads" },
+  { title: "Subscribers", icon: Bell, path: "/dashboard/subscribers" },
   { title: "Forms", icon: FormInput, path: "/dashboard/forms" },
-  { title: "AI Chat Bot", icon: MessageSquare, path: "/dashboard/chatbot" },
+  
+  // Content Management
+  { title: "Blog Posts", icon: FileText, path: "/dashboard/blog-posts" },
+  { title: "FAQs", icon: HelpCircle, path: "/dashboard/faqs" },
+  { title: "Templates", icon: LayoutTemplate, path: "/dashboard/templates" },
+  
+  // Marketing
+  { title: "Analytics", icon: BarChart, path: "/dashboard/analytics" },
+  { title: "Email Campaigns", icon: Mail, path: "/dashboard/email-campaigns" },
+  { title: "SEO", icon: Globe, path: "/dashboard/seo" },
+  
+  // System
   { title: "API Keys", icon: Key, path: "/dashboard/api-keys" },
   { title: "Database", icon: Database, path: "/dashboard/database" },
-  { title: "Blog Posts", icon: FileText, path: "/dashboard/blog-posts" },
-  { title: "Booking", icon: BookOpen, path: "/dashboard/booking" },
-  { title: "Downloads", icon: Download, path: "/dashboard/downloads" },
-  { title: "Leads", icon: Users, path: "/dashboard/leads" },
-  { title: "Subscribers", icon: Users, path: "/dashboard/subscribers" },
-  { title: "FAQs", icon: HelpCircle, path: "/dashboard/faqs" },
-  { title: "Footer Content", icon: Settings, path: "/dashboard/footer" },
-  { title: "Server Content", icon: Server, path: "/dashboard/server" },
-  { title: "Templates", icon: LayoutTemplate, path: "/dashboard/templates" },
+  { title: "Server Status", icon: Server, path: "/dashboard/server" },
+  { title: "Security", icon: Shield, path: "/dashboard/security" },
 ];
 
 export function DashboardSidebar() {
@@ -49,7 +60,9 @@ export function DashboardSidebar() {
       <SidebarContent>
         <div className="p-4">
           <h1 className="text-2xl font-bold text-casa-navy">Casa Admin</h1>
+          <p className="text-sm text-gray-500 mt-1">Management Console</p>
         </div>
+        
         <SidebarGroup>
           <SidebarGroupLabel>Management</SidebarGroupLabel>
           <SidebarGroupContent>
