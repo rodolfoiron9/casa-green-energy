@@ -26,7 +26,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       }
 
       try {
-        // Check if user has admin role
         const { data: userRole, error } = await supabase
           .from('user_roles')
           .select('role')
@@ -44,7 +43,9 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
           return;
         }
 
+        // If no role exists or role is not admin
         if (!userRole || userRole.role !== 'admin') {
+          console.log('Access denied - User does not have admin role:', session.user.id);
           toast({
             variant: "destructive",
             title: "Access Denied",
@@ -54,7 +55,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
           return;
         }
       } catch (error) {
-        console.error('Error in protected route:', error);
+        console.error('Unexpected error in protected route:', error);
         toast({
           variant: "destructive",
           title: "Error",
