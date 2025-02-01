@@ -42,6 +42,23 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
+  const handleSaveChanges = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user?.id) return;
+
+    const { error } = await supabase
+      .from('profiles')
+      .update({ full_name: profile?.full_name })
+      .eq('id', session.user.id);
+
+    if (error) {
+      toast.error("Error updating profile");
+      return;
+    }
+
+    toast.success("Profile updated successfully");
+  };
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -63,6 +80,7 @@ export default function Profile() {
                   <Input
                     id="fullName"
                     value={profile?.full_name || ''}
+                    onChange={(e) => setProfile(prev => ({ ...prev!, full_name: e.target.value }))}
                     placeholder="Enter your full name"
                     className="w-full"
                   />
@@ -79,7 +97,10 @@ export default function Profile() {
                   />
                 </div>
 
-                <Button className="w-full bg-casa-blue hover:bg-blue-700">
+                <Button 
+                  onClick={handleSaveChanges}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
                   Save Changes
                 </Button>
               </TabsContent>
