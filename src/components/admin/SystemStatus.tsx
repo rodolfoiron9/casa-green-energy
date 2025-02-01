@@ -76,18 +76,21 @@ export function SystemStatus() {
       
       <div className="grid gap-4">
         {systemStatuses?.map((status) => (
-          <Card key={status.name} className="p-4 bg-white/5 backdrop-blur-sm border-white/10">
+          <Card 
+            key={status.name} 
+            className="p-6 bg-casa-navy/80 backdrop-blur-lg border-casa-gold/20 hover:border-casa-gold/40 transition-all duration-200"
+          >
             <div className="flex items-start justify-between">
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-white">{status.name}</h3>
+                  <h3 className="font-semibold text-casa-gold">{status.name}</h3>
                   {status.status === 'operational' ? (
                     <CheckCircle2 className="h-4 w-4 text-green-500" />
                   ) : (
                     <AlertTriangle className="h-4 w-4 text-yellow-500" />
                   )}
                 </div>
-                <p className="text-sm text-gray-400">{status.description}</p>
+                <p className="text-sm text-gray-300">{status.description}</p>
               </div>
               <div className="text-right">
                 <Badge 
@@ -107,8 +110,7 @@ export function SystemStatus() {
             </div>
             <Progress 
               value={status.progress} 
-              className="mt-4 bg-white/10" 
-              indicatorClassName="bg-green-500"
+              className="mt-4 h-2 bg-white/10" 
             />
           </Card>
         ))}
