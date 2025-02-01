@@ -43,7 +43,17 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         return;
       }
 
-      if (!userRole || userRole.role !== 'admin') {
+      if (!userRole) {
+        toast({
+          variant: "destructive",
+          title: "Access Denied",
+          description: "You need admin privileges to access this area",
+        });
+        navigate("/");
+        return;
+      }
+
+      if (userRole.role !== 'admin') {
         toast({
           variant: "destructive",
           title: "Access Denied",
