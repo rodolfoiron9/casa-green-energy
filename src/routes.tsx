@@ -20,16 +20,10 @@ import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
-import CaseStudies from "@/pages/resources/CaseStudies";
-import EnergySavingTips from "@/pages/resources/EnergySavingTips";
-import ResourceFaqs from "@/pages/resources/Faqs";
-import GovernmentGrants from "@/pages/resources/GovernmentGrants";
-import AirSourceHeatPumps from "@/pages/services/AirSourceHeatPumps";
-import ElectricalServices from "@/pages/services/ElectricalServices";
-import GreenEnergySystems from "@/pages/services/GreenEnergySystems";
-import HomeEnergySolutions from "@/pages/services/HomeEnergySolutions";
-import MaintenanceServices from "@/pages/services/MaintenanceServices";
-import WarrantyProtection from "@/pages/services/WarrantyProtection";
+import AiChat from "@/pages/dashboard/AiChat";
+import AiContent from "@/pages/dashboard/AiContent";
+import AiAnalytics from "@/pages/dashboard/AiAnalytics";
+import Chatbot from "@/pages/dashboard/Chatbot";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +42,24 @@ export const router = createBrowserRouter([
         path: "",
         element: <Overview />,
       },
+      // AI Features
+      {
+        path: "ai-chat",
+        element: <AiChat />,
+      },
+      {
+        path: "ai-content",
+        element: <AiContent />,
+      },
+      {
+        path: "ai-analytics",
+        element: <AiAnalytics />,
+      },
+      {
+        path: "chatbot",
+        element: <Chatbot />,
+      },
+      // Lead Management
       {
         path: "leads",
         element: <Leads />,
@@ -60,6 +72,7 @@ export const router = createBrowserRouter([
         path: "forms",
         element: <Forms />,
       },
+      // Content Management
       {
         path: "blog-posts",
         element: <BlogPosts />,
@@ -72,6 +85,7 @@ export const router = createBrowserRouter([
         path: "templates",
         element: <Templates />,
       },
+      // Marketing
       {
         path: "analytics",
         element: <Analytics />,
@@ -84,6 +98,7 @@ export const router = createBrowserRouter([
         path: "seo",
         element: <Seo />,
       },
+      // System
       {
         path: "api-keys",
         element: <ApiKeys />,
@@ -117,45 +132,5 @@ export const router = createBrowserRouter([
   {
     path: "/services",
     element: <Services />,
-  },
-  {
-    path: "/resources/case-studies",
-    element: <CaseStudies />,
-  },
-  {
-    path: "/resources/energy-saving-tips",
-    element: <EnergySavingTips />,
-  },
-  {
-    path: "/resources/faqs",
-    element: <ResourceFaqs />,
-  },
-  {
-    path: "/resources/government-grants",
-    element: <GovernmentGrants />,
-  },
-  {
-    path: "/services/air-source-heat-pumps",
-    element: <AirSourceHeatPumps />,
-  },
-  {
-    path: "/services/electrical-services",
-    element: <ElectricalServices />,
-  },
-  {
-    path: "/services/green-energy-systems",
-    element: <GreenEnergySystems />,
-  },
-  {
-    path: "/services/home-energy-solutions",
-    element: <HomeEnergySolutions />,
-  },
-  {
-    path: "/services/maintenance-services",
-    element: <MaintenanceServices />,
-  },
-  {
-    path: "/services/warranty-protection",
-    element: <WarrantyProtection />,
   },
 ]);

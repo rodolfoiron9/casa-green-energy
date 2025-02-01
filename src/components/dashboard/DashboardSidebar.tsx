@@ -2,9 +2,6 @@ import {
   LayoutDashboard,
   FileText,
   Settings,
-  MessageSquare,
-  Key,
-  Database,
   Users,
   HelpCircle,
   Server,
@@ -15,6 +12,12 @@ import {
   Mail,
   Globe,
   Shield,
+  Brain,
+  MessageSquare,
+  Bot,
+  Zap,
+  Database,
+  Key,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -31,7 +34,16 @@ const menuItems = [
   {
     group: "Overview",
     items: [
-      { title: "Overview", icon: LayoutDashboard, path: "/dashboard" },
+      { title: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+    ],
+  },
+  {
+    group: "AI Features",
+    items: [
+      { title: "AI Chat", icon: MessageSquare, path: "/dashboard/ai-chat" },
+      { title: "AI Content", icon: Brain, path: "/dashboard/ai-content" },
+      { title: "AI Analytics", icon: Zap, path: "/dashboard/ai-analytics" },
+      { title: "Chatbot", icon: Bot, path: "/dashboard/chatbot" },
     ],
   },
   {
@@ -43,7 +55,7 @@ const menuItems = [
     ],
   },
   {
-    group: "Content Management",
+    group: "Content",
     items: [
       { title: "Blog Posts", icon: FileText, path: "/dashboard/blog-posts" },
       { title: "FAQs", icon: HelpCircle, path: "/dashboard/faqs" },
@@ -76,8 +88,8 @@ export function DashboardSidebar() {
     <Sidebar>
       <SidebarContent>
         <div className="p-4">
-          <h1 className="text-2xl font-bold text-casa-navy">Casa Admin</h1>
-          <p className="text-sm text-gray-500 mt-1">Management Console</p>
+          <h1 className="text-2xl font-bold text-casa-navy">Casa AI Admin</h1>
+          <p className="text-sm text-gray-500 mt-1">AI-Powered Management Console</p>
         </div>
         
         {menuItems.map((group) => (
@@ -93,7 +105,7 @@ export function DashboardSidebar() {
                     >
                       <Link 
                         to={item.path} 
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100 transition-colors"
                       >
                         <item.icon className="w-4 h-4" />
                         <span>{item.title}</span>
