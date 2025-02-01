@@ -46,6 +46,18 @@ export const router = createBrowserRouter([
         path: "ai-chat",
         element: <AIChatPage />,
       },
+      {
+        path: "new-post",
+        element: <Dashboard />, // TODO: Implement NewPost component
+      },
+      {
+        path: "settings",
+        element: <Dashboard />, // TODO: Implement Settings component
+      },
+      {
+        path: "activity",
+        element: <Dashboard />, // TODO: Implement Activity component
+      },
     ],
   },
 ]);
