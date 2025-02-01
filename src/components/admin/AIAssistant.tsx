@@ -49,6 +49,12 @@ export function AIAssistant() {
 
     setIsLoading(true);
     try {
+      // Get current user session
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user?.id) {
+        throw new Error('User not authenticated');
+      }
+
       console.log('Sending request to AI with model:', selectedModel);
       const result = await handleChatRequest(message, selectedModel);
       console.log('Received AI response:', result);
@@ -63,22 +69,28 @@ export function AIAssistant() {
           message_length: message.length,
           response_length: result.response.length,
           timestamp: new Date().toISOString()
-        }
+        },
+        user_id: session.user.id
       });
 
     } catch (error: any) {
       console.error('AI Assistant error:', error);
       toast.error(error.message || "Failed to get AI response. Please try again.");
 
-      // Log error for monitoring
-      await supabase.from('ai_analytics').insert({
-        metric_name: 'ai_interaction_error',
-        metric_value: {
-          model: selectedModel,
-          error: error.message,
-          timestamp: new Date().toISOString()
-        }
-      });
+      // Get current user session for error logging
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.id) {
+        // Log error for monitoring
+        await supabase.from('ai_analytics').insert({
+          metric_name: 'ai_interaction_error',
+          metric_value: {
+            model: selectedModel,
+            error: error.message,
+            timestamp: new Date().toISOString()
+          },
+          user_id: session.user.id
+        });
+      }
     } finally {
       setIsLoading(false);
     }
