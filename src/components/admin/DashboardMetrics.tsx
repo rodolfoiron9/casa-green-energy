@@ -36,31 +36,31 @@ export function DashboardMetrics() {
 
   return (
     <div className="grid gap-4 md:grid-cols-3">
-      <Card>
+      <Card className="bg-white dark:bg-casa-navy shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Users</CardTitle>
-          <Users className="h-4 w-4 text-muted-foreground" />
+          <CardTitle className="text-sm font-medium text-gray-800 dark:text-gray-200">Total Users</CardTitle>
+          <Users className="h-4 w-4 text-casa-gold" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{usersCount || 0}</div>
+          <div className="text-2xl font-bold text-casa-navy dark:text-white">{usersCount || 0}</div>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="bg-white dark:bg-casa-navy shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">AI Chat Messages</CardTitle>
-          <MessageSquare className="h-4 w-4 text-muted-foreground" />
+          <CardTitle className="text-sm font-medium text-gray-800 dark:text-gray-200">AI Chat Messages</CardTitle>
+          <MessageSquare className="h-4 w-4 text-casa-gold" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{messagesCount || 0}</div>
+          <div className="text-2xl font-bold text-casa-navy dark:text-white">{messagesCount || 0}</div>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="bg-white dark:bg-casa-navy shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">AI Generated Content</CardTitle>
-          <FileText className="h-4 w-4 text-muted-foreground" />
+          <CardTitle className="text-sm font-medium text-gray-800 dark:text-gray-200">AI Generated Content</CardTitle>
+          <FileText className="h-4 w-4 text-casa-gold" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{contentCount || 0}</div>
+          <div className="text-2xl font-bold text-casa-navy dark:text-white">{contentCount || 0}</div>
         </CardContent>
       </Card>
     </div>
