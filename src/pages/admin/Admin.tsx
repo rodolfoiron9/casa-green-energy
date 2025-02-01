@@ -8,14 +8,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { 
   Bot, 
-  Users, 
-  Settings,
-  UserCircle,
   Database,
+  Shield,
   MessageSquare,
-  LineChart,
+  Code,
   GitBranch,
-  Rocket
+  Bug,
+  Users,
+  LineChart,
+  Briefcase,
+  DollarSign,
+  FileText,
+  Search,
+  Mail,
+  BarChart,
+  HeadphonesIcon,
+  Brain,
+  TrendingUp,
+  Settings
 } from "lucide-react";
 
 export default function Admin() {
@@ -24,62 +34,151 @@ export default function Admin() {
       <AdminLayout>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="p-6">
-            <Tabs defaultValue="database" className="w-full">
+            <Tabs defaultValue="core" className="w-full">
               <TabsList className="grid w-full grid-cols-5 mb-8">
-                <TabsTrigger value="database" className="flex items-center gap-2">
+                <TabsTrigger value="core" className="flex items-center gap-2">
                   <Database className="h-4 w-4" />
-                  Database & API
+                  Core Features
                 </TabsTrigger>
-                <TabsTrigger value="chatbot" className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4" />
-                  Chatbot & Leads
+                <TabsTrigger value="management" className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  Management
                 </TabsTrigger>
                 <TabsTrigger value="marketing" className="flex items-center gap-2">
                   <LineChart className="h-4 w-4" />
-                  Marketing & SEO
+                  Marketing
                 </TabsTrigger>
-                <TabsTrigger value="monitoring" className="flex items-center gap-2">
-                  <GitBranch className="h-4 w-4" />
-                  System Monitor
+                <TabsTrigger value="chatbot" className="flex items-center gap-2">
+                  <Bot className="h-4 w-4" />
+                  Chatbot
                 </TabsTrigger>
-                <TabsTrigger value="automation" className="flex items-center gap-2">
-                  <Rocket className="h-4 w-4" />
-                  Automation
+                <TabsTrigger value="growth" className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4" />
+                  Growth
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="database" className="space-y-6">
-                <div className="grid gap-6">
-                  <AIAssistantDashboard />
-                  <AIChatSessions />
+              <TabsContent value="core" className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <Card className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Database className="h-6 w-6 text-blue-500" />
+                      <h3 className="text-lg font-semibold">Database Management</h3>
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Autonomous CRUD operations and schema management with Supabase
+                    </p>
+                    <div className="flex gap-2">
+                      <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                        Enhance
+                      </button>
+                      <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        Fix Bugs
+                      </button>
+                    </div>
+                  </Card>
+
+                  <Card className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Shield className="h-6 w-6 text-blue-500" />
+                      <h3 className="text-lg font-semibold">System Monitoring</h3>
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">Active</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Real-time performance tracking and error detection
+                    </p>
+                    <div className="flex gap-2">
+                      <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                        Enhance
+                      </button>
+                      <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        Fix Bugs
+                      </button>
+                    </div>
+                  </Card>
+
+                  {/* Add other core feature cards similarly */}
                 </div>
               </TabsContent>
 
-              <TabsContent value="chatbot" className="space-y-6">
-                <div className="grid gap-6">
-                  <AIAssistantDashboard />
-                  <AIChatSessions />
+              <TabsContent value="management" className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <Card className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Users className="h-6 w-6 text-blue-500" />
+                      <h3 className="text-lg font-semibold">Lead Distribution</h3>
+                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">Coming Soon</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      AI-powered lead matching and distribution system
+                    </p>
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                      Create
+                    </button>
+                  </Card>
+
+                  {/* Add other management feature cards similarly */}
                 </div>
               </TabsContent>
 
               <TabsContent value="marketing" className="space-y-6">
-                <div className="grid gap-6">
-                  <AIAssistantDashboard />
-                  <AIChatSessions />
+                <div className="grid grid-cols-2 gap-6">
+                  <Card className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <FileText className="h-6 w-6 text-blue-500" />
+                      <h3 className="text-lg font-semibold">Content Generation</h3>
+                      <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">In Development</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      AI-powered SEO content and marketing material creation
+                    </p>
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                      Enhance
+                    </button>
+                  </Card>
+
+                  {/* Add other marketing feature cards similarly */}
                 </div>
               </TabsContent>
 
-              <TabsContent value="monitoring" className="space-y-6">
-                <div className="grid gap-6">
-                  <AIAssistantDashboard />
-                  <AIChatSessions />
+              <TabsContent value="chatbot" className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <Card className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Bot className="h-6 w-6 text-blue-500" />
+                      <h3 className="text-lg font-semibold">Support Chatbot</h3>
+                      <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">In Development</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      24/7 AI chatbot for homeowners and contractors
+                    </p>
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                      Enhance
+                    </button>
+                  </Card>
+
+                  {/* Add other chatbot feature cards similarly */}
                 </div>
               </TabsContent>
 
-              <TabsContent value="automation" className="space-y-6">
-                <div className="grid gap-6">
-                  <AIAssistantDashboard />
-                  <AIChatSessions />
+              <TabsContent value="growth" className="space-y-6">
+                <div className="grid grid-cols-2 gap-6">
+                  <Card className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <TrendingUp className="h-6 w-6 text-blue-500" />
+                      <h3 className="text-lg font-semibold">Growth Analytics</h3>
+                      <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">Coming Soon</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-4">
+                      AI-driven business insights and growth recommendations
+                    </p>
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                      Create
+                    </button>
+                  </Card>
+
+                  {/* Add other growth feature cards similarly */}
                 </div>
               </TabsContent>
             </Tabs>
