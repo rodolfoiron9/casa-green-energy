@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { Link } from "react-router-dom";
 
 export function RecentActivity() {
   const { data: recentActivities } = useQuery({
