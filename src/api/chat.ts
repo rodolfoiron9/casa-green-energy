@@ -1,10 +1,12 @@
 import { supabase } from "@/integrations/supabase/client";
 import { handleDeepseekRequest } from "./deepseek";
+import { Json } from "@/integrations/supabase/types";
 
 export type AIModel = "gemini" | "deepseek";
 export type ChatStatus = "active" | "completed" | "error";
 
 interface ChatMetadata {
+  [key: string]: string | number | boolean | null | undefined;
   status: ChatStatus;
   model: AIModel;
   startTime: number;
@@ -32,7 +34,7 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
       .insert({
         user_message: message,
         ai_response: '',
-        metadata,
+        metadata: metadata as Json,
         user_id: session.user.id,
       })
       .select()
@@ -58,7 +60,7 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
       .from('ai_chat_interactions')
       .update({
         ai_response: response.response,
-        metadata,
+        metadata: metadata as Json,
       })
       .eq('id', interaction.id);
 
@@ -79,7 +81,7 @@ export async function handleChatRequest(message: string, model: AIModel = "gemin
       if (session?.user?.id) {
         await supabase
           .from('ai_chat_interactions')
-          .update({ metadata })
+          .update({ metadata: metadata as Json })
           .eq('user_id', session.user.id)
           .eq('metadata->startTime', metadata.startTime);
       }
