@@ -29,10 +29,17 @@ export default function Templates() {
   const { data: templates, isLoading, error } = useQuery({
     queryKey: ["templates"],
     queryFn: async () => {
-      console.log("Fetching templates...");
+      const { data: session } = await supabase.auth.getSession();
+      if (!session?.session?.user) {
+        throw new Error("No authenticated user");
+      }
+
+      console.log("Fetching templates for user:", session.session.user.id);
+      
       const { data, error } = await supabase
         .from("templates")
         .select("*")
+        .eq('user_id', session.session.user.id)
         .order("created_at", { ascending: false });
 
       if (error) {
@@ -48,28 +55,13 @@ export default function Templates() {
     },
   });
 
-  if (isLoading) {
-    return (
-      <ProtectedRoute>
-        <AdminLayout>
-          <div className="flex items-center justify-center h-96">
-            <Loader2 className="h-8 w-8 animate-spin" />
-          </div>
-        </AdminLayout>
-      </ProtectedRoute>
-    );
-  }
-
   if (error) {
-    return (
-      <ProtectedRoute>
-        <AdminLayout>
-          <div className="flex items-center justify-center h-96">
-            <p className="text-destructive">Error loading templates</p>
-          </div>
-        </AdminLayout>
-      </ProtectedRoute>
-    );
+    console.error("Query error:", error);
+    toast({
+      variant: "destructive",
+      title: "Error",
+      description: "Failed to load templates. Please try again.",
+    });
   }
 
   return (
@@ -83,7 +75,11 @@ export default function Templates() {
             </Button>
           </div>
 
-          {templates && templates.length > 0 ? (
+          {isLoading ? (
+            <div className="flex items-center justify-center h-96">
+              <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+          ) : templates && templates.length > 0 ? (
             <div className="bg-background rounded-lg border">
               <Table>
                 <TableHeader>
