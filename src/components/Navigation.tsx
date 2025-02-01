@@ -1,7 +1,7 @@
 import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory, UserCog, LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { NavigationLink } from "./navigation/NavigationLink";
 import { NavigationSubmenu } from "./navigation/NavigationSubmenu";
 import { MobileMenu } from "./navigation/MobileMenu";
@@ -14,6 +14,8 @@ const Navigation = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { toast } = useToast();
+  const location = useLocation();
+  const isDashboard = location.pathname.startsWith('/dashboard');
 
   useEffect(() => {
     checkAuth();
@@ -90,27 +92,29 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {menuItems.map((item) => (
-                  <NavigationMenuItem key={item.title}>
-                    {item.submenu ? (
-                      <NavigationSubmenu
-                        title={item.title}
-                        icon={item.icon}
-                        items={item.submenu}
-                      />
-                    ) : (
-                      <NavigationLink
-                        href={item.href}
-                        icon={item.icon}
-                        title={item.title}
-                      />
-                    )}
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+            {!isDashboard && (
+              <NavigationMenu>
+                <NavigationMenuList>
+                  {menuItems.map((item) => (
+                    <NavigationMenuItem key={item.title}>
+                      {item.submenu ? (
+                        <NavigationSubmenu
+                          title={item.title}
+                          icon={item.icon}
+                          items={item.submenu}
+                        />
+                      ) : (
+                        <NavigationLink
+                          href={item.href}
+                          icon={item.icon}
+                          title={item.title}
+                        />
+                      )}
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+            )}
 
             <div className="flex items-center gap-3">
               {isAuthenticated ? (
@@ -144,16 +148,18 @@ const Navigation = () => {
                   <Link to="/auth">Login</Link>
                 </Button>
               )}
-              <Link to="/contact">
-                <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2">
-                  Get Quote <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
+              {!isDashboard && (
+                <Link to="/contact">
+                  <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2">
+                    Get Quote <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
 
           {/* Mobile Navigation */}
-          <MobileMenu items={menuItems} />
+          {!isDashboard && <MobileMenu items={menuItems} />}
         </div>
       </div>
     </nav>
