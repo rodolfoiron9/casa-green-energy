@@ -25,39 +25,40 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         return;
       }
 
-      // Check if user has admin role
-      const { data: userRole, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', session.user.id)
-        .maybeSingle();
+      try {
+        // Check if user has admin role
+        const { data: userRole, error } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', session.user.id)
+          .maybeSingle();
 
-      if (error) {
-        console.error('Error checking user role:', error);
+        if (error) {
+          console.error('Error checking user role:', error);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "An error occurred while checking permissions",
+          });
+          navigate("/");
+          return;
+        }
+
+        if (!userRole || userRole.role !== 'admin') {
+          toast({
+            variant: "destructive",
+            title: "Access Denied",
+            description: "You need admin privileges to access this area",
+          });
+          navigate("/");
+          return;
+        }
+      } catch (error) {
+        console.error('Error in protected route:', error);
         toast({
           variant: "destructive",
           title: "Error",
-          description: "An error occurred while checking permissions",
-        });
-        navigate("/");
-        return;
-      }
-
-      if (!userRole) {
-        toast({
-          variant: "destructive",
-          title: "Access Denied",
-          description: "You need admin privileges to access this area",
-        });
-        navigate("/");
-        return;
-      }
-
-      if (userRole.role !== 'admin') {
-        toast({
-          variant: "destructive",
-          title: "Access Denied",
-          description: "You need admin privileges to access this area",
+          description: "An unexpected error occurred",
         });
         navigate("/");
       }
