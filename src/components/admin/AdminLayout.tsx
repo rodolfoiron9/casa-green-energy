@@ -12,9 +12,30 @@ import {
   Rocket,
   Bug,
   FileText,
+  Layout,
+  FormInput,
+  Key,
+  Download,
+  UserPlus,
+  Mail,
+  HelpCircle,
+  Server,
+  FileTemplate,
+  Calendar,
 } from "lucide-react";
 
 const sidebarItems = [
+  {
+    title: "Overview",
+    items: [
+      {
+        title: "Dashboard",
+        href: "/admin/dashboard",
+        icon: <Layout className="h-4 w-4" />,
+        status: 'active' as const,
+      },
+    ],
+  },
   {
     title: "Core Features",
     items: [
@@ -59,22 +80,52 @@ const sidebarItems = [
         icon: <FileText className="h-4 w-4" />,
         status: 'active' as const,
       },
+      {
+        title: "Forms",
+        href: "/admin/forms",
+        icon: <FormInput className="h-4 w-4" />,
+        status: 'active' as const,
+      },
+      {
+        title: "FAQs",
+        href: "/admin/faqs",
+        icon: <HelpCircle className="h-4 w-4" />,
+        status: 'active' as const,
+      },
+      {
+        title: "Templates",
+        href: "/admin/templates",
+        icon: <FileTemplate className="h-4 w-4" />,
+        status: 'active' as const,
+      },
     ],
   },
   {
-    title: "Management",
+    title: "Business Management",
     items: [
       {
-        title: "Lead Distribution",
+        title: "Leads",
         href: "/admin/leads",
         icon: <Users className="h-4 w-4" />,
+        status: 'active' as const,
+      },
+      {
+        title: "Bookings",
+        href: "/admin/bookings",
+        icon: <Calendar className="h-4 w-4" />,
         status: 'coming-soon' as const,
       },
       {
-        title: "Revenue Analytics",
-        href: "/admin/revenue",
-        icon: <LineChart className="h-4 w-4" />,
-        status: 'coming-soon' as const,
+        title: "Subscribers",
+        href: "/admin/subscribers",
+        icon: <Mail className="h-4 w-4" />,
+        status: 'active' as const,
+      },
+      {
+        title: "Downloads",
+        href: "/admin/downloads",
+        icon: <Download className="h-4 w-4" />,
+        status: 'active' as const,
       },
     ],
   },
@@ -93,15 +144,34 @@ const sidebarItems = [
         icon: <Rocket className="h-4 w-4" />,
         status: 'coming-soon' as const,
       },
+      {
+        title: "Revenue Analytics",
+        href: "/admin/revenue",
+        icon: <LineChart className="h-4 w-4" />,
+        status: 'coming-soon' as const,
+      },
     ],
   },
   {
-    title: "Settings",
+    title: "System",
     items: [
+      {
+        title: "API Keys",
+        href: "/admin/api-keys",
+        icon: <Key className="h-4 w-4" />,
+        status: 'active' as const,
+      },
+      {
+        title: "Server",
+        href: "/admin/server",
+        icon: <Server className="h-4 w-4" />,
+        status: 'active' as const,
+      },
       {
         title: "Settings",
         href: "/admin/settings",
         icon: <Settings className="h-4 w-4" />,
+        status: 'active' as const,
       },
     ],
   },
