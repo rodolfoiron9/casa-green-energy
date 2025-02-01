@@ -3,6 +3,7 @@ import { AdminSidebarNav } from "./layout/AdminSidebarNav";
 import { sidebarItems, userMenuItems } from "./layout/AdminSidebarItems";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
