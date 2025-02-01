@@ -829,6 +829,13 @@ export type Database = {
         }
         Returns: boolean
       }
+      update_lead_conversion_score: {
+        Args: {
+          lead_id: number
+          conversion_score: number
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       ai_task_type:
