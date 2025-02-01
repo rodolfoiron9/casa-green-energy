@@ -1,6 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -9,50 +7,55 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import { TableInfo, TableName } from "@/types/database";
+import { toast } from "sonner";
 
-interface TableInfo {
-  name: string;
-  rowCount: number;
-  lastUpdated: string;
-}
+const TABLES: TableName[] = [
+  "content",
+  "leads",
+  "blog_posts",
+  "marketing_campaigns",
+  "subscribers"
+];
 
 export function DatabaseTables() {
   const { data: tables } = useQuery({
-    queryKey: ['databaseTables'],
+    queryKey: ["database-tables"],
     queryFn: async () => {
-      const tableNames = [
-        'leads',
-        'ai_chat_interactions',
-        'marketing_campaigns',
-        'ai_content',
-        'marketing_content',
-        'lead_interactions'
-      ];
-      
-      const tablesInfo = await Promise.all(
-        tableNames.map(async (table): Promise<TableInfo> => {
-          const { count } = await supabase
-            .from(table)
-            .select('*', { count: 'exact', head: true });
-          
-          const { data: lastRecord } = await supabase
-            .from(table)
-            .select('updated_at')
-            .order('updated_at', { ascending: false })
-            .limit(1)
-            .single();
+      const results = await Promise.all(
+        TABLES.map(async (tableName) => {
+          const { count, error: countError } = await supabase
+            .from(tableName)
+            .select("*", { count: "exact", head: true });
+
+          if (countError) {
+            toast.error(`Error fetching ${tableName} count: ${countError.message}`);
+            return null;
+          }
+
+          const { data: lastRecord, error: lastRecordError } = await supabase
+            .from(tableName)
+            .select("updated_at")
+            .order("updated_at", { ascending: false })
+            .limit(1);
+
+          if (lastRecordError) {
+            toast.error(`Error fetching ${tableName} last update: ${lastRecordError.message}`);
+            return null;
+          }
 
           return {
-            name: table,
-            rowCount: count || 0,
-            lastUpdated: lastRecord?.updated_at || new Date().toISOString()
-          };
+            table_name: tableName,
+            row_count: count || 0,
+            last_updated: lastRecord?.[0]?.updated_at || "Never"
+          } as TableInfo;
         })
       );
 
-      return tablesInfo;
-    },
+      return results.filter((result): result is TableInfo => result !== null);
+    }
   });
 
   return (
@@ -67,19 +70,18 @@ export function DatabaseTables() {
               <TableHead>Table Name</TableHead>
               <TableHead>Row Count</TableHead>
               <TableHead>Last Updated</TableHead>
-              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {tables?.map((table) => (
-              <TableRow key={table.name}>
-                <TableCell className="font-medium">{table.name}</TableCell>
-                <TableCell>{table.rowCount}</TableCell>
-                <TableCell>{new Date(table.lastUpdated).toLocaleString()}</TableCell>
+              <TableRow key={table.table_name}>
+                <TableCell className="font-medium">
+                  {table.table_name.charAt(0).toUpperCase() + 
+                   table.table_name.slice(1).replace(/_/g, ' ')}
+                </TableCell>
+                <TableCell>{table.row_count}</TableCell>
                 <TableCell>
-                  <Badge variant="outline" className="bg-green-500/10 text-green-500">
-                    Active
-                  </Badge>
+                  {new Date(table.last_updated).toLocaleString()}
                 </TableCell>
               </TableRow>
             ))}
