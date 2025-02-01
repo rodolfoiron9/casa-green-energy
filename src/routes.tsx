@@ -5,6 +5,7 @@ import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
+import AIChatPage from "@/pages/admin/AIChatPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,5 +31,9 @@ export const router = createBrowserRouter([
   {
     path: "/services",
     element: <Services />,
+  },
+  {
+    path: "/admin/ai-chat",
+    element: <AIChatPage />,
   },
 ]);
