@@ -764,6 +764,7 @@ export type Database = {
           created_at: string
           id: string
           name: string
+          type: Database["public"]["Enums"]["template_type"] | null
           updated_at: string
           user_id: string
         }
@@ -772,6 +773,7 @@ export type Database = {
           created_at?: string
           id?: string
           name: string
+          type?: Database["public"]["Enums"]["template_type"] | null
           updated_at?: string
           user_id: string
         }
@@ -780,6 +782,7 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string
+          type?: Database["public"]["Enums"]["template_type"] | null
           updated_at?: string
           user_id?: string
         }
@@ -856,6 +859,7 @@ export type Database = {
       lead_type: "homeowner" | "landlord" | "tenant"
       property_type: "house" | "apartment" | "commercial"
       service_type: "plumbing" | "electrical" | "heating" | "maintenance"
+      template_type: "page" | "email" | "form"
     }
     CompositeTypes: {
       [_ in never]: never

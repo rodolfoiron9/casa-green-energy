@@ -7,6 +7,7 @@ import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import Admin from "@/pages/admin/Admin";
 import BlogManagement from "@/pages/admin/BlogManagement";
+import Templates from "@/pages/admin/Templates";
 
 // Create placeholder components for new routes
 const PlaceholderPage = () => (
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
     path: "/admin/blog",
     element: <BlogManagement />,
   },
+  {
+    path: "/admin/templates",
+    element: <Templates />,
+  },
   // New admin routes
   {
     path: "/admin/forms",
@@ -80,10 +85,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin/subscribers",
-    element: <PlaceholderPage />,
-  },
-  {
-    path: "/admin/templates",
     element: <PlaceholderPage />,
   },
   {
