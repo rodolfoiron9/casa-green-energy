@@ -8,7 +8,7 @@ import Services from "@/pages/Services";
 import Dashboard from "@/pages/admin/Dashboard";
 import Activity from "@/pages/admin/Activity";
 import AIChatPage from "@/pages/admin/AIChatPage";
-import { AdminLayout } from "@/components/admin/AdminLayout";
+import { AdminLayout } from "@/components/admin/layout/AdminLayout";
 
 export const router = createBrowserRouter([
   {
