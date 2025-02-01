@@ -6,6 +6,7 @@ import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import AIChatPage from "@/pages/admin/AIChatPage";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,13 @@ export const router = createBrowserRouter([
     element: <Services />,
   },
   {
-    path: "/admin/ai-chat",
-    element: <AIChatPage />,
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "ai-chat",
+        element: <AIChatPage />,
+      },
+    ],
   },
 ]);
