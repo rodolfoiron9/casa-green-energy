@@ -20,7 +20,6 @@ import {
   Mail,
   HelpCircle,
   Server,
-  FileText2,
   Calendar,
 } from "lucide-react";
 
@@ -95,7 +94,7 @@ const sidebarItems = [
       {
         title: "Templates",
         href: "/admin/templates",
-        icon: <FileText2 className="h-4 w-4" />,
+        icon: <FileText className="h-4 w-4" />,
         status: 'active' as const,
       },
     ],
