@@ -6,6 +6,7 @@ import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import Admin from "@/pages/admin/Admin";
+import BlogManagement from "@/pages/admin/BlogManagement";
 
 export const router = createBrowserRouter([
   {
@@ -35,5 +36,9 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/admin/blog",
+    element: <BlogManagement />,
   },
 ]);

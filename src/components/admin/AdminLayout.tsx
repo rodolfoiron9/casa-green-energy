@@ -11,6 +11,7 @@ import {
   Bot,
   Rocket,
   Bug,
+  FileText,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -46,6 +47,17 @@ const sidebarItems = [
         href: "/admin/bugs",
         icon: <Bug className="h-4 w-4" />,
         status: 'in-development' as const,
+      },
+    ],
+  },
+  {
+    title: "Content Management",
+    items: [
+      {
+        title: "Blog Posts",
+        href: "/admin/blog",
+        icon: <FileText className="h-4 w-4" />,
+        status: 'active' as const,
       },
     ],
   },
