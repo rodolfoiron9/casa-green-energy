@@ -1,4 +1,4 @@
-import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory } from "lucide-react";
+import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory, UserCog } from "lucide-react";
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Link } from "react-router-dom";
@@ -6,8 +6,52 @@ import { NavigationLink } from "./navigation/NavigationLink";
 import { NavigationSubmenu } from "./navigation/NavigationSubmenu";
 import { MobileMenu } from "./navigation/MobileMenu";
 import { MenuItem } from "./navigation/types";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "./ui/use-toast";
 
 const Navigation = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      setIsAuthenticated(true);
+      // Check if user has admin role
+      const { data: userRole } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .single();
+      
+      setIsAdmin(userRole?.role === 'admin');
+    }
+  };
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    } else {
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out.",
+      });
+      setIsAuthenticated(false);
+      setIsAdmin(false);
+    }
+  };
+
   const menuItems: MenuItem[] = [
     { title: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
     { 
@@ -68,11 +112,44 @@ const Navigation = () => {
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
-            <Link to="/contact">
-              <Button className="bg-casa-blue text-white hover:bg-casa-blue/90 flex items-center gap-2">
-                Get Quote <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+
+            <div className="flex items-center gap-2">
+              {isAuthenticated ? (
+                <>
+                  {isAdmin && (
+                    <Button
+                      variant="outline"
+                      className="flex items-center gap-2"
+                      asChild
+                    >
+                      <Link to="/dashboard">
+                        <UserCog className="w-4 h-4" />
+                        Admin
+                      </Link>
+                    </Button>
+                  )}
+                  <Button
+                    variant="destructive"
+                    onClick={handleLogout}
+                    className="bg-red-500 hover:bg-red-600"
+                  >
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  className="bg-casa-blue text-white hover:bg-casa-blue/90"
+                  asChild
+                >
+                  <Link to="/auth">Login</Link>
+                </Button>
+              )}
+              <Link to="/contact">
+                <Button className="bg-casa-blue text-white hover:bg-casa-blue/90 flex items-center gap-2">
+                  Get Quote <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Navigation */}
