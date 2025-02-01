@@ -1,4 +1,5 @@
 import {
+  LayoutDashboard,
   Database,
   Monitor,
   MessageSquare,
@@ -8,12 +9,9 @@ import {
   LineChart,
   Bot,
   Rocket,
-  Bug,
   FileText,
-  Layout,
   FormInput,
   Key,
-  Download,
   Mail,
   HelpCircle,
   Server,
@@ -39,42 +37,13 @@ export const sidebarItems: SidebarSection[] = [
       {
         title: "Dashboard",
         href: "/admin",
-        icon: <Layout className="h-4 w-4" />,
+        icon: <LayoutDashboard className="h-4 w-4" />,
         status: 'active',
       },
     ],
   },
   {
-    title: "Core Features",
-    items: [
-      {
-        title: "Database Management",
-        href: "/admin/database",
-        icon: <Database className="h-4 w-4" />,
-        status: 'active',
-      },
-      {
-        title: "System Monitoring",
-        href: "/admin/monitoring",
-        icon: <Monitor className="h-4 w-4" />,
-        status: 'active',
-      },
-      {
-        title: "Chat Interface",
-        href: "/admin/chat",
-        icon: <MessageSquare className="h-4 w-4" />,
-        status: 'active',
-      },
-      {
-        title: "Code Management",
-        href: "/admin/code",
-        icon: <Code className="h-4 w-4" />,
-        status: 'in-development',
-      },
-    ],
-  },
-  {
-    title: "Content Management",
+    title: "Content",
     items: [
       {
         title: "Blog Posts",
@@ -97,7 +66,7 @@ export const sidebarItems: SidebarSection[] = [
     ],
   },
   {
-    title: "Business Management",
+    title: "Business",
     items: [
       {
         title: "Leads",
@@ -112,7 +81,7 @@ export const sidebarItems: SidebarSection[] = [
         status: 'coming-soon',
       },
       {
-        title: "Subscribers",
+        title: "Email List",
         href: "/admin/subscribers",
         icon: <Mail className="h-4 w-4" />,
         status: 'active',
@@ -120,36 +89,65 @@ export const sidebarItems: SidebarSection[] = [
     ],
   },
   {
-    title: "Marketing & Growth",
+    title: "System",
     items: [
       {
-        title: "Content Generation",
+        title: "Database",
+        href: "/admin/database",
+        icon: <Database className="h-4 w-4" />,
+        status: 'active',
+      },
+      {
+        title: "Monitoring",
+        href: "/admin/monitoring",
+        icon: <Monitor className="h-4 w-4" />,
+        status: 'active',
+      },
+      {
+        title: "Chat",
+        href: "/admin/chat",
+        icon: <MessageSquare className="h-4 w-4" />,
+        status: 'active',
+      },
+    ],
+  },
+  {
+    title: "AI & Analytics",
+    items: [
+      {
+        title: "Content Bot",
         href: "/admin/content",
         icon: <Bot className="h-4 w-4" />,
         status: 'in-development',
       },
       {
-        title: "Growth Analytics",
+        title: "Growth",
         href: "/admin/growth",
         icon: <Rocket className="h-4 w-4" />,
         status: 'coming-soon',
       },
       {
-        title: "Revenue Analytics",
-        href: "/admin/revenue",
+        title: "Analytics",
+        href: "/admin/analytics",
         icon: <LineChart className="h-4 w-4" />,
         status: 'coming-soon',
       },
     ],
   },
   {
-    title: "System",
+    title: "Development",
     items: [
       {
         title: "API Keys",
         href: "/admin/api-keys",
         icon: <Key className="h-4 w-4" />,
         status: 'active',
+      },
+      {
+        title: "Code",
+        href: "/admin/code",
+        icon: <Code className="h-4 w-4" />,
+        status: 'in-development',
       },
       {
         title: "Server",

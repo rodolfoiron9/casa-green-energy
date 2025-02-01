@@ -32,10 +32,11 @@ export function AdminSidebarNav({ className, items, ...props }: SidebarNavProps)
             variant="ghost"
             className={cn(
               "w-full justify-start gap-2",
-              location.pathname === item.href && "bg-accent",
-              item.status === 'coming-soon' && "opacity-70",
+              location.pathname === item.href && "bg-accent text-accent-foreground",
+              item.status === 'coming-soon' && "opacity-50 cursor-not-allowed",
               item.status === 'in-development' && "text-blue-500"
             )}
+            disabled={item.status === 'coming-soon'}
           >
             {item.icon}
             <span>{item.title}</span>
