@@ -6,9 +6,10 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { handleChatRequest } from "@/api/chat";
 import { supabase } from "@/integrations/supabase/client";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const placeholderPosts = [
   {
@@ -43,6 +44,103 @@ export default function BlogPosts() {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostContent, setNewPostContent] = useState("");
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const { data: user } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      return user;
+    },
+  });
+
+  const createPostMutation = useMutation({
+    mutationFn: async ({ title, content, published }: { title: string, content: string, published: boolean }) => {
+      if (!user?.id) throw new Error("User not authenticated");
+      
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .insert({
+          title,
+          content,
+          published,
+          user_id: user.id
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blog_posts'] });
+      toast({
+        title: "Success",
+        description: "Blog post created successfully!",
+      });
+      setIsCreateDialogOpen(false);
+      setNewPostTitle("");
+      setNewPostContent("");
+    },
+    onError: (error) => {
+      console.error('Error creating post:', error);
+      toast({
+        title: "Error",
+        description: "Failed to create post. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const generateContent = async () => {
+    if (!newPostTitle) {
+      toast({
+        title: "Error",
+        description: "Please enter a title first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsGeneratingContent(true);
+    try {
+      const prompt = `Write a comprehensive blog post about "${newPostTitle}" for a home energy solutions company. Include key benefits, technical details, and practical advice. Format the content with proper markdown headings and paragraphs. Focus on SEO optimization for keywords related to energy efficiency, heat pumps, and home improvements.`;
+      
+      const response = await handleChatRequest(prompt);
+      setNewPostContent(response.response);
+      
+      toast({
+        title: "Content Generated",
+        description: "AI has generated SEO-optimized content based on your title. Feel free to edit it!",
+      });
+    } catch (error) {
+      console.error('Error generating content:', error);
+      toast({
+        title: "Error",
+        description: "Failed to generate content. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGeneratingContent(false);
+    }
+  };
+
+  const createPost = () => {
+    if (!newPostTitle || !newPostContent) {
+      toast({
+        title: "Error",
+        description: "Please fill in both title and content",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    createPostMutation.mutate({
+      title: newPostTitle,
+      content: newPostContent,
+      published: false
+    });
+  };
 
   const stats = [
     {
@@ -70,81 +168,6 @@ export default function BlogPosts() {
       description: "Total comments",
     },
   ];
-
-  const generateContent = async () => {
-    if (!newPostTitle) {
-      toast({
-        title: "Error",
-        description: "Please enter a title first",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsGeneratingContent(true);
-    try {
-      const prompt = `Write a comprehensive blog post about "${newPostTitle}" for a home energy solutions company. Include key benefits, technical details, and practical advice. Format the content with proper markdown headings and paragraphs.`;
-      
-      const response = await handleChatRequest(prompt);
-      setNewPostContent(response.response);
-      
-      toast({
-        title: "Content Generated",
-        description: "AI has generated content based on your title. Feel free to edit it!",
-      });
-    } catch (error) {
-      console.error('Error generating content:', error);
-      toast({
-        title: "Error",
-        description: "Failed to generate content. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsGeneratingContent(false);
-    }
-  };
-
-  const createPost = async () => {
-    if (!newPostTitle || !newPostContent) {
-      toast({
-        title: "Error",
-        description: "Please fill in both title and content",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      const { error } = await supabase
-        .from('blog_posts')
-        .insert([
-          {
-            title: newPostTitle,
-            content: newPostContent,
-            published: false,
-          }
-        ]);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Blog post created successfully!",
-      });
-      
-      setIsCreateDialogOpen(false);
-      setNewPostTitle("");
-      setNewPostContent("");
-      
-    } catch (error) {
-      console.error('Error creating post:', error);
-      toast({
-        title: "Error",
-        description: "Failed to create post. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -233,7 +256,7 @@ export default function BlogPosts() {
           <DialogHeader>
             <DialogTitle>Create New Blog Post</DialogTitle>
             <DialogDescription>
-              Create a new blog post or let AI help you generate content
+              Create a new blog post or let AI help you generate SEO-optimized content
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -265,8 +288,11 @@ export default function BlogPosts() {
               <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button onClick={createPost}>
-                Create Post
+              <Button 
+                onClick={createPost}
+                disabled={createPostMutation.isPending}
+              >
+                {createPostMutation.isPending ? "Creating..." : "Create Post"}
               </Button>
             </div>
           </div>
