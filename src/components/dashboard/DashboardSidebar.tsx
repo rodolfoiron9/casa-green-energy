@@ -65,7 +65,7 @@ export function DashboardSidebar() {
         
         <SidebarGroup>
           <SidebarGroupLabel>Management</SidebarGroupLabel>
-          <SidebarGroupContent>
+          <SidebarContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
@@ -78,7 +78,7 @@ export function DashboardSidebar() {
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
-          </SidebarGroupContent>
+          </SidebarContent>
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
