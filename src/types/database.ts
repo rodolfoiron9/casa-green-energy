@@ -4,7 +4,12 @@ export type TableName =
   | "blog_posts"
   | "marketing_campaigns"
   | "subscribers"
-  | "templates";
+  | "templates"
+  | "ai_analytics"
+  | "ai_chat_interactions"
+  | "ai_content"
+  | "ai_tasks"
+  | "profiles";
 
 export interface TableInfo {
   table_name: TableName;

@@ -4,23 +4,29 @@ import { RefreshCw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { TableName } from "@/types/database";
-import { useToast } from "@/components/ui/use-toast";
-
-interface TableInfo {
-  table_name: TableName;
-  row_count: number;
-  last_updated: string;
-}
+import { useToast } from "@/hooks/use-toast";
 
 export function DatabaseTables() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  const tableNames: TableName[] = [
+    "content",
+    "leads", 
+    "blog_posts",
+    "marketing_campaigns",
+    "subscribers",
+    "templates",
+    "ai_analytics",
+    "ai_chat_interactions",
+    "ai_content",
+    "ai_tasks",
+    "profiles"
+  ];
+
   const { data: tables, isLoading } = useQuery({
     queryKey: ["database-tables"],
     queryFn: async () => {
-      const tableNames: TableName[] = ["content", "leads", "blog_posts", "marketing_campaigns", "subscribers", "templates"];
-      
       const tablesInfo = await Promise.all(
         tableNames.map(async (tableName) => {
           const { count: rowCount } = await supabase
