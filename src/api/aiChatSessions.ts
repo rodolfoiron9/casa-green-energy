@@ -30,7 +30,7 @@ export async function fetchChatSessions(limit = 10) {
     // Transform the data to ensure metadata is properly typed
     return (data || []).map(session => ({
       ...session,
-      metadata: session.metadata as ChatMetadata
+      metadata: session.metadata as unknown as ChatMetadata
     })) as AIChatSession[];
   } catch (error: any) {
     console.error('Error fetching chat sessions:', error);
@@ -59,7 +59,10 @@ export async function updateChatSession(sessionId: string, updates: Partial<AICh
   try {
     const { error } = await supabase
       .from('ai_chat_interactions')
-      .update(updates)
+      .update({
+        ...updates,
+        metadata: updates.metadata as unknown as Json
+      })
       .eq('id', sessionId);
 
     if (error) throw error;
@@ -84,7 +87,7 @@ export async function getChatSessionById(sessionId: string) {
     if (data) {
       return {
         ...data,
-        metadata: data.metadata as ChatMetadata
+        metadata: data.metadata as unknown as ChatMetadata
       } as AIChatSession;
     }
     
