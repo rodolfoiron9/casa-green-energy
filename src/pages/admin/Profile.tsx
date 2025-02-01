@@ -14,11 +14,15 @@ export default function Profile() {
     full_name: string | null;
     avatar_url: string | null;
   } | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.user?.id) return;
+
+      // Set email from auth session
+      setUserEmail(session.user.email);
 
       const { data, error } = await supabase
         .from('profiles')
@@ -69,7 +73,7 @@ export default function Profile() {
                   <Input
                     id="email"
                     type="email"
-                    value={profile?.email || ''}
+                    value={userEmail || ''}
                     disabled
                     className="w-full bg-gray-100"
                   />
