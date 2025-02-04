@@ -4,6 +4,9 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AIAssistant } from "@/components/admin/AIAssistant";
+import { LeadsManagement } from "@/components/admin/LeadsManagement";
+import { ActivityLog } from "@/components/admin/ActivityLog";
+import { SettingsPanel } from "@/components/admin/SettingsPanel";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { 
@@ -86,10 +89,7 @@ const Dashboard = () => {
           </TabsContent>
 
           <TabsContent value="leads">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Leads Management</h2>
-              <p>Leads management interface coming soon...</p>
-            </Card>
+            <LeadsManagement />
           </TabsContent>
 
           <TabsContent value="content">
@@ -107,17 +107,11 @@ const Dashboard = () => {
           </TabsContent>
 
           <TabsContent value="activity">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Activity Log</h2>
-              <p>Activity log interface coming soon...</p>
-            </Card>
+            <ActivityLog />
           </TabsContent>
 
           <TabsContent value="settings">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Settings</h2>
-              <p>Settings interface coming soon...</p>
-            </Card>
+            <SettingsPanel />
           </TabsContent>
         </Tabs>
       </div>
