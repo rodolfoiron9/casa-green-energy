@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { SettingItem } from "./SettingItem";
 
 interface Setting {
   id: string;
@@ -39,15 +40,11 @@ export const SettingsList = () => {
   return (
     <div className="space-y-4">
       {settings.map((setting) => (
-        <div
+        <SettingItem
           key={setting.id}
-          className="p-4 border rounded-lg bg-background/50"
-        >
-          <div className="font-medium">{setting.key}</div>
-          <div className="text-sm text-muted-foreground">
-            {JSON.stringify(setting.value)}
-          </div>
-        </div>
+          settingKey={setting.key}
+          settingValue={setting.value}
+        />
       ))}
     </div>
   );

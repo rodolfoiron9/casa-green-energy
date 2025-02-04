@@ -1,21 +1,27 @@
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { Card } from "@/components/ui/card";
+import { Plus } from "lucide-react";
+
+interface NewSetting {
+  key: string;
+  value: any;
+}
 
 export const NewSettingForm = () => {
+  const [newSetting, setNewSetting] = useState<NewSetting>({ key: "", value: "" });
   const { toast } = useToast();
-  const [newSetting, setNewSetting] = useState<{ key: string; value: any }>({
-    key: "",
-    value: "",
-  });
 
-  const handleAddSetting = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { session } } = await supabase.auth.getSession();
       
-      if (!user) {
+      if (!session) {
         toast({
           variant: "destructive",
           title: "Error",
@@ -24,13 +30,11 @@ export const NewSettingForm = () => {
         return;
       }
 
-      const { error } = await supabase
-        .from("admin_settings")
-        .insert({
-          key: newSetting.key,
-          value: newSetting.value,
-          user_id: user.id,
-        });
+      const { error } = await supabase.from("admin_settings").insert({
+        key: newSetting.key,
+        value: newSetting.value,
+        user_id: session.user.id,
+      });
 
       if (error) throw error;
 
@@ -51,18 +55,31 @@ export const NewSettingForm = () => {
   };
 
   return (
-    <div className="flex gap-4 mb-6">
-      <Input
-        placeholder="Setting Key"
-        value={newSetting.key}
-        onChange={(e) => setNewSetting({ ...newSetting, key: e.target.value })}
-      />
-      <Input
-        placeholder="Setting Value"
-        value={newSetting.value}
-        onChange={(e) => setNewSetting({ ...newSetting, value: e.target.value })}
-      />
-      <Button onClick={handleAddSetting}>Add Setting</Button>
-    </div>
+    <Card className="p-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex flex-col space-y-2">
+          <Input
+            placeholder="Setting key"
+            value={newSetting.key}
+            onChange={(e) =>
+              setNewSetting({ ...newSetting, key: e.target.value })
+            }
+            required
+          />
+          <Input
+            placeholder="Setting value"
+            value={newSetting.value}
+            onChange={(e) =>
+              setNewSetting({ ...newSetting, value: e.target.value })
+            }
+            required
+          />
+        </div>
+        <Button type="submit" className="w-full">
+          <Plus className="w-4 h-4 mr-2" />
+          Add Setting
+        </Button>
+      </form>
+    </Card>
   );
 };
