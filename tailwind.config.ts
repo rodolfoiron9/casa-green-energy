@@ -21,7 +21,7 @@ export default {
       colors: {
         casa: {
           navy: "#001F3F",
-          gold: "#FFFFFF", // Changed from gold to white
+          gold: "#FFFFFF", // Base color is white
           blue: "#0066cc",
         },
         border: "hsl(var(--border))",
@@ -86,7 +86,7 @@ export default {
             boxShadow: "0 0 5px rgba(255, 255, 255, 0.2)",
           },
           "50%": {
-            boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)",
+            boxShadow: "0 0 20px #FFD700",
           },
         },
       },

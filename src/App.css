@@ -25,13 +25,13 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 1em rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 1em #FFD700);
   transform: scale(1.05);
   animation: glow 2s ease-in-out infinite;
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 2em #FFD700);
 }
 
 @keyframes logo-spin {
