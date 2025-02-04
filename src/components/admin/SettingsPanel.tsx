@@ -7,10 +7,16 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import type { Json } from "@/integrations/supabase/types";
+
+interface SettingInput {
+  key: string;
+  value: string;
+}
 
 export const SettingsPanel = () => {
   const { toast } = useToast();
-  const [newSetting, setNewSetting] = useState({ key: "", value: "" });
+  const [newSetting, setNewSetting] = useState<SettingInput>({ key: "", value: "" });
 
   const { data: settings, isLoading } = useQuery({
     queryKey: ["settings"],
@@ -27,12 +33,17 @@ export const SettingsPanel = () => {
 
   const handleSaveSetting = async () => {
     try {
-      const { error } = await supabase.from("admin_settings").insert([
-        {
-          key: newSetting.key,
-          value: JSON.parse(newSetting.value),
-        },
-      ]);
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        throw new Error("User not authenticated");
+      }
+
+      const { error } = await supabase.from("admin_settings").insert({
+        key: newSetting.key,
+        value: JSON.parse(newSetting.value) as Json,
+        user_id: user.id
+      });
 
       if (error) throw error;
 
@@ -43,6 +54,7 @@ export const SettingsPanel = () => {
 
       setNewSetting({ key: "", value: "" });
     } catch (error) {
+      console.error("Error saving setting:", error);
       toast({
         variant: "destructive",
         title: "Error",
