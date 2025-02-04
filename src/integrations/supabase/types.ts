@@ -395,6 +395,48 @@ export type Database = {
           },
         ]
       }
+      bookings: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_time: string
+          id: string
+          metadata: Json | null
+          reminder_sent: boolean | null
+          start_time: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_time: string
+          id?: string
+          metadata?: Json | null
+          reminder_sent?: boolean | null
+          start_time: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_time?: string
+          id?: string
+          metadata?: Json | null
+          reminder_sent?: boolean | null
+          start_time?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       books: {
         Row: {
           author: string
@@ -682,6 +724,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      guides: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          download_count: number | null
+          file_url: string
+          id: string
+          is_ai_generated: boolean | null
+          last_updated_by_ai: string | null
+          metadata: Json | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          download_count?: number | null
+          file_url: string
+          id?: string
+          is_ai_generated?: boolean | null
+          last_updated_by_ai?: string | null
+          metadata?: Json | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          download_count?: number | null
+          file_url?: string
+          id?: string
+          is_ai_generated?: boolean | null
+          last_updated_by_ai?: string | null
+          metadata?: Json | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       lead_analytics: {
         Row: {

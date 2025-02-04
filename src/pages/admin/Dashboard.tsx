@@ -12,6 +12,8 @@ import { ServiceStatus } from "@/components/admin/dashboard/ServiceStatus";
 import { ContentGenerator } from "@/components/admin/content/ContentGenerator";
 import { AIContentList } from "@/components/admin/content/AIContentList";
 import { ChatbotManagement } from "@/components/admin/ChatbotManagement";
+import { BookingCalendar } from "@/components/admin/bookings/BookingCalendar";
+import { GuidesManager } from "@/components/admin/guides/GuidesManager";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -23,7 +25,9 @@ import {
   Settings,
   Activity,
   Wand2,
-  Bot
+  Bot,
+  Calendar,
+  BookOpen
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -87,6 +91,14 @@ const Dashboard = () => {
               <Bot className="w-4 h-4" />
               Chatbot
             </TabsTrigger>
+            <TabsTrigger value="bookings" className="flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              Bookings
+            </TabsTrigger>
+            <TabsTrigger value="guides" className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              Guides
+            </TabsTrigger>
             <TabsTrigger value="activity" className="flex items-center gap-2">
               <Activity className="w-4 h-4" />
               Activity
@@ -125,6 +137,20 @@ const Dashboard = () => {
 
           <TabsContent value="chatbot">
             <ChatbotManagement />
+          </TabsContent>
+
+          <TabsContent value="bookings">
+            <Card className="p-6">
+              <h2 className="text-2xl font-bold mb-4">Booking Management</h2>
+              <BookingCalendar />
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="guides">
+            <Card className="p-6">
+              <h2 className="text-2xl font-bold mb-4">Guides & Downloads</h2>
+              <GuidesManager />
+            </Card>
           </TabsContent>
 
           <TabsContent value="activity">
