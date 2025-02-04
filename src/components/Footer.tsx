@@ -66,15 +66,15 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-casa-navy">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-casa-navy/80">
-                <MapPin size={16} color="#F2FCE2" />
+                <MapPin {...iconProps} />
                 <span>123 Green Street, Eco City, EC 12345</span>
               </div>
               <div className="flex items-center space-x-3 text-casa-navy/80">
-                <Phone size={16} color="#F2FCE2" />
+                <Phone {...iconProps} />
                 <span>+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center space-x-3 text-casa-navy/80">
-                <Mail size={16} color="#F2FCE2" />
+                <Mail {...iconProps} />
                 <span>contact@casagreen.energy</span>
               </div>
             </div>
