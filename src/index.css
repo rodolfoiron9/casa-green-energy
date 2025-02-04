@@ -61,7 +61,12 @@
   }
   
   h1, h2, h3 {
-    @apply text-white;
+    @apply text-casa-navy;
+  }
+
+  /* Add standard page layout class */
+  .standard-page {
+    @apply min-h-screen bg-gradient-to-br from-[#f1f1f1] to-[#e5e5e5] pt-24;
   }
 }
 
