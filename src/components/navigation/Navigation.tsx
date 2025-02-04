@@ -45,17 +45,27 @@ export function Navigation() {
   };
 
   return (
-    <nav className="bg-casa-navy text-white p-4">
+    <nav className="bg-gradient-to-r from-casa-navy to-casa-blue/90 text-white p-4 backdrop-blur-lg border-b border-white/10">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold">Casa</Link>
+        <Link to="/" className="text-2xl font-bold text-casa-gold hover:text-casa-gold/90 transition-colors">
+          Casa
+        </Link>
         
         <div className="flex items-center space-x-4">
           {isAdmin && (
-            <Button variant="outline" asChild>
+            <Button 
+              variant="ghost" 
+              asChild
+              className="text-white hover:text-casa-gold hover:bg-white/10 transition-all duration-300"
+            >
               <Link to="/dashboard">Dashboard</Link>
             </Button>
           )}
-          <Button variant="outline" onClick={handleLogout}>
+          <Button 
+            variant="outline" 
+            onClick={handleLogout}
+            className="border-white/20 text-white hover:bg-white/10 hover:text-casa-gold transition-all duration-300"
+          >
             Logout
           </Button>
         </div>
