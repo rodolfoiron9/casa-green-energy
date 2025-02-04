@@ -9,17 +9,21 @@ import {
 } from "@/components/ui/table";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Activity, History } from "lucide-react";
+import { Activity } from "lucide-react";
 
-export const ActivityLog = () => {
+interface ActivityLogProps {
+  limit?: number;
+}
+
+export const ActivityLog = ({ limit = 50 }: ActivityLogProps) => {
   const { data: activities, isLoading } = useQuery({
-    queryKey: ["activities"],
+    queryKey: ["activities", limit],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("admin_activity_logs")
         .select("*")
         .order("created_at", { ascending: false })
-        .limit(50);
+        .limit(limit);
 
       if (error) throw error;
       return data;
