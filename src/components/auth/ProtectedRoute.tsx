@@ -26,11 +26,10 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       }
 
       try {
-        const { data: userRole, error } = await supabase
+        const { data: userRoles, error } = await supabase
           .from('user_roles')
           .select('role')
-          .eq('user_id', session.user.id)
-          .maybeSingle();
+          .eq('user_id', session.user.id);
 
         if (error) {
           console.error('Error checking user role:', error);
@@ -43,8 +42,8 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
           return;
         }
 
-        // If no role exists or role is not admin
-        if (!userRole || userRole.role !== 'admin') {
+        // If no roles exist or none are admin
+        if (!userRoles || userRoles.length === 0 || !userRoles.some(role => role.role === 'admin')) {
           console.log('Access denied - User does not have admin role:', session.user.id);
           toast({
             variant: "destructive",
