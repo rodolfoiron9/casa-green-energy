@@ -23,7 +23,7 @@ const Navigation = () => {
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/dashboard');
 
-  const iconProps = { size: 20, color: "#0066cc" };
+  const iconProps = { size: 20, color: "#403E43" };
 
   useEffect(() => {
     checkAuth();
@@ -91,12 +91,12 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#f1f1f1] to-[#e5e5e5] shadow-lg">
+    <nav className="fixed top-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link 
             to="/" 
-            className="text-2xl font-bold text-[#FFD700] flex items-center gap-2"
+            className="text-2xl font-bold text-[#403E43] flex items-center gap-2 hover:text-[#221F26] transition-colors"
           >
             CASA
           </Link>
@@ -105,7 +105,7 @@ const Navigation = () => {
           <div className="hidden md:flex items-center gap-6">
             {!isDashboard && (
               <NavigationMenu>
-                <NavigationMenuList className="text-casa-blue">
+                <NavigationMenuList className="text-[#403E43]">
                   {menuItems.map((item) => (
                     <NavigationMenuItem key={item.title}>
                       {item.submenu ? (
@@ -135,21 +135,21 @@ const Navigation = () => {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="outline"
-                          className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2"
+                          className="bg-[#F6F6F7] text-[#403E43] hover:bg-[#E5E5E6] border-gray-200 flex items-center gap-2"
                         >
                           <UserCog {...iconProps} />
                           Admin
                           <ChevronDown className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuContent align="end" className="bg-white border border-gray-200">
                         <DropdownMenuItem asChild>
-                          <Link to="/dashboard" className="flex items-center gap-2">
+                          <Link to="/dashboard" className="flex items-center gap-2 text-[#403E43] hover:text-[#221F26]">
                             <UserCog {...iconProps} />
                             Admin Panel
                           </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2">
+                        <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 text-[#403E43] hover:text-[#221F26]">
                           <LogOut {...iconProps} />
                           Logout
                         </DropdownMenuItem>
@@ -159,7 +159,7 @@ const Navigation = () => {
                 </div>
               ) : (
                 <Button
-                  className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2"
+                  className="bg-[#403E43] text-white hover:bg-[#221F26] transition-colors flex items-center gap-2"
                   asChild
                 >
                   <Link to="/auth">Login</Link>
@@ -167,8 +167,8 @@ const Navigation = () => {
               )}
               {!isDashboard && (
                 <Link to="/contact">
-                  <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2">
-                    Get Quote <ArrowRight {...iconProps} />
+                  <Button className="bg-[#403E43] text-white hover:bg-[#221F26] transition-colors flex items-center gap-2">
+                    Get Quote <ArrowRight {...iconProps} className="text-white" />
                   </Button>
                 </Link>
               )}
