@@ -33,45 +33,63 @@ export const BookingCalendar = () => {
   });
 
   const handleCreateBooking = async () => {
-    if (!date || !startTime || !endTime || !title) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Please fill in all required fields",
-      });
-      return;
-    }
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "You must be logged in to create a booking",
+        });
+        return;
+      }
 
-    const startDateTime = new Date(`${date.toISOString().split('T')[0]}T${startTime}`);
-    const endDateTime = new Date(`${date.toISOString().split('T')[0]}T${endTime}`);
+      if (!date || !startTime || !endTime || !title) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Please fill in all required fields",
+        });
+        return;
+      }
 
-    const { error } = await supabase
-      .from('bookings')
-      .insert([
-        {
+      const startDateTime = new Date(`${date.toISOString().split('T')[0]}T${startTime}`);
+      const endDateTime = new Date(`${date.toISOString().split('T')[0]}T${endTime}`);
+
+      const { error } = await supabase
+        .from('bookings')
+        .insert({
           title,
           description,
           start_time: startDateTime.toISOString(),
           end_time: endDateTime.toISOString(),
-        }
-      ]);
+          user_id: user.id
+        });
 
-    if (error) {
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to create booking",
+        });
+        return;
+      }
+
+      toast({
+        title: "Success",
+        description: "Booking created successfully",
+      });
+
+      setIsBookingDialogOpen(false);
+      refetch();
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to create booking",
+        description: "An unexpected error occurred",
       });
-      return;
     }
-
-    toast({
-      title: "Success",
-      description: "Booking created successfully",
-    });
-
-    setIsBookingDialogOpen(false);
-    refetch();
   };
 
   return (

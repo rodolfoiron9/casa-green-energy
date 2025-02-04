@@ -41,42 +41,60 @@ export const GuidesManager = () => {
   });
 
   const handleCreateGuide = async () => {
-    if (!title || !category || !fileUrl) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Please fill in all required fields",
-      });
-      return;
-    }
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "You must be logged in to create a guide",
+        });
+        return;
+      }
 
-    const { error } = await supabase
-      .from('guides')
-      .insert([
-        {
+      if (!title || !category || !fileUrl) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Please fill in all required fields",
+        });
+        return;
+      }
+
+      const { error } = await supabase
+        .from('guides')
+        .insert({
           title,
           description,
           category,
           file_url: fileUrl,
-        }
-      ]);
+          user_id: user.id
+        });
 
-    if (error) {
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to create guide",
+        });
+        return;
+      }
+
+      toast({
+        title: "Success",
+        description: "Guide created successfully",
+      });
+
+      setIsAddGuideOpen(false);
+      refetch();
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to create guide",
+        description: "An unexpected error occurred",
       });
-      return;
     }
-
-    toast({
-      title: "Success",
-      description: "Guide created successfully",
-    });
-
-    setIsAddGuideOpen(false);
-    refetch();
   };
 
   const handleDownload = async (guide: any) => {
