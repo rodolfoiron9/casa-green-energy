@@ -24,6 +24,7 @@ export default {
           gold: "#FFD700",
           blue: "#0066cc",
           eco: "#F2FCE2",
+          bg: "#F9F7F3",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
