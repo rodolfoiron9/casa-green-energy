@@ -66,111 +66,112 @@ const Dashboard = () => {
 
   return (
     <ProtectedRoute>
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
-        
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList className="flex flex-wrap gap-2">
-            <TabsTrigger value="overview" className="flex items-center gap-2">
-              <LayoutDashboard className="w-4 h-4" />
-              Overview
-            </TabsTrigger>
-            <TabsTrigger value="leads" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              Leads
-            </TabsTrigger>
-            <TabsTrigger value="content" className="flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              Content
-            </TabsTrigger>
-            <TabsTrigger value="ai-content" className="flex items-center gap-2">
-              <Wand2 className="w-4 h-4" />
-              AI Content
-            </TabsTrigger>
-            <TabsTrigger value="chatbot" className="flex items-center gap-2">
-              <Bot className="w-4 h-4" />
-              Chatbot
-            </TabsTrigger>
-            <TabsTrigger value="bookings" className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              Bookings
-            </TabsTrigger>
-            <TabsTrigger value="guides" className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              Guides
-            </TabsTrigger>
-            <TabsTrigger value="activity" className="flex items-center gap-2">
-              <Activity className="w-4 h-4" />
-              Activity
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
-              Settings
-            </TabsTrigger>
-          </TabsList>
+      <div className="min-h-screen bg-casa-bg">
+        <div className="container mx-auto px-4 py-8">
+          <h1 className="text-3xl font-bold mb-8 text-casa-navy">Admin Dashboard</h1>
+          
+          <Tabs defaultValue="overview" className="space-y-6">
+            <TabsList className="flex flex-wrap gap-2 bg-white p-1 rounded-lg shadow-sm">
+              <TabsTrigger value="overview" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <LayoutDashboard className="w-4 h-4" />
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value="leads" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <Users className="w-4 h-4" />
+                Leads
+              </TabsTrigger>
+              <TabsTrigger value="content" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <FileText className="w-4 h-4" />
+                Content
+              </TabsTrigger>
+              <TabsTrigger value="ai-content" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <Wand2 className="w-4 h-4" />
+                AI Content
+              </TabsTrigger>
+              <TabsTrigger value="chatbot" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <Bot className="w-4 h-4" />
+                Chatbot
+              </TabsTrigger>
+              <TabsTrigger value="bookings" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <Calendar className="w-4 h-4" />
+                Bookings
+              </TabsTrigger>
+              <TabsTrigger value="guides" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <BookOpen className="w-4 h-4" />
+                Guides
+              </TabsTrigger>
+              <TabsTrigger value="activity" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <Activity className="w-4 h-4" />
+                Activity
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
+                <Settings className="w-4 h-4" />
+                Settings
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="overview">
-            <MetricsCards metrics={metrics} />
+            <TabsContent value="overview" className="space-y-6">
+              <MetricsCards metrics={metrics} />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <ServiceStatus />
+                <Card className="p-6">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-casa-navy">
+                    <Activity className="w-5 h-5" />
+                    Recent Activities
+                  </h3>
+                  <ActivityLog limit={5} />
+                </Card>
+              </div>
+            </TabsContent>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              <ServiceStatus />
+            <TabsContent value="leads">
+              <LeadsManagement />
+            </TabsContent>
+
+            <TabsContent value="content">
               <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Activity className="w-5 h-5" />
-                  Recent Activities
-                </h3>
-                <ActivityLog limit={5} />
+                <h2 className="text-2xl font-bold mb-4 text-casa-navy">Content Management</h2>
+                <AIAssistant />
               </Card>
-            </div>
-          </TabsContent>
+            </TabsContent>
 
-          <TabsContent value="leads">
-            <LeadsManagement />
-          </TabsContent>
+            <TabsContent value="chatbot">
+              <ChatbotManagement />
+            </TabsContent>
 
-          <TabsContent value="content">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Content Management</h2>
-              <AIAssistant />
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="chatbot">
-            <ChatbotManagement />
-          </TabsContent>
-
-          <TabsContent value="bookings">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Booking Management</h2>
-              <BookingCalendar />
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="guides">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Guides & Downloads</h2>
-              <GuidesManager />
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="activity">
-            <ActivityLog />
-          </TabsContent>
-
-          <TabsContent value="settings">
-            <SettingsPanel />
-          </TabsContent>
-
-          <TabsContent value="ai-content">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <ContentGenerator />
+            <TabsContent value="bookings">
               <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Generated Content</h2>
-                <AIContentList />
+                <h2 className="text-2xl font-bold mb-4 text-casa-navy">Booking Management</h2>
+                <BookingCalendar />
               </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
+            </TabsContent>
+
+            <TabsContent value="guides">
+              <Card className="p-6">
+                <h2 className="text-2xl font-bold mb-4 text-casa-navy">Guides & Downloads</h2>
+                <GuidesManager />
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="activity">
+              <ActivityLog />
+            </TabsContent>
+
+            <TabsContent value="settings">
+              <SettingsPanel />
+            </TabsContent>
+
+            <TabsContent value="ai-content">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <ContentGenerator />
+                <Card className="p-6">
+                  <h2 className="text-xl font-semibold mb-4 text-casa-navy">Generated Content</h2>
+                  <AIContentList />
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     </ProtectedRoute>
   );
