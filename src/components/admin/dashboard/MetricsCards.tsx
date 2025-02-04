@@ -1,135 +1,109 @@
+import { motion } from "framer-motion";
+import { 
+  TrendingUp, 
+  Users, 
+  MessageSquare, 
+  Calendar,
+  DollarSign,
+  Star,
+  Clock,
+  CheckCircle
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Users, Calendar, Download, Bot, MessageSquare, FileText } from "lucide-react";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
-import { Database } from "@/integrations/supabase/types";
 
 interface MetricsCardsProps {
-  metrics: any[] | null;
+  metrics?: any[];
 }
 
-type MetricRow = Database['public']['Tables']['admin_metrics']['Row'];
-
-const getMetricValue = (metrics: any[] | null, metricName: string): string => {
-  const metric = metrics?.find(m => m.metric_name === metricName);
-  if (!metric) return '0';
-  
-  const value = metric.metric_value;
-  if (typeof value === 'number') return value.toString();
-  if (typeof value === 'string') return value;
-  if (typeof value === 'boolean') return value ? '1' : '0';
-  if (Array.isArray(value)) return value.length.toString();
-  if (typeof value === 'object' && value !== null) {
-    return Object.keys(value).length.toString();
-  }
-  return '0';
-};
-
 export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
-  const [realtimeMetrics, setRealtimeMetrics] = useState(metrics);
-
-  useEffect(() => {
-    const channel = supabase
-      .channel('schema-db-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'admin_metrics'
-        },
-        (payload: RealtimePostgresChangesPayload<MetricRow>) => {
-          console.log('Real-time metric update:', payload);
-          
-          // Type guard to ensure payload.new is a valid MetricRow
-          const newData = payload.new as MetricRow;
-          if (!newData || typeof newData !== 'object' || !('id' in newData)) {
-            console.error('Invalid payload received:', payload);
-            return;
-          }
-
-          setRealtimeMetrics((current) => {
-            if (!current) return current;
-            const updatedMetrics = [...current];
-            const index = updatedMetrics.findIndex(m => m.id === newData.id);
-            if (index >= 0) {
-              updatedMetrics[index] = newData;
-            } else {
-              updatedMetrics.push(newData);
-            }
-            return updatedMetrics;
-          });
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
+  const cards = [
+    {
+      title: "Total Leads",
+      value: "124",
+      change: "+12%",
+      icon: Users,
+      color: "text-blue-500",
+    },
+    {
+      title: "Conversion Rate",
+      value: "3.2%",
+      change: "+0.8%",
+      icon: TrendingUp,
+      color: "text-green-500",
+    },
+    {
+      title: "Active Chats",
+      value: "28",
+      change: "+5",
+      icon: MessageSquare,
+      color: "text-purple-500",
+    },
+    {
+      title: "Appointments",
+      value: "45",
+      change: "+15%",
+      icon: Calendar,
+      color: "text-orange-500",
+    },
+    {
+      title: "Revenue",
+      value: "£52,450",
+      change: "+22%",
+      icon: DollarSign,
+      color: "text-casa-gold",
+    },
+    {
+      title: "Customer Rating",
+      value: "4.8",
+      change: "+0.2",
+      icon: Star,
+      color: "text-yellow-500",
+    },
+    {
+      title: "Response Time",
+      value: "2.5h",
+      change: "-15%",
+      icon: Clock,
+      color: "text-red-500",
+    },
+    {
+      title: "Tasks Completed",
+      value: "89",
+      change: "+34%",
+      icon: CheckCircle,
+      color: "text-emerald-500",
+    },
+  ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <Users className="w-8 h-8 text-primary" />
-          <div>
-            <h3 className="text-sm font-semibold mb-1">Total Leads</h3>
-            <p className="text-2xl font-bold">{getMetricValue(realtimeMetrics, 'total_leads')}</p>
-          </div>
-        </div>
-      </Card>
-      
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <Calendar className="w-8 h-8 text-primary" />
-          <div>
-            <h3 className="text-sm font-semibold mb-1">Bookings</h3>
-            <p className="text-2xl font-bold">{getMetricValue(realtimeMetrics, 'total_bookings')}</p>
-          </div>
-        </div>
-      </Card>
-      
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <Download className="w-8 h-8 text-primary" />
-          <div>
-            <h3 className="text-sm font-semibold mb-1">Downloads</h3>
-            <p className="text-2xl font-bold">{getMetricValue(realtimeMetrics, 'total_downloads')}</p>
-          </div>
-        </div>
-      </Card>
-      
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <Bot className="w-8 h-8 text-primary" />
-          <div>
-            <h3 className="text-sm font-semibold mb-1">AI Chats</h3>
-            <p className="text-2xl font-bold">{getMetricValue(realtimeMetrics, 'total_ai_chats')}</p>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <MessageSquare className="w-8 h-8 text-primary" />
-          <div>
-            <h3 className="text-sm font-semibold mb-1">Active Leads</h3>
-            <p className="text-2xl font-bold">{getMetricValue(realtimeMetrics, 'active_leads')}</p>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="p-4">
-        <div className="flex items-center gap-4">
-          <FileText className="w-8 h-8 text-primary" />
-          <div>
-            <h3 className="text-sm font-semibold mb-1">AI Content</h3>
-            <p className="text-2xl font-bold">{getMetricValue(realtimeMetrics, 'total_ai_content')}</p>
-          </div>
-        </div>
-      </Card>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {cards.map((card, index) => (
+        <motion.div
+          key={card.title}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+        >
+          <Card className="p-6 bg-white hover:shadow-lg transition-shadow duration-300">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-gray-500 mb-1">{card.title}</p>
+                <h3 className="text-2xl font-bold text-casa-navy mb-2">
+                  {card.value}
+                </h3>
+                <span className={`text-sm ${
+                  card.change.startsWith('+') ? 'text-green-500' : 'text-red-500'
+                }`}>
+                  {card.change} from last month
+                </span>
+              </div>
+              <div className={`p-3 rounded-full bg-gray-50 ${card.color}`}>
+                <card.icon className="w-6 h-6" />
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+      ))}
     </div>
   );
 };
