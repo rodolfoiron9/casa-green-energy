@@ -33,12 +33,12 @@ export const NavigationSubmenu = ({ items, title, icon }: NavigationSubmenuProps
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-transparent text-[#0066cc] hover:text-[#0066cc]/80 hover:bg-white/10 flex items-center gap-2">
+          <NavigationMenuTrigger className="bg-transparent text-casa-navy hover:text-casa-gold hover:bg-casa-navy/5 flex items-center gap-2 transition-colors">
             {icon}
             {title}
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 bg-casa-navy shadow-lg backdrop-blur-lg">
+            <ul className="grid w-[400px] gap-3 p-4 bg-gradient-to-br from-casa-navy to-casa-blue shadow-lg backdrop-blur-lg">
               {items.map((item) => (
                 <li key={item.href} className="relative overflow-hidden rounded-md">
                   <Link
@@ -54,7 +54,7 @@ export const NavigationSubmenu = ({ items, title, icon }: NavigationSubmenuProps
                     <div className="relative z-10 flex items-center gap-2 w-full">
                       {item.icon}
                       <div className="flex-1">
-                        <div className="text-sm font-medium leading-none mb-1 group-hover:text-casa-gold transition-colors">
+                        <div className="text-sm font-medium leading-none mb-1 text-white group-hover:text-casa-gold transition-colors">
                           {item.title}
                         </div>
                         {item.description && (
