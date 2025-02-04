@@ -61,7 +61,7 @@
   }
   
   h1, h2, h3 {
-    @apply text-casa-navy;
+    @apply text-white;
   }
 }
 
