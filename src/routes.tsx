@@ -5,16 +5,8 @@ import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
+import Dashboard from "@/pages/admin/Dashboard";
 
-// Create placeholder components for new routes
-const PlaceholderPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold mb-4">Coming Soon</h1>
-    <p>This page is under development.</p>
-  </div>
-);
-
-// Main router configuration
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -39,5 +31,9 @@ export const router = createBrowserRouter([
   {
     path: "/services",
     element: <Services />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 ]);

@@ -11,6 +11,7 @@ import Projects from "./pages/Projects";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
+import Dashboard from "./pages/admin/Dashboard";
 import AiChatDialog from "./components/AiChatDialog";
 
 // Service Pages
@@ -45,6 +46,7 @@ const AppContent = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
