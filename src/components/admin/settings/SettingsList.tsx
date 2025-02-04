@@ -51,7 +51,6 @@ export const SettingsList = () => {
         description: "Setting deleted successfully",
       });
 
-      // Refresh the settings list
       fetchSettings();
     } catch (error) {
       console.error("Error deleting setting:", error);
@@ -59,6 +58,31 @@ export const SettingsList = () => {
         variant: "destructive",
         title: "Error",
         description: "Failed to delete setting",
+      });
+    }
+  };
+
+  const handleUpdate = async (id: string, key: string, value: any) => {
+    try {
+      const { error } = await supabase
+        .from("admin_settings")
+        .update({ key, value })
+        .eq("id", id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Setting updated successfully",
+      });
+
+      fetchSettings();
+    } catch (error) {
+      console.error("Error updating setting:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to update setting",
       });
     }
   };
@@ -72,6 +96,7 @@ export const SettingsList = () => {
           settingKey={setting.key}
           settingValue={setting.value}
           onDelete={handleDelete}
+          onUpdate={handleUpdate}
         />
       ))}
     </div>
