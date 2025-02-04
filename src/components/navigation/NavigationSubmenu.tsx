@@ -25,12 +25,12 @@ export const NavigationSubmenu = ({ items, title, icon }: NavigationSubmenuProps
             {title}
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 bg-[#0066cc] backdrop-blur-lg border border-white/10">
+            <ul className="grid w-[400px] gap-3 p-4 bg-[#0066cc] shadow-lg backdrop-blur-lg">
               {items.map((item) => (
                 <li key={item.href}>
                   <Link
                     to={item.href}
-                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-white flex items-center gap-2 text-white/90"
+                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-white flex items-center gap-2 text-white"
                   >
                     {item.icon}
                     <div>
