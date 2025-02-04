@@ -17,6 +17,8 @@ const Navigation = () => {
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/dashboard');
 
+  const iconProps = { size: 20, color: "#F2FCE2" };
+
   useEffect(() => {
     checkAuth();
   }, []);
@@ -54,32 +56,32 @@ const Navigation = () => {
   };
 
   const menuItems: MenuItem[] = [
-    { title: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
+    { title: "Home", href: "/", icon: <Home {...iconProps} /> },
     { 
       title: "Services",
       href: "/services",
-      icon: <Briefcase className="w-4 h-4" />,
+      icon: <Briefcase {...iconProps} />,
       submenu: [
-        { title: "Air Source Heat Pumps", href: "/services/air-source-heat-pumps", icon: <Factory className="w-4 h-4" /> },
-        { title: "Electrical Services", href: "/services/electrical-services", icon: <Server className="w-4 h-4" /> },
-        { title: "Home Energy Solutions", href: "/services/home-energy-solutions", icon: <Building2 className="w-4 h-4" /> },
-        { title: "Maintenance Services", href: "/services/maintenance-services", icon: <Computer className="w-4 h-4" /> },
-        { title: "Green Energy Systems", href: "/services/green-energy-systems", icon: <Globe className="w-4 h-4" /> },
-        { title: "Warranty & Protection", href: "/services/warranty-protection", icon: <Database className="w-4 h-4" /> },
+        { title: "Air Source Heat Pumps", href: "/services/air-source-heat-pumps", icon: <Factory {...iconProps} /> },
+        { title: "Electrical Services", href: "/services/electrical-services", icon: <Server {...iconProps} /> },
+        { title: "Home Energy Solutions", href: "/services/home-energy-solutions", icon: <Building2 {...iconProps} /> },
+        { title: "Maintenance Services", href: "/services/maintenance-services", icon: <Computer {...iconProps} /> },
+        { title: "Green Energy Systems", href: "/services/green-energy-systems", icon: <Globe {...iconProps} /> },
+        { title: "Warranty & Protection", href: "/services/warranty-protection", icon: <Database {...iconProps} /> },
       ]
     },
     { 
       title: "Resources",
       href: "#",
-      icon: <BookOpen className="w-4 h-4" />,
+      icon: <BookOpen {...iconProps} />,
       submenu: [
-        { title: "Energy Saving Tips", href: "/resources/energy-saving-tips", icon: <Globe className="w-4 h-4" /> },
-        { title: "Government Grants", href: "/resources/government-grants", icon: <Building2 className="w-4 h-4" /> },
-        { title: "Case Studies", href: "/resources/case-studies", icon: <Database className="w-4 h-4" /> },
-        { title: "FAQs", href: "/resources/faqs", icon: <MessageSquare className="w-4 h-4" /> },
+        { title: "Energy Saving Tips", href: "/resources/energy-saving-tips", icon: <Globe {...iconProps} /> },
+        { title: "Government Grants", href: "/resources/government-grants", icon: <Building2 {...iconProps} /> },
+        { title: "Case Studies", href: "/resources/case-studies", icon: <Database {...iconProps} /> },
+        { title: "FAQs", href: "/resources/faqs", icon: <MessageSquare {...iconProps} /> },
       ]
     },
-    { title: "Contact", href: "/contact", icon: <MessageSquare className="w-4 h-4" /> },
+    { title: "Contact", href: "/contact", icon: <MessageSquare {...iconProps} /> },
   ];
 
   return (
@@ -126,7 +128,7 @@ const Navigation = () => {
                       asChild
                     >
                       <Link to="/dashboard">
-                        <UserCog className="w-4 h-4" />
+                        <UserCog {...iconProps} />
                         Admin Panel
                       </Link>
                     </Button>
@@ -136,7 +138,7 @@ const Navigation = () => {
                     onClick={handleLogout}
                     className="text-casa-gold hover:bg-casa-gold/10 flex items-center gap-2"
                   >
-                    <LogOut className="w-4 h-4" />
+                    <LogOut {...iconProps} />
                     Logout
                   </Button>
                 </div>
@@ -151,7 +153,7 @@ const Navigation = () => {
               {!isDashboard && (
                 <Link to="/contact">
                   <Button className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2">
-                    Get Quote <ArrowRight className="w-4 h-4" />
+                    Get Quote <ArrowRight {...iconProps} />
                   </Button>
                 </Link>
               )}

@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
+  const iconProps = { size: 24, color: "#F2FCE2" };
+
   return (
     <div className="py-20 px-4 bg-gradient-to-br from-[#f8f8f8] via-[#f1f1f1] to-[#e5e5e5]">
       <div className="max-w-4xl mx-auto text-center">
@@ -24,15 +26,15 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              icon: <Phone className="w-6 h-6" />,
+              icon: <Phone {...iconProps} />,
               text: "+44 (0) 123 456 789",
             },
             {
-              icon: <Mail className="w-6 h-6" />,
+              icon: <Mail {...iconProps} />,
               text: "info@casacontracts.com",
             },
             {
-              icon: <MapPin className="w-6 h-6" />,
+              icon: <MapPin {...iconProps} />,
               text: "London, United Kingdom",
             },
           ].map((item, index) => (
