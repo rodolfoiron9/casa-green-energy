@@ -508,36 +508,75 @@ export type Database = {
         }
         Relationships: []
       }
+      chatbot_settings: {
+        Row: {
+          active_personas: string[] | null
+          business_hours: Json | null
+          created_at: string
+          custom_responses: Json | null
+          id: string
+          personality_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active_personas?: string[] | null
+          business_hours?: Json | null
+          created_at?: string
+          custom_responses?: Json | null
+          id?: string
+          personality_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active_personas?: string[] | null
+          business_hours?: Json | null
+          created_at?: string
+          custom_responses?: Json | null
+          id?: string
+          personality_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       chatbot_training_data: {
         Row: {
+          business_hours: Json | null
           category: string
           confidence_score: number
           created_at: string
           id: string
           input_text: string
           metadata: Json | null
+          persona: string | null
           response_text: string
           updated_at: string
           user_id: string
         }
         Insert: {
+          business_hours?: Json | null
           category: string
           confidence_score?: number
           created_at?: string
           id?: string
           input_text: string
           metadata?: Json | null
+          persona?: string | null
           response_text: string
           updated_at?: string
           user_id: string
         }
         Update: {
+          business_hours?: Json | null
           category?: string
           confidence_score?: number
           created_at?: string
           id?: string
           input_text?: string
           metadata?: Json | null
+          persona?: string | null
           response_text?: string
           updated_at?: string
           user_id?: string
@@ -858,8 +897,11 @@ export type Database = {
           conversion_score: number | null
           created_at: string
           email: string
+          follow_up_date: string | null
+          follow_up_status: string | null
           id: string
           is_spam: boolean | null
+          last_interaction_at: string | null
           lead_type: string | null
           name: string
           phone: string | null
@@ -868,6 +910,7 @@ export type Database = {
           property_type: string | null
           rating: number | null
           requirements: string | null
+          segment: string | null
           service_type: Database["public"]["Enums"]["service_type"] | null
           status: string | null
           updated_at: string
@@ -881,8 +924,11 @@ export type Database = {
           conversion_score?: number | null
           created_at?: string
           email: string
+          follow_up_date?: string | null
+          follow_up_status?: string | null
           id?: string
           is_spam?: boolean | null
+          last_interaction_at?: string | null
           lead_type?: string | null
           name: string
           phone?: string | null
@@ -891,6 +937,7 @@ export type Database = {
           property_type?: string | null
           rating?: number | null
           requirements?: string | null
+          segment?: string | null
           service_type?: Database["public"]["Enums"]["service_type"] | null
           status?: string | null
           updated_at?: string
@@ -904,8 +951,11 @@ export type Database = {
           conversion_score?: number | null
           created_at?: string
           email?: string
+          follow_up_date?: string | null
+          follow_up_status?: string | null
           id?: string
           is_spam?: boolean | null
+          last_interaction_at?: string | null
           lead_type?: string | null
           name?: string
           phone?: string | null
@@ -914,6 +964,7 @@ export type Database = {
           property_type?: string | null
           rating?: number | null
           requirements?: string | null
+          segment?: string | null
           service_type?: Database["public"]["Enums"]["service_type"] | null
           status?: string | null
           updated_at?: string

@@ -44,44 +44,39 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="relative backdrop-blur-lg bg-white/10 p-8 rounded-xl 
-                          border border-white/20 
-                          transition-all duration-300
-                          hover:bg-white/20 hover:shadow-lg
-                          hover:shadow-casa-blue/20"
-            >
-              <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h2 className="text-2xl font-bold text-casa-navy mb-6">Contact Information</h2>
               <div className="space-y-6">
-                <div className="flex items-center gap-4 text-white/90">
-                  <div className="bg-casa-blue/20 backdrop-blur-sm p-3 rounded-full">
-                    <Phone className="w-6 h-6 text-white" />
+                <div className="flex items-center gap-4 text-casa-navy/90">
+                  <div className="bg-casa-blue/10 p-3 rounded-full">
+                    <Phone className="w-6 h-6 text-casa-blue" />
                   </div>
                   <div>
                     <p className="font-medium">Phone</p>
                     <p>+44 (0) 123 456 7890</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-white/90">
-                  <div className="bg-casa-blue/20 backdrop-blur-sm p-3 rounded-full">
-                    <Mail className="w-6 h-6 text-white" />
+                <div className="flex items-center gap-4 text-casa-navy/90">
+                  <div className="bg-casa-blue/10 p-3 rounded-full">
+                    <Mail className="w-6 h-6 text-casa-blue" />
                   </div>
                   <div>
                     <p className="font-medium">Email</p>
                     <p>info@casaenergy.com</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-white/90">
-                  <div className="bg-casa-blue/20 backdrop-blur-sm p-3 rounded-full">
-                    <MapPin className="w-6 h-6 text-white" />
+                <div className="flex items-center gap-4 text-casa-navy/90">
+                  <div className="bg-casa-blue/10 p-3 rounded-full">
+                    <MapPin className="w-6 h-6 text-casa-blue" />
                   </div>
                   <div>
                     <p className="font-medium">Address</p>
                     <p>123 Energy Street, London, UK</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-white/90">
-                  <div className="bg-casa-blue/20 backdrop-blur-sm p-3 rounded-full">
-                    <Clock className="w-6 h-6 text-white" />
+                <div className="flex items-center gap-4 text-casa-navy/90">
+                  <div className="bg-casa-blue/10 p-3 rounded-full">
+                    <Clock className="w-6 h-6 text-casa-blue" />
                   </div>
                   <div>
                     <p className="font-medium">Business Hours</p>
@@ -97,13 +92,9 @@ const Contact = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative backdrop-blur-lg bg-white/10 p-8 rounded-xl 
-                      border border-white/20 
-                      transition-all duration-300
-                      hover:bg-white/20 hover:shadow-lg
-                      hover:shadow-casa-blue/20"
+            className="bg-white p-8 rounded-xl shadow-lg"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">Send us a Message</h2>
+            <h2 className="text-2xl font-bold text-casa-navy mb-6">Send us a Message</h2>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -111,11 +102,11 @@ const Contact = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">Name</FormLabel>
+                      <FormLabel className="text-casa-navy">Name</FormLabel>
                       <FormControl>
                         <Input 
                           {...field} 
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                          className="border-gray-200 focus:border-casa-blue"
                           placeholder="John Doe"
                         />
                       </FormControl>
@@ -128,11 +119,11 @@ const Contact = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">Email</FormLabel>
+                      <FormLabel className="text-casa-navy">Email</FormLabel>
                       <FormControl>
                         <Input 
                           {...field} 
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                          className="border-gray-200 focus:border-casa-blue"
                           placeholder="john@example.com"
                           type="email"
                         />
@@ -146,11 +137,11 @@ const Contact = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">Message</FormLabel>
+                      <FormLabel className="text-casa-navy">Message</FormLabel>
                       <FormControl>
                         <Textarea 
                           {...field} 
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-[120px]"
+                          className="border-gray-200 focus:border-casa-blue min-h-[120px]"
                           placeholder="How can we help you?"
                         />
                       </FormControl>
