@@ -30,7 +30,6 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
   const [realtimeMetrics, setRealtimeMetrics] = useState(metrics);
 
   useEffect(() => {
-    // Subscribe to real-time updates
     const channel = supabase
       .channel('schema-db-changes')
       .on(
@@ -43,7 +42,9 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
         (payload: RealtimePostgresChangesPayload<MetricRow>) => {
           console.log('Real-time metric update:', payload);
           
-          if (!payload.new || typeof payload.new !== 'object' || !('id' in payload.new)) {
+          // Type guard to ensure payload.new is a valid MetricRow
+          const newData = payload.new as MetricRow | null;
+          if (!newData || typeof newData !== 'object' || !('id' in newData)) {
             console.log('Invalid payload received:', payload);
             return;
           }
@@ -51,11 +52,11 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
           setRealtimeMetrics((current) => {
             if (!current) return current;
             const updatedMetrics = [...current];
-            const index = updatedMetrics.findIndex(m => m.id === payload.new?.id);
+            const index = updatedMetrics.findIndex(m => m.id === newData.id);
             if (index >= 0) {
-              updatedMetrics[index] = payload.new;
+              updatedMetrics[index] = newData;
             } else {
-              updatedMetrics.push(payload.new);
+              updatedMetrics.push(newData);
             }
             return updatedMetrics;
           });
