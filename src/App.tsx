@@ -12,7 +12,6 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import AiChatDialog from "./components/AiChatDialog";
-import Admin from "./pages/admin/Admin";
 
 // Service Pages
 import AirSourceHeatPumps from "./pages/services/AirSourceHeatPumps";
@@ -32,13 +31,12 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
     <div className="relative min-h-screen flex flex-col">
       <Toaster />
       <Sonner />
-      {!isAdminRoute && <Navigation />}
+      <Navigation />
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Index />} />
@@ -47,9 +45,6 @@ const AppContent = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/auth" element={<Auth />} />
-          
-          {/* Admin Routes */}
-          <Route path="/admin/*" element={<Admin />} />
           
           {/* Service Routes */}
           <Route path="/services/air-source-heat-pumps" element={<AirSourceHeatPumps />} />
@@ -66,7 +61,7 @@ const AppContent = () => {
           <Route path="/resources/faqs" element={<Faqs />} />
         </Routes>
       </div>
-      {!isAdminRoute && <Footer />}
+      <Footer />
       <div className="fixed bottom-6 right-6 z-50">
         <AiChatDialog />
       </div>
