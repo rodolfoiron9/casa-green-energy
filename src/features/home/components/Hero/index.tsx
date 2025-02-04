@@ -32,7 +32,7 @@ export function Hero() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-casa-navy via-casa-navy/95 to-casa-blue/90 overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 overflow-hidden">
       <CustomerInfoDialog
         open={showDialog}
         onOpenChange={setShowDialog}

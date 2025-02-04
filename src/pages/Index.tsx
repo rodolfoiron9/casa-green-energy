@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { Hero } from "@/features/home/components/Hero";
-import { Projects } from "@/features/home/components/Projects";
-import { Contact } from "@/features/home/components/Contact";
+import { About } from "@/features/home/components/About";
 import { Services } from "@/features/home/components/Services";
 import { Testimonials } from "@/features/home/components/Testimonials";
+import { Contact } from "@/features/home/components/Contact";
+import { FloatingCTA } from "@/features/home/components/FloatingCTA";
 
 export default function Index() {
   return (
-    <div className="w-full">
+    <div className="w-full bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -16,10 +17,11 @@ export default function Index() {
       >
         <main className="flex-grow pt-16">
           <Hero />
+          <About />
           <Services />
-          <Projects />
           <Testimonials />
           <Contact />
+          <FloatingCTA />
         </main>
       </motion.div>
     </div>
