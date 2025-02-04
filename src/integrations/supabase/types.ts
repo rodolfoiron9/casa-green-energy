@@ -433,6 +433,75 @@ export type Database = {
           },
         ]
       }
+      chatbot_conversations: {
+        Row: {
+          conversation_data: Json | null
+          created_at: string
+          id: string
+          metadata: Json | null
+          platform: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          conversation_data?: Json | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          platform: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          conversation_data?: Json | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          platform?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      chatbot_training_data: {
+        Row: {
+          category: string
+          confidence_score: number
+          created_at: string
+          id: string
+          input_text: string
+          metadata: Json | null
+          response_text: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          confidence_score?: number
+          created_at?: string
+          id?: string
+          input_text: string
+          metadata?: Json | null
+          response_text: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          confidence_score?: number
+          created_at?: string
+          id?: string
+          input_text?: string
+          metadata?: Json | null
+          response_text?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       content: {
         Row: {
           content: string
