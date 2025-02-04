@@ -42,12 +42,12 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
         },
         (payload: RealtimePostgresChangesPayload<MetricRow>) => {
           console.log('Real-time metric update:', payload);
-          if (!payload.new || !payload.new.id) return;
+          if (!payload.new) return;
           
           setRealtimeMetrics((current) => {
             if (!current) return current;
             const updatedMetrics = [...current];
-            const index = updatedMetrics.findIndex(m => m.id === payload.new.id);
+            const index = updatedMetrics.findIndex(m => m.id === payload.new?.id);
             if (index >= 0) {
               updatedMetrics[index] = payload.new;
             } else {
