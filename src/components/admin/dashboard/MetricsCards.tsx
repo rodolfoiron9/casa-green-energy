@@ -3,10 +3,13 @@ import { Users, Calendar, Download, Bot, MessageSquare, FileText } from "lucide-
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import { Database } from "@/integrations/supabase/types";
 
 interface MetricsCardsProps {
   metrics: any[] | null;
 }
+
+type MetricRow = Database['public']['Tables']['admin_metrics']['Row'];
 
 const getMetricValue = (metrics: any[] | null, metricName: string): string => {
   const metric = metrics?.find(m => m.metric_name === metricName);
@@ -37,12 +40,10 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
           schema: 'public',
           table: 'admin_metrics'
         },
-        (payload: RealtimePostgresChangesPayload<{
-          id: string;
-          metric_name: string;
-          metric_value: any;
-        }>) => {
+        (payload: RealtimePostgresChangesPayload<MetricRow>) => {
           console.log('Real-time metric update:', payload);
+          if (!payload.new || !payload.new.id) return;
+          
           setRealtimeMetrics((current) => {
             if (!current) return current;
             const updatedMetrics = [...current];
