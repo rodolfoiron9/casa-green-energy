@@ -1,10 +1,28 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const Contact = () => {
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+    toast.success("Message sent successfully!");
+  };
+
   return (
-    <div className="bg-gradient-to-br from-casa-navy via-casa-blue/20 to-casa-navy min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-casa-navy via-casa-blue/20 to-casa-navy">
       <div className="container mx-auto px-4 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -12,13 +30,14 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Contact Us</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Get in Touch</h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Get in touch with our team for expert advice and solutions for your energy needs.
+            Ready to transform your energy solutions? Our expert team is here to help you every step of the way.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -29,15 +48,10 @@ const Contact = () => {
                           border border-white/20 
                           transition-all duration-300
                           hover:bg-white/20 hover:shadow-lg
-                          hover:shadow-casa-blue/20
-                          before:content-['']
-                          before:absolute before:inset-0
-                          before:rounded-xl before:backdrop-blur-md
-                          before:bg-gradient-to-br
-                          before:from-white/10 before:to-transparent
-                          before:opacity-50 before:-z-10">
+                          hover:shadow-casa-blue/20"
+            >
               <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
-              <div className="space-y-6 relative z-10">
+              <div className="space-y-6">
                 <div className="flex items-center gap-4 text-white/90">
                   <div className="bg-casa-blue/20 backdrop-blur-sm p-3 rounded-full">
                     <Phone className="w-6 h-6 text-white" />
@@ -78,6 +92,7 @@ const Contact = () => {
             </div>
           </motion.div>
 
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -86,67 +101,72 @@ const Contact = () => {
                       border border-white/20 
                       transition-all duration-300
                       hover:bg-white/20 hover:shadow-lg
-                      hover:shadow-casa-blue/20
-                      before:content-['']
-                      before:absolute before:inset-0
-                      before:rounded-xl before:backdrop-blur-md
-                      before:bg-gradient-to-br
-                      before:from-white/10 before:to-transparent
-                      before:opacity-50 before:-z-10"
+                      hover:shadow-casa-blue/20"
           >
-            <h2 className="text-2xl font-bold text-white mb-6 relative z-10">Send us a Message</h2>
-            <form className="space-y-4 relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-white/90 mb-2">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:border-casa-gold"
-                    placeholder="John"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-white/90 mb-2">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:border-casa-gold"
-                    placeholder="Doe"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-white/90 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:border-casa-gold"
-                  placeholder="john@example.com"
+            <h2 className="text-2xl font-bold text-white mb-6">Send us a Message</h2>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">Name</FormLabel>
+                      <FormControl>
+                        <Input 
+                          {...field} 
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                          placeholder="John Doe"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-white/90 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 text-white placeholder-white/50 focus:outline-none focus:border-casa-gold"
-                  placeholder="How can we help you?"
-                ></textarea>
-              </div>
-              <Button className="w-full bg-casa-blue hover:bg-casa-blue/90 text-white flex items-center justify-center gap-2">
-                Send Message
-                <Send className="w-4 h-4" />
-              </Button>
-            </form>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">Email</FormLabel>
+                      <FormControl>
+                        <Input 
+                          {...field} 
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                          placeholder="john@example.com"
+                          type="email"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white">Message</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          {...field} 
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 min-h-[120px]"
+                          placeholder="How can we help you?"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button 
+                  type="submit" 
+                  className="w-full bg-casa-blue hover:bg-casa-blue/90 text-white"
+                >
+                  Send Message
+                  <Send className="w-4 h-4 ml-2" />
+                </Button>
+              </form>
+            </Form>
           </motion.div>
         </div>
       </div>
