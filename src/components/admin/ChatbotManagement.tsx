@@ -6,8 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { handleChatRequest } from "@/api/chat";
 import { toast } from "sonner";
-import { MessageSquare, Settings, Database } from "lucide-react";
-import { Database } from "@/types/supabase";
+import { MessageSquare, Settings, Database as DatabaseIcon } from "lucide-react";
+import type { Database } from "@/integrations/supabase/types";
 
 type ChatbotConversation = Database["public"]["Tables"]["chatbot_conversations"]["Row"];
 type TrainingData = Database["public"]["Tables"]["chatbot_training_data"]["Row"];
@@ -61,7 +61,7 @@ export function ChatbotManagement() {
             Conversations
           </TabsTrigger>
           <TabsTrigger value="training" className="flex items-center gap-2">
-            <Database className="w-4 h-4" />
+            <DatabaseIcon className="w-4 h-4" />
             Training Data
           </TabsTrigger>
           <TabsTrigger value="settings" className="flex items-center gap-2">

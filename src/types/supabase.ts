@@ -1,7 +1,7 @@
-import { Database as GeneratedDatabase } from "@/integrations/supabase/types";
+import type { Database as GeneratedDatabase } from "@/integrations/supabase/types";
 
 // Extend the generated Database type with our new tables
-export interface Database extends GeneratedDatabase {
+export type Database = GeneratedDatabase & {
   public: {
     Tables: {
       chatbot_conversations: {
@@ -71,6 +71,10 @@ export interface Database extends GeneratedDatabase {
           metadata?: any;
         };
       };
-    } & GeneratedDatabase["public"]["Tables"];
+    };
+    Views: GeneratedDatabase["public"]["Views"];
+    Functions: GeneratedDatabase["public"]["Functions"];
+    Enums: GeneratedDatabase["public"]["Enums"];
+    CompositeTypes: GeneratedDatabase["public"]["CompositeTypes"];
   };
-}
+};
