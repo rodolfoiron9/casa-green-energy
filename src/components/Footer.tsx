@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const iconProps = { size: 20, color: "#F2FCE2" };
+  const iconProps = { size: 20, color: "#0EB067" };
 
   return (
     <footer className="bg-gradient-to-b from-[#f1f1f1] to-[#e5e5e5] border-t">

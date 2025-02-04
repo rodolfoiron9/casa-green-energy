@@ -15,7 +15,7 @@ const ElectricalServices = () => {
         >
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-gold/20 to-casa-gold/30
                         flex items-center justify-center">
-            <Zap className="w-8 h-8 text-casa-gold" />
+            <Zap className="w-8 h-8" color="#0EB067" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-casa-navy mb-4">Electrical Services</h1>
           <p className="text-casa-navy/80 text-lg max-w-2xl mx-auto mb-8">

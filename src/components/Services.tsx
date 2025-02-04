@@ -3,7 +3,7 @@ import { Leaf, Thermometer, Home, Zap, Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 const Services = () => {
-  const iconProps = { size: 24, color: "#F2FCE2" };
+  const iconProps = { size: 24, color: "#0EB067" };
 
   const services = [
     {

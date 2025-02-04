@@ -17,7 +17,7 @@ const Navigation = () => {
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/dashboard');
 
-  const iconProps = { size: 20, color: "#F2FCE2" };
+  const iconProps = { size: 20, color: "#0EB067" };
 
   useEffect(() => {
     checkAuth();

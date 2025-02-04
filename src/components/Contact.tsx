@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
-  const iconProps = { size: 24, color: "#F2FCE2" };
+  const iconProps = { size: 24, color: "#0EB067" };
 
   return (
     <div className="py-20 px-4 bg-gradient-to-br from-[#f8f8f8] via-[#f1f1f1] to-[#e5e5e5]">

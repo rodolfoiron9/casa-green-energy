@@ -31,7 +31,7 @@ export function ServiceCard({ title, description, icon: Icon, image, index }: Se
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-gold/20 to-casa-gold/30
                         flex items-center justify-center group-hover:from-casa-gold/30 group-hover:to-casa-gold/40
                         transition-all duration-300 -mt-12 relative z-10 bg-white">
-            <Icon className="w-8 h-8" color="#F2FCE2" />
+            <Icon className="w-8 h-8" color="#0EB067" />
           </div>
           <CardTitle className="text-2xl font-bold text-casa-navy">
             {title}
