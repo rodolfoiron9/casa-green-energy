@@ -66,7 +66,7 @@ const Services = () => {
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-eco/20 to-casa-eco/30
                                 flex items-center justify-center group-hover:from-casa-eco/30 group-hover:to-casa-eco/40
                                 transition-all duration-300">
-                    <service.icon className="w-8 h-8 text-casa-eco" />
+                    <service.icon className="w-8 h-8" color="#F2FCE2" />
                   </div>
                   <CardTitle className="text-2xl font-bold text-casa-navy text-shadow-neon">
                     {service.title}
