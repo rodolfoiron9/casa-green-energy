@@ -64,7 +64,7 @@ export function ChatbotManagement() {
       const { data, error } = await supabase
         .from('chatbot_settings')
         .select('*')
-        .single();
+        .maybeSingle();
 
       if (error) {
         toast.error('Failed to fetch chatbot settings');
