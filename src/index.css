@@ -54,18 +54,14 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#F9F7F3] text-foreground m-0 p-0;
+    @apply bg-white text-foreground m-0 p-0;
   }
   #root {
     @apply min-h-screen w-full m-0 p-0;
   }
   
   h1, h2, h3 {
-    @apply text-shadow-neon transition-all duration-300;
-  }
-
-  h1:hover, h2:hover, h3:hover {
-    @apply text-shadow-gold;
+    @apply text-shadow-neon bg-white;
   }
 }
 

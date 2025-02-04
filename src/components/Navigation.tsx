@@ -1,4 +1,4 @@
-import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory, UserCog, LogOut } from "lucide-react";
+import { Menu, Home, Briefcase, BookOpen, MessageSquare, ArrowRight, Building2, Server, Globe, Database, Computer, Factory, UserCog, LogOut, ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "./ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
@@ -9,6 +9,12 @@ import { MenuItem } from "./navigation/types";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "./ui/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -17,7 +23,7 @@ const Navigation = () => {
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/dashboard');
 
-  const iconProps = { size: 20, color: "#0EB067" };
+  const iconProps = { size: 20, color: "#0066cc" };
 
   useEffect(() => {
     checkAuth();
@@ -90,7 +96,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link 
             to="/" 
-            className="text-2xl font-bold text-casa-gold flex items-center gap-2 [text-shadow:_-1px_-1px_0_#0066cc,_1px_-1px_0_#0066cc,_-1px_1px_0_#0066cc,_1px_1px_0_#0066cc]"
+            className="text-2xl font-bold text-[#FFD700] flex items-center gap-2"
           >
             CASA
           </Link>
@@ -125,25 +131,31 @@ const Navigation = () => {
               {isAuthenticated ? (
                 <div className="flex items-center gap-3">
                   {isAdmin && (
-                    <Button
-                      variant="outline"
-                      className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2"
-                      asChild
-                    >
-                      <Link to="/dashboard">
-                        <UserCog {...iconProps} />
-                        Admin Panel
-                      </Link>
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 flex items-center gap-2"
+                        >
+                          <UserCog {...iconProps} />
+                          Admin
+                          <ChevronDown className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem asChild>
+                          <Link to="/dashboard" className="flex items-center gap-2">
+                            <UserCog {...iconProps} />
+                            Admin Panel
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2">
+                          <LogOut {...iconProps} />
+                          Logout
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   )}
-                  <Button
-                    variant="ghost"
-                    onClick={handleLogout}
-                    className="text-casa-blue hover:bg-casa-gold/10 flex items-center gap-2"
-                  >
-                    <LogOut {...iconProps} />
-                    Logout
-                  </Button>
                 </div>
               ) : (
                 <Button
