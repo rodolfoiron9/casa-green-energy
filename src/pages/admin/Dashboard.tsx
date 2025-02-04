@@ -23,6 +23,22 @@ import {
   Bot
 } from "lucide-react";
 
+// Helper function to safely convert metric value to string
+const getMetricValue = (metrics: any[] | null, metricName: string): string => {
+  const metric = metrics?.find(m => m.metric_name === metricName);
+  if (!metric) return '0';
+  
+  const value = metric.metric_value;
+  if (typeof value === 'number') return value.toString();
+  if (typeof value === 'string') return value;
+  if (typeof value === 'boolean') return value ? '1' : '0';
+  if (Array.isArray(value)) return value.length.toString();
+  if (typeof value === 'object' && value !== null) {
+    return Object.keys(value).length.toString();
+  }
+  return '0';
+};
+
 const Dashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -97,7 +113,7 @@ const Dashboard = () => {
                   <Users className="w-8 h-8 text-primary" />
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Total Leads</h3>
-                    <p className="text-3xl font-bold">{metrics?.find(m => m.metric_name === 'total_leads')?.metric_value || 0}</p>
+                    <p className="text-3xl font-bold">{getMetricValue(metrics, 'total_leads')}</p>
                   </div>
                 </div>
               </Card>
@@ -107,7 +123,7 @@ const Dashboard = () => {
                   <Calendar className="w-8 h-8 text-primary" />
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Bookings</h3>
-                    <p className="text-3xl font-bold">{metrics?.find(m => m.metric_name === 'total_bookings')?.metric_value || 0}</p>
+                    <p className="text-3xl font-bold">{getMetricValue(metrics, 'total_bookings')}</p>
                   </div>
                 </div>
               </Card>
@@ -117,7 +133,7 @@ const Dashboard = () => {
                   <Download className="w-8 h-8 text-primary" />
                   <div>
                     <h3 className="text-lg font-semibold mb-1">Downloads</h3>
-                    <p className="text-3xl font-bold">{metrics?.find(m => m.metric_name === 'total_downloads')?.metric_value || 0}</p>
+                    <p className="text-3xl font-bold">{getMetricValue(metrics, 'total_downloads')}</p>
                   </div>
                 </div>
               </Card>
@@ -127,7 +143,7 @@ const Dashboard = () => {
                   <Bot className="w-8 h-8 text-primary" />
                   <div>
                     <h3 className="text-lg font-semibold mb-1">AI Chats</h3>
-                    <p className="text-3xl font-bold">{metrics?.find(m => m.metric_name === 'total_ai_chats')?.metric_value || 0}</p>
+                    <p className="text-3xl font-bold">{getMetricValue(metrics, 'total_ai_chats')}</p>
                   </div>
                 </div>
               </Card>
