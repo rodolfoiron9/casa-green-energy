@@ -43,18 +43,11 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
         (payload: RealtimePostgresChangesPayload<MetricRow>) => {
           console.log('Real-time metric update:', payload);
           
-          // Ensure payload.new exists and is a valid MetricRow
-          if (!payload.new) {
-            console.log('No new data in payload:', payload);
+          if (!payload.new || typeof payload.new !== 'object' || !('id' in payload.new)) {
+            console.log('Invalid payload received:', payload);
             return;
           }
 
-          // Type guard to ensure payload.new has the required properties
-          if (!isValidMetricRow(payload.new)) {
-            console.log('Invalid metric row data:', payload.new);
-            return;
-          }
-          
           setRealtimeMetrics((current) => {
             if (!current) return current;
             const updatedMetrics = [...current];
@@ -74,19 +67,6 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
       supabase.removeChannel(channel);
     };
   }, []);
-
-  // Type guard function to check if an object is a valid MetricRow
-  function isValidMetricRow(obj: any): obj is MetricRow {
-    return (
-      obj &&
-      typeof obj === 'object' &&
-      'id' in obj &&
-      typeof obj.id === 'string' &&
-      'metric_name' in obj &&
-      typeof obj.metric_name === 'string' &&
-      'metric_value' in obj
-    );
-  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
