@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Users, Calendar, Download, Bot, MessageSquare, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 
 interface MetricsCardsProps {
   metrics: any[] | null;
@@ -36,7 +37,11 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
           schema: 'public',
           table: 'admin_metrics'
         },
-        (payload) => {
+        (payload: RealtimePostgresChangesPayload<{
+          id: string;
+          metric_name: string;
+          metric_value: any;
+        }>) => {
           console.log('Real-time metric update:', payload);
           setRealtimeMetrics((current) => {
             if (!current) return current;
