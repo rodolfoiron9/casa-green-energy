@@ -43,9 +43,9 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
           console.log('Real-time metric update:', payload);
           
           // Type guard to ensure payload.new is a valid MetricRow
-          const newData = payload.new as MetricRow | null;
+          const newData = payload.new as MetricRow;
           if (!newData || typeof newData !== 'object' || !('id' in newData)) {
-            console.log('Invalid payload received:', payload);
+            console.error('Invalid payload received:', payload);
             return;
           }
 
