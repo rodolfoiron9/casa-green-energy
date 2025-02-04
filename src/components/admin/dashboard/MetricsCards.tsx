@@ -43,14 +43,9 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
         (payload: RealtimePostgresChangesPayload<MetricRow>) => {
           console.log('Real-time metric update:', payload);
           
-          if (!payload.new || typeof payload.new !== 'object') {
-            console.log('No valid payload data received:', payload);
-            return;
-          }
-
-          // Type guard to ensure payload.new has the required properties
-          if (!isMetricRow(payload.new)) {
-            console.log('Invalid payload structure received:', payload);
+          // Ensure payload.new exists and is a valid MetricRow
+          if (!payload.new || !isMetricRow(payload.new)) {
+            console.log('Invalid payload received:', payload);
             return;
           }
           
