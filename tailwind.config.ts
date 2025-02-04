@@ -21,9 +21,9 @@ export default {
       colors: {
         casa: {
           navy: "#001F3F",
-          gold: "#FFFFFF",
+          gold: "#FFD700",
           blue: "#0066cc",
-          eco: "#F2FCE2", // Added soft eco-green color
+          eco: "#F2FCE2",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -60,9 +60,8 @@ export default {
         },
       },
       boxShadow: {
-        'default': '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
-        'md': '0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06)',
-        'lg': '0 10px 15px -3px rgba(255, 255, 255, 0.1), 0 4px 6px -2px rgba(255, 255, 255, 0.05)',
+        'neon': '0 0 5px rgba(242, 252, 226, 0.3), 0 0 10px rgba(242, 252, 226, 0.3), 0 0 15px rgba(242, 252, 226, 0.3)',
+        'gold': '0 0 5px rgba(255, 215, 0, 0.3), 0 0 10px rgba(255, 215, 0, 0.3), 0 0 15px rgba(255, 215, 0, 0.3)',
       },
       borderRadius: {
         lg: "var(--radius)",

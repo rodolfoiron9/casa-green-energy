@@ -45,7 +45,7 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold text-casa-navy mb-4">Our Services</h2>
+          <h2 className="text-4xl font-bold text-casa-navy mb-4 text-shadow-neon">Our Services</h2>
           <p className="text-casa-navy/80 text-lg max-w-2xl mx-auto">
             Comprehensive renewable energy solutions for your home and business.
           </p>
@@ -60,14 +60,15 @@ const Services = () => {
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               <Card className="bg-gradient-to-br from-white via-[#fafafa] to-[#f5f5f5] border-white/20 
-                             hover:border-casa-eco transition-all duration-300 group shadow-lg">
+                             hover:border-casa-gold hover:shadow-gold transition-all duration-300 group 
+                             shadow-lg shadow-white/10">
                 <CardHeader className="text-center">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-eco/20 to-casa-eco/30
                                 flex items-center justify-center group-hover:from-casa-eco/30 group-hover:to-casa-eco/40
                                 transition-all duration-300">
                     <service.icon className="w-8 h-8 text-casa-eco" />
                   </div>
-                  <CardTitle className="text-2xl font-bold text-casa-navy">
+                  <CardTitle className="text-2xl font-bold text-casa-navy text-shadow-neon">
                     {service.title}
                   </CardTitle>
                 </CardHeader>

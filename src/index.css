@@ -59,4 +59,37 @@
   #root {
     @apply min-h-screen w-full m-0 p-0;
   }
+  
+  h1, h2, h3 {
+    @apply text-shadow-neon transition-all duration-300;
+  }
+
+  h1:hover, h2:hover, h3:hover {
+    @apply text-shadow-gold;
+  }
+}
+
+@layer utilities {
+  .text-shadow-neon {
+    text-shadow: 
+      0 0 7px rgba(242, 252, 226, 0.3),
+      0 0 10px rgba(242, 252, 226, 0.3),
+      0 0 21px rgba(242, 252, 226, 0.3),
+      0 0 42px rgba(242, 252, 226, 0.3);
+  }
+
+  .text-shadow-gold {
+    text-shadow: 
+      0 0 7px rgba(255, 215, 0, 0.3),
+      0 0 10px rgba(255, 215, 0, 0.3),
+      0 0 21px rgba(255, 215, 0, 0.3),
+      0 0 42px rgba(255, 215, 0, 0.3);
+  }
+
+  .shadow-gold {
+    box-shadow: 
+      0 0 7px rgba(255, 215, 0, 0.3),
+      0 0 10px rgba(255, 215, 0, 0.3),
+      0 0 21px rgba(255, 215, 0, 0.3);
+  }
 }
