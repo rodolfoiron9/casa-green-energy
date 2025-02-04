@@ -226,6 +226,51 @@ export type Database = {
           },
         ]
       }
+      ai_generated_content: {
+        Row: {
+          content: string
+          content_type: Database["public"]["Enums"]["content_type"]
+          created_at: string
+          id: string
+          metadata: Json | null
+          published_at: string | null
+          seo_metadata: Json | null
+          status: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          content_type: Database["public"]["Enums"]["content_type"]
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          published_at?: string | null
+          seo_metadata?: Json | null
+          status?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          content_type?: Database["public"]["Enums"]["content_type"]
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          published_at?: string | null
+          seo_metadata?: Json | null
+          status?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       ai_tasks: {
         Row: {
           created_at: string
@@ -943,6 +988,14 @@ export type Database = {
         | "marketing"
         | "system_monitoring"
       app_role: "admin" | "moderator" | "user"
+      content_type:
+        | "service_page"
+        | "project_page"
+        | "blog_post"
+        | "faq"
+        | "form"
+        | "footer"
+        | "policy"
       lead_type: "homeowner" | "landlord" | "tenant"
       property_type: "house" | "apartment" | "commercial"
       service_type: "plumbing" | "electrical" | "heating" | "maintenance"

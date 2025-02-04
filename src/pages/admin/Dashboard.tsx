@@ -9,6 +9,8 @@ import { ActivityLog } from "@/components/admin/ActivityLog";
 import { SettingsPanel } from "@/components/admin/SettingsPanel";
 import { MetricsCards } from "@/components/admin/dashboard/MetricsCards";
 import { ServiceStatus } from "@/components/admin/dashboard/ServiceStatus";
+import { ContentGenerator } from "@/components/admin/content/ContentGenerator";
+import { AIContentList } from "@/components/admin/content/AIContentList";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -18,7 +20,8 @@ import {
   FileText, 
   MessageSquare, 
   Settings,
-  Activity
+  Activity,
+  Wand2
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -74,6 +77,10 @@ const Dashboard = () => {
               <FileText className="w-4 h-4" />
               Content
             </TabsTrigger>
+            <TabsTrigger value="ai-content" className="flex items-center gap-2">
+              <Wand2 className="w-4 h-4" />
+              AI Content
+            </TabsTrigger>
             <TabsTrigger value="chat" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />
               Chat
@@ -127,6 +134,16 @@ const Dashboard = () => {
 
           <TabsContent value="settings">
             <SettingsPanel />
+          </TabsContent>
+
+          <TabsContent value="ai-content">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <ContentGenerator />
+              <Card className="p-6">
+                <h2 className="text-xl font-semibold mb-4">Generated Content</h2>
+                <AIContentList />
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
