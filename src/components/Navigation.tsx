@@ -88,7 +88,10 @@ const Navigation = () => {
     <nav className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#f1f1f1] to-[#e5e5e5] shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-2xl font-bold text-casa-gold flex items-center gap-2">
+          <Link 
+            to="/" 
+            className="text-2xl font-bold text-casa-gold flex items-center gap-2 [text-shadow:_-1px_-1px_0_#0066cc,_1px_-1px_0_#0066cc,_-1px_1px_0_#0066cc,_1px_1px_0_#0066cc]"
+          >
             CASA
           </Link>
 
@@ -96,7 +99,7 @@ const Navigation = () => {
           <div className="hidden md:flex items-center gap-6">
             {!isDashboard && (
               <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="text-casa-blue">
                   {menuItems.map((item) => (
                     <NavigationMenuItem key={item.title}>
                       {item.submenu ? (
@@ -136,7 +139,7 @@ const Navigation = () => {
                   <Button
                     variant="ghost"
                     onClick={handleLogout}
-                    className="text-casa-gold hover:bg-casa-gold/10 flex items-center gap-2"
+                    className="text-casa-blue hover:bg-casa-gold/10 flex items-center gap-2"
                   >
                     <LogOut {...iconProps} />
                     Logout
