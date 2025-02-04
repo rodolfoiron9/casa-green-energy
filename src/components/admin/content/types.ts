@@ -42,6 +42,7 @@ export interface GenerateContentData {
   seoTitle?: string;
   seoDescription?: string;
   tags?: string[];
+  category?: string;
   formFields?: {
     type: string;
     label: string;

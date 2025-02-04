@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Home, Battery, Sun, Thermometer, Wind, Leaf, Lightning, Building, Factory, House } from "lucide-react";
+import { Home, Battery, Sun, Thermometer, Wind, Leaf, Zap, Building, Factory, House } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const CaseStudies = () => {

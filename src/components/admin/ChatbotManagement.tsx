@@ -315,12 +315,13 @@ export function ChatbotManagement() {
             <Card className="p-4">
               <h3 className="text-lg font-semibold mb-4">Custom Responses</h3>
               <div className="space-y-4">
-                {settings?.custom_responses?.map((response: any, index: number) => (
-                  <div key={index} className="p-2 bg-gray-50 rounded">
-                    <p className="font-medium">{response.trigger}</p>
-                    <p className="text-sm text-gray-500">{response.response}</p>
-                  </div>
-                ))}
+                {settings?.custom_responses && Array.isArray(settings.custom_responses) && 
+                  settings.custom_responses.map((response: any, index: number) => (
+                    <div key={index} className="p-2 bg-gray-50 rounded">
+                      <p className="font-medium">{response.trigger}</p>
+                      <p className="text-sm text-gray-500">{response.response}</p>
+                    </div>
+                  ))}
                 <Button variant="outline" className="w-full">
                   Add Custom Response
                 </Button>
