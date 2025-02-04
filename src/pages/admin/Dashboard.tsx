@@ -11,6 +11,7 @@ import { MetricsCards } from "@/components/admin/dashboard/MetricsCards";
 import { ServiceStatus } from "@/components/admin/dashboard/ServiceStatus";
 import { ContentGenerator } from "@/components/admin/content/ContentGenerator";
 import { AIContentList } from "@/components/admin/content/AIContentList";
+import { ChatbotManagement } from "@/components/admin/ChatbotManagement";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -21,7 +22,8 @@ import {
   MessageSquare, 
   Settings,
   Activity,
-  Wand2
+  Wand2,
+  Bot
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -81,9 +83,9 @@ const Dashboard = () => {
               <Wand2 className="w-4 h-4" />
               AI Content
             </TabsTrigger>
-            <TabsTrigger value="chat" className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4" />
-              Chat
+            <TabsTrigger value="chatbot" className="flex items-center gap-2">
+              <Bot className="w-4 h-4" />
+              Chatbot
             </TabsTrigger>
             <TabsTrigger value="activity" className="flex items-center gap-2">
               <Activity className="w-4 h-4" />
@@ -121,11 +123,8 @@ const Dashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="chat">
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">Chat Management</h2>
-              <p>Chat management interface coming soon...</p>
-            </Card>
+          <TabsContent value="chatbot">
+            <ChatbotManagement />
           </TabsContent>
 
           <TabsContent value="activity">
