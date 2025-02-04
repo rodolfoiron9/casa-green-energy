@@ -69,7 +69,7 @@ export const ContentGenerator = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="p-6 bg-white/5 backdrop-blur-sm border-casa-gold/20">
+      <Card className="p-6 bg-white/5 backdrop-blur-sm border-casa-blue/20">
         <h2 className="text-xl font-semibold mb-4 text-casa-navy">Generate New Content</h2>
         <ContentGeneratorForm 
           onSubmit={handleGenerate}
