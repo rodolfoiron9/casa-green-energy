@@ -23,11 +23,8 @@ import {
   FileText, 
   MessageSquare, 
   Settings,
-  Activity,
-  Wand2,
   Bot,
   Calendar,
-  BookOpen
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -78,15 +75,11 @@ const Dashboard = () => {
               </TabsTrigger>
               <TabsTrigger value="leads" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
                 <Users className="w-4 h-4" />
-                Leads
+                Leads & Guides
               </TabsTrigger>
               <TabsTrigger value="content" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
                 <FileText className="w-4 h-4" />
                 Content
-              </TabsTrigger>
-              <TabsTrigger value="ai-content" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
-                <Wand2 className="w-4 h-4" />
-                AI Content
               </TabsTrigger>
               <TabsTrigger value="chatbot" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
                 <Bot className="w-4 h-4" />
@@ -96,42 +89,36 @@ const Dashboard = () => {
                 <Calendar className="w-4 h-4" />
                 Bookings
               </TabsTrigger>
-              <TabsTrigger value="guides" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
-                <BookOpen className="w-4 h-4" />
-                Guides
-              </TabsTrigger>
-              <TabsTrigger value="activity" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
-                <Activity className="w-4 h-4" />
-                Activity
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2 data-[state=active]:bg-casa-navy data-[state=active]:text-white">
-                <Settings className="w-4 h-4" />
-                Settings
-              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6">
               <MetricsCards metrics={metrics} />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <ServiceStatus />
-                <Card className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-casa-navy">
-                    <Activity className="w-5 h-5" />
-                    Recent Activities
-                  </h3>
-                  <ActivityLog limit={5} />
-                </Card>
+                <ActivityLog limit={5} />
               </div>
+              <SettingsPanel />
             </TabsContent>
 
             <TabsContent value="leads">
-              <LeadsManagement />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <LeadsManagement />
+                <GuidesManager />
+              </div>
             </TabsContent>
 
             <TabsContent value="content">
               <Card className="p-6">
                 <h2 className="text-2xl font-bold mb-4 text-casa-navy">Content Management</h2>
-                <AIAssistant />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <ContentGenerator />
+                  <div>
+                    <AIAssistant />
+                    <div className="mt-6">
+                      <AIContentList />
+                    </div>
+                  </div>
+                </div>
               </Card>
             </TabsContent>
 
@@ -144,31 +131,6 @@ const Dashboard = () => {
                 <h2 className="text-2xl font-bold mb-4 text-casa-navy">Booking Management</h2>
                 <BookingCalendar />
               </Card>
-            </TabsContent>
-
-            <TabsContent value="guides">
-              <Card className="p-6">
-                <h2 className="text-2xl font-bold mb-4 text-casa-navy">Guides & Downloads</h2>
-                <GuidesManager />
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="activity">
-              <ActivityLog />
-            </TabsContent>
-
-            <TabsContent value="settings">
-              <SettingsPanel />
-            </TabsContent>
-
-            <TabsContent value="ai-content">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <ContentGenerator />
-                <Card className="p-6">
-                  <h2 className="text-xl font-semibold mb-4 text-casa-navy">Generated Content</h2>
-                  <AIContentList />
-                </Card>
-              </div>
             </TabsContent>
           </Tabs>
         </div>
