@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const iconProps = { size: 20, color: "#F2FCE2" };
 
   return (
     <footer className="bg-gradient-to-b from-[#f1f1f1] to-[#e5e5e5] border-t">
@@ -16,16 +17,16 @@ const Footer = () => {
             </p>
             <div className="flex items-center space-x-4">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-casa-navy/40 hover:text-casa-blue transition-colors">
-                <Twitter size={20} />
+                <Twitter {...iconProps} />
               </a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-casa-navy/40 hover:text-casa-blue transition-colors">
-                <Facebook size={20} />
+                <Facebook {...iconProps} />
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-casa-navy/40 hover:text-casa-blue transition-colors">
-                <Linkedin size={20} />
+                <Linkedin {...iconProps} />
               </a>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-casa-navy/40 hover:text-casa-blue transition-colors">
-                <Github size={20} />
+                <Github {...iconProps} />
               </a>
             </div>
           </div>
@@ -65,15 +66,15 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-casa-navy">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-casa-navy/80">
-                <MapPin size={16} className="text-casa-blue" />
+                <MapPin size={16} color="#F2FCE2" />
                 <span>123 Green Street, Eco City, EC 12345</span>
               </div>
               <div className="flex items-center space-x-3 text-casa-navy/80">
-                <Phone size={16} className="text-casa-blue" />
+                <Phone size={16} color="#F2FCE2" />
                 <span>+1 (555) 123-4567</span>
               </div>
               <div className="flex items-center space-x-3 text-casa-navy/80">
-                <Mail size={16} className="text-casa-blue" />
+                <Mail size={16} color="#F2FCE2" />
                 <span>contact@casagreen.energy</span>
               </div>
             </div>

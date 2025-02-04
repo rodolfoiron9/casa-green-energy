@@ -2,26 +2,28 @@ import { motion } from "framer-motion";
 import { Sun, Wind, Battery, Leaf } from "lucide-react";
 
 const GreenEnergySystems = () => {
+  const iconProps = { className: "w-8 h-8", color: "#F2FCE2" };
+  
   const systems = [
     {
       title: "Solar Panel Systems",
       description: "Harness the power of the sun with our high-efficiency solar panels.",
-      icon: <Sun className="w-8 h-8 text-casa-gold" />
+      icon: <Sun {...iconProps} />
     },
     {
       title: "Wind Energy Solutions",
       description: "Small-scale wind turbines for residential and commercial use.",
-      icon: <Wind className="w-8 h-8 text-casa-gold" />
+      icon: <Wind {...iconProps} />
     },
     {
       title: "Energy Storage",
       description: "Battery systems to store excess energy for later use.",
-      icon: <Battery className="w-8 h-8 text-casa-gold" />
+      icon: <Battery {...iconProps} />
     },
     {
       title: "Eco-Friendly Integration",
       description: "Seamlessly integrate green energy systems into your property.",
-      icon: <Leaf className="w-8 h-8 text-casa-gold" />
+      icon: <Leaf {...iconProps} />
     }
   ];
 
