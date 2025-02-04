@@ -13,8 +13,11 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Wand2 } from "lucide-react";
+import { Database } from "@/integrations/supabase/types";
 
-const contentTypes = [
+type ContentType = Database["public"]["Enums"]["content_type"];
+
+const contentTypes: { value: ContentType; label: string }[] = [
   { value: 'service_page', label: 'Service Page' },
   { value: 'project_page', label: 'Project Page' },
   { value: 'blog_post', label: 'Blog Post' },
@@ -27,7 +30,7 @@ const contentTypes = [
 export const ContentGenerator = () => {
   const { toast } = useToast();
   const [title, setTitle] = useState("");
-  const [contentType, setContentType] = useState<string>("");
+  const [contentType, setContentType] = useState<ContentType | "">("");
   const [prompt, setPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -60,6 +63,7 @@ export const ContentGenerator = () => {
           content,
           content_type: contentType,
           status: 'draft',
+          user_id: (await supabase.auth.getUser()).data.user?.id
         });
 
       if (error) throw error;
@@ -97,7 +101,7 @@ export const ContentGenerator = () => {
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">Content Type</label>
-          <Select value={contentType} onValueChange={setContentType}>
+          <Select value={contentType} onValueChange={(value: ContentType) => setContentType(value)}>
             <SelectTrigger>
               <SelectValue placeholder="Select content type" />
             </SelectTrigger>
