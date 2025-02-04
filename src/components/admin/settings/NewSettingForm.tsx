@@ -1,81 +1,68 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import type { Json } from "@/integrations/supabase/types";
-import { Key } from "lucide-react";
-import { useState } from "react";
-
-interface SettingInput {
-  key: string;
-  value: string;
-}
 
 export const NewSettingForm = () => {
   const { toast } = useToast();
-  const [newSetting, setNewSetting] = useState<SettingInput>({ key: "", value: "" });
+  const [newSetting, setNewSetting] = useState<{ key: string; value: any }>({
+    key: "",
+    value: "",
+  });
 
-  const handleSaveSetting = async () => {
+  const handleAddSetting = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        throw new Error("User not authenticated");
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "You must be logged in to add settings",
+        });
+        return;
       }
 
-      const { error } = await supabase.from("admin_settings").insert({
-        key: newSetting.key,
-        value: JSON.parse(newSetting.value) as Json,
-        user_id: user.id
-      });
+      const { error } = await supabase
+        .from("admin_settings")
+        .insert({
+          key: newSetting.key,
+          value: newSetting.value,
+          user_id: user.id,
+        });
 
       if (error) throw error;
 
       toast({
         title: "Success",
-        description: "Setting saved successfully",
+        description: "Setting added successfully",
       });
 
       setNewSetting({ key: "", value: "" });
     } catch (error) {
-      console.error("Error saving setting:", error);
+      console.error("Error adding setting:", error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to save setting",
+        description: "Failed to add setting",
       });
     }
   };
 
   return (
-    <div className="grid gap-4">
-      <div className="space-y-2">
-        <Label htmlFor="key">Setting Key</Label>
-        <Input
-          id="key"
-          placeholder="Enter setting key"
-          value={newSetting.key}
-          onChange={(e) =>
-            setNewSetting({ ...newSetting, key: e.target.value })
-          }
-        />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="value">Setting Value (JSON)</Label>
-        <Input
-          id="value"
-          placeholder='{"value": "example"}'
-          value={newSetting.value}
-          onChange={(e) =>
-            setNewSetting({ ...newSetting, value: e.target.value })
-          }
-        />
-      </div>
-      <Button onClick={handleSaveSetting}>
-        <Key className="w-4 h-4 mr-2" />
-        Save Setting
-      </Button>
+    <div className="flex gap-4 mb-6">
+      <Input
+        placeholder="Setting Key"
+        value={newSetting.key}
+        onChange={(e) => setNewSetting({ ...newSetting, key: e.target.value })}
+      />
+      <Input
+        placeholder="Setting Value"
+        value={newSetting.value}
+        onChange={(e) => setNewSetting({ ...newSetting, value: e.target.value })}
+      />
+      <Button onClick={handleAddSetting}>Add Setting</Button>
     </div>
   );
 };

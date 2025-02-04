@@ -1,47 +1,54 @@
-import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { Key } from "lucide-react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
+
+interface Setting {
+  id: string;
+  key: string;
+  value: any;
+  created_at: string;
+}
 
 export const SettingsList = () => {
-  const { data: settings, isLoading } = useQuery({
-    queryKey: ["settings"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("admin_settings")
-        .select("*")
-        .order("created_at", { ascending: true });
+  const [settings, setSettings] = useState<Setting[]>([]);
+  const { toast } = useToast();
 
-      if (error) throw error;
-      return data;
-    },
-  });
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("admin_settings")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-  if (isLoading) {
-    return <div>Loading settings...</div>;
-  }
+        if (error) throw error;
+        setSettings(data || []);
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to fetch settings",
+        });
+      }
+    };
+
+    fetchSettings();
+  }, [toast]);
 
   return (
-    <div className="mt-8">
-      <h3 className="text-lg font-semibold mb-4">Current Settings</h3>
-      <div className="space-y-4">
-        {settings?.map((setting) => (
-          <div
-            key={setting.id}
-            className="p-4 border rounded-lg flex justify-between items-center"
-          >
-            <div>
-              <p className="font-medium">{setting.key}</p>
-              <p className="text-sm text-gray-500">
-                {JSON.stringify(setting.value)}
-              </p>
-            </div>
-            <Button variant="ghost" size="sm">
-              <Key className="w-4 h-4" />
-            </Button>
+    <div className="space-y-4">
+      {settings.map((setting) => (
+        <div
+          key={setting.id}
+          className="p-4 border rounded-lg bg-background/50"
+        >
+          <div className="font-medium">{setting.key}</div>
+          <div className="text-sm text-muted-foreground">
+            {JSON.stringify(setting.value)}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };
