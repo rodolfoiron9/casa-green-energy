@@ -228,13 +228,18 @@ export type Database = {
       }
       ai_generated_content: {
         Row: {
+          category: string | null
           content: string
           content_type: Database["public"]["Enums"]["content_type"]
           created_at: string
+          form_fields: Json | null
           id: string
+          images: string[] | null
           metadata: Json | null
           published_at: string | null
+          seo_description: string | null
           seo_metadata: Json | null
+          seo_title: string | null
           status: string
           tags: string[] | null
           title: string
@@ -242,13 +247,18 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          category?: string | null
           content: string
           content_type: Database["public"]["Enums"]["content_type"]
           created_at?: string
+          form_fields?: Json | null
           id?: string
+          images?: string[] | null
           metadata?: Json | null
           published_at?: string | null
+          seo_description?: string | null
           seo_metadata?: Json | null
+          seo_title?: string | null
           status?: string
           tags?: string[] | null
           title: string
@@ -256,13 +266,18 @@ export type Database = {
           user_id: string
         }
         Update: {
+          category?: string | null
           content?: string
           content_type?: Database["public"]["Enums"]["content_type"]
           created_at?: string
+          form_fields?: Json | null
           id?: string
+          images?: string[] | null
           metadata?: Json | null
           published_at?: string | null
+          seo_description?: string | null
           seo_metadata?: Json | null
+          seo_title?: string | null
           status?: string
           tags?: string[] | null
           title?: string
@@ -525,6 +540,41 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      form_submissions: {
+        Row: {
+          created_at: string
+          form_id: string | null
+          id: string
+          submission_data: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          form_id?: string | null
+          id?: string
+          submission_data?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          form_id?: string | null
+          id?: string
+          submission_data?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_submissions_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "ai_generated_content"
             referencedColumns: ["id"]
           },
         ]
@@ -996,6 +1046,17 @@ export type Database = {
         | "form"
         | "footer"
         | "policy"
+      form_field_type:
+        | "text"
+        | "email"
+        | "phone"
+        | "textarea"
+        | "select"
+        | "checkbox"
+        | "radio"
+        | "date"
+        | "time"
+        | "number"
       lead_type: "homeowner" | "landlord" | "tenant"
       property_type: "house" | "apartment" | "commercial"
       service_type: "plumbing" | "electrical" | "heating" | "maintenance"
