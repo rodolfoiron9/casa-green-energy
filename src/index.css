@@ -61,7 +61,7 @@
   }
   
   h1, h2, h3 {
-    @apply bg-white text-casa-navy;
+    @apply text-casa-navy;
   }
 }
 
