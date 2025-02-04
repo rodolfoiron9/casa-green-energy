@@ -22,7 +22,7 @@ const Services = () => {
     {
       title: "Maintenance Services",
       description: "Regular maintenance and servicing to keep your systems running at peak efficiency.",
-      icon: Shield, // Changed from Tool to Shield
+      icon: Shield,
     },
     {
       title: "Green Energy Systems",
@@ -60,12 +60,12 @@ const Services = () => {
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               <Card className="bg-gradient-to-br from-white via-[#fafafa] to-[#f5f5f5] border-white/20 
-                             hover:border-casa-gold transition-all duration-300 group shadow-lg">
+                             hover:border-casa-eco transition-all duration-300 group shadow-lg">
                 <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-gold/20 to-casa-gold/30
-                                flex items-center justify-center group-hover:from-casa-gold/30 group-hover:to-casa-gold/40
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-casa-eco/20 to-casa-eco/30
+                                flex items-center justify-center group-hover:from-casa-eco/30 group-hover:to-casa-eco/40
                                 transition-all duration-300">
-                    <service.icon className="w-8 h-8 text-casa-gold" />
+                    <service.icon className="w-8 h-8 text-casa-eco" />
                   </div>
                   <CardTitle className="text-2xl font-bold text-casa-navy">
                     {service.title}

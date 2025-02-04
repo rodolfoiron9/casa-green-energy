@@ -21,8 +21,9 @@ export default {
       colors: {
         casa: {
           navy: "#001F3F",
-          gold: "#FFFFFF", // Base color is white
+          gold: "#FFFFFF",
           blue: "#0066cc",
+          eco: "#F2FCE2", // Added soft eco-green color
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
