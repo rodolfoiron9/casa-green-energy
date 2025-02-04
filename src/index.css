@@ -51,11 +51,18 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border touch-manipulation;
   }
+  
+  html {
+    @apply overflow-x-hidden;
+  }
+  
   body {
-    @apply bg-white text-foreground m-0 p-0;
+    @apply bg-white text-foreground m-0 p-0 min-h-screen w-full overflow-x-hidden;
+    -webkit-tap-highlight-color: transparent;
   }
+  
   #root {
     @apply min-h-screen w-full m-0 p-0;
   }
