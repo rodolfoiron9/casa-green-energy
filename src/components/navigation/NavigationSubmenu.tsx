@@ -1,44 +1,55 @@
-import { Link } from "react-router-dom";
 import {
+  NavigationMenu,
   NavigationMenuContent,
+  NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
   NavigationMenuTrigger,
-} from "../ui/navigation-menu";
-import { LucideIcon } from "lucide-react";
-import { SubmenuItem } from "./types";
+} from "@/components/ui/navigation-menu";
+import { Link } from "react-router-dom";
 
 interface NavigationSubmenuProps {
-  title: string;
-  icon: React.ReactElement<LucideIcon>;
-  items: SubmenuItem[];
+  items: {
+    title: string;
+    href: string;
+    description?: string;
+  }[];
+  trigger: string;
 }
 
-export const NavigationSubmenu = ({ title, icon, items }: NavigationSubmenuProps) => (
-  <>
-    <NavigationMenuTrigger className="bg-casa-gold text-casa-navy hover:bg-casa-gold/90 transition-colors">
-      <span className="flex items-center gap-2">
-        {icon}
-        {title}
-      </span>
-    </NavigationMenuTrigger>
-    <NavigationMenuContent>
-      <ul className="grid w-[400px] gap-3 p-4 bg-casa-navy/95 backdrop-blur-lg border border-white/10">
-        {items.map((item) => (
-          <li key={item.title}>
-            <NavigationMenuLink asChild>
-              <Link
-                to={item.href}
-                className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-casa-gold/10 hover:text-casa-gold text-casa-gold/80 flex items-center gap-3"
-              >
-                {item.icon}
-                <div>
-                  <div className="text-sm font-medium leading-none">{item.title}</div>
-                </div>
-              </Link>
-            </NavigationMenuLink>
-          </li>
-        ))}
-      </ul>
-    </NavigationMenuContent>
-  </>
-);
+export const NavigationSubmenu = ({ items, trigger }: NavigationSubmenuProps) => {
+  return (
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="bg-transparent text-white/90 hover:text-casa-gold hover:bg-white/10">
+            {trigger}
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 bg-gradient-to-b from-casa-navy to-casa-blue/90 backdrop-blur-lg border border-white/10">
+              {items.map((item) => (
+                <li key={item.href}>
+                  <NavigationMenuLink asChild>
+                    <Link
+                      to={item.href}
+                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-white/10 hover:text-casa-gold"
+                    >
+                      <div className="text-sm font-medium leading-none text-white/90">
+                        {item.title}
+                      </div>
+                      {item.description && (
+                        <p className="line-clamp-2 text-sm leading-snug text-white/70">
+                          {item.description}
+                        </p>
+                      )}
+                    </Link>
+                  </NavigationMenuLink>
+                </li>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+};
