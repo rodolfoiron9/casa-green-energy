@@ -44,8 +44,14 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
           console.log('Real-time metric update:', payload);
           
           // Ensure payload.new exists and is a valid MetricRow
-          if (!payload.new || !isMetricRow(payload.new)) {
-            console.log('Invalid payload received:', payload);
+          if (!payload.new) {
+            console.log('No new data in payload:', payload);
+            return;
+          }
+
+          // Type guard to ensure payload.new has the required properties
+          if (!isValidMetricRow(payload.new)) {
+            console.log('Invalid metric row data:', payload.new);
             return;
           }
           
@@ -69,8 +75,8 @@ export const MetricsCards = ({ metrics }: MetricsCardsProps) => {
     };
   }, []);
 
-  // Type guard function to check if an object is a MetricRow
-  function isMetricRow(obj: any): obj is MetricRow {
+  // Type guard function to check if an object is a valid MetricRow
+  function isValidMetricRow(obj: any): obj is MetricRow {
     return (
       obj &&
       typeof obj === 'object' &&
