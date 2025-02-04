@@ -7,23 +7,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { handleChatRequest } from "@/api/chat";
 import { toast } from "sonner";
 import { MessageSquare, Settings, Database } from "lucide-react";
+import { Database } from "@/types/supabase";
 
-interface ChatbotConversation {
-  id: string;
-  platform: string;
-  conversation_data: any;
-  created_at: string;
-  status: string;
-}
-
-interface TrainingData {
-  id: string;
-  input_text: string;
-  response_text: string;
-  category: string;
-  confidence_score: number;
-  created_at: string;
-}
+type ChatbotConversation = Database["public"]["Tables"]["chatbot_conversations"]["Row"];
+type TrainingData = Database["public"]["Tables"]["chatbot_training_data"]["Row"];
 
 export function ChatbotManagement() {
   const [selectedConversation, setSelectedConversation] = useState<ChatbotConversation | null>(null);
