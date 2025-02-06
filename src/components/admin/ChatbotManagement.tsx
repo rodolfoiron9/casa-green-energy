@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Card } from "../ui/card";
-import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { handleChatRequest } from "@/api/chat";
 import { toast } from "sonner";
 import { 
   MessageSquare, 
@@ -12,15 +10,13 @@ import {
   Database as DatabaseIcon, 
   Brain,
   BarChart2,
-  Users,
-  Zap,
-  Shield
 } from "lucide-react";
-import type { Database } from "@/integrations/supabase/types";
 import { motion } from "framer-motion";
-
-type ChatbotConversation = Database["public"]["Tables"]["chatbot_conversations"]["Row"];
-type TrainingData = Database["public"]["Tables"]["chatbot_training_data"]["Row"];
+import { ChatbotHeader } from "./chatbot/ChatbotHeader";
+import { ConversationsList } from "./chatbot/ConversationsList";
+import { ConversationDetails } from "./chatbot/ConversationDetails";
+import { TrainingDataList } from "./chatbot/TrainingDataList";
+import type { ChatbotConversation, TrainingData } from "@/types/database";
 
 export function ChatbotManagement() {
   const [selectedConversation, setSelectedConversation] = useState<ChatbotConversation | null>(null);
@@ -74,19 +70,9 @@ export function ChatbotManagement() {
     },
   });
 
-  const personas = [
-    { id: 'general', name: 'General Assistant', icon: Brain },
-    { id: 'sales', name: 'Sales Expert', icon: Users },
-    { id: 'technical', name: 'Technical Support', icon: Zap },
-    { id: 'customer_service', name: 'Customer Service', icon: Shield },
-  ];
-
   return (
-    <Card className="p-6">
-      <div className="flex items-center gap-2 mb-6">
-        <MessageSquare className="w-6 h-6 text-casa-gold" />
-        <h2 className="text-2xl font-bold">Chatbot Management</h2>
-      </div>
+    <Card className="p-6 bg-white/5 backdrop-blur-lg border border-casa-gold/20">
+      <ChatbotHeader />
 
       <Tabs defaultValue="conversations" className="space-y-4">
         <TabsList className="grid grid-cols-4 gap-4">
@@ -111,68 +97,16 @@ export function ChatbotManagement() {
         <TabsContent value="conversations" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Recent Conversations</h3>
-              {conversationsLoading ? (
-                <div>Loading conversations...</div>
-              ) : (
-                <div className="space-y-2">
-                  {conversations?.map((conversation) => (
-                    <motion.div
-                      key={conversation.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Card 
-                        className="p-4 hover:bg-gray-50 cursor-pointer transition-all"
-                        onClick={() => setSelectedConversation(conversation)}
-                      >
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <p className="font-medium">Platform: {conversation.platform}</p>
-                            <p className="text-sm text-gray-500">
-                              {new Date(conversation.created_at).toLocaleString()}
-                            </p>
-                          </div>
-                          <span className={`px-2 py-1 rounded-full text-sm ${
-                            conversation.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100'
-                          }`}>
-                            {conversation.status}
-                          </span>
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
+              <h3 className="text-lg font-semibold text-casa-navy">Recent Conversations</h3>
+              <ConversationsList 
+                conversations={conversations}
+                isLoading={conversationsLoading}
+                onSelectConversation={setSelectedConversation}
+              />
             </div>
             
             {selectedConversation && (
-              <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-4">Conversation Details</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm text-gray-500">Platform</p>
-                    <p className="font-medium">{selectedConversation.platform}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Status</p>
-                    <p className="font-medium">{selectedConversation.status}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Created At</p>
-                    <p className="font-medium">
-                      {new Date(selectedConversation.created_at).toLocaleString()}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Metadata</p>
-                    <pre className="bg-gray-50 p-2 rounded text-sm">
-                      {JSON.stringify(selectedConversation.metadata, null, 2)}
-                    </pre>
-                  </div>
-                </div>
-              </Card>
+              <ConversationDetails conversation={selectedConversation} />
             )}
           </div>
         </TabsContent>
@@ -181,57 +115,33 @@ export function ChatbotManagement() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="lg:col-span-2">
               <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-4">Training Data</h3>
-                {trainingDataLoading ? (
-                  <div>Loading training data...</div>
-                ) : (
-                  <div className="space-y-4">
-                    {trainingData?.map((data) => (
-                      <motion.div
-                        key={data.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <Card className="p-4">
-                          <div className="space-y-2">
-                            <div>
-                              <p className="font-medium">Input: {data.input_text}</p>
-                              <p className="text-sm">Response: {data.response_text}</p>
-                            </div>
-                            <div className="flex justify-between items-center text-sm text-gray-500">
-                              <span>Category: {data.category}</span>
-                              <span>Confidence: {(data.confidence_score * 100).toFixed(1)}%</span>
-                            </div>
-                          </div>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
+                <h3 className="text-lg font-semibold mb-4 text-casa-navy">Training Data</h3>
+                <TrainingDataList 
+                  trainingData={trainingData}
+                  isLoading={trainingDataLoading}
+                />
               </Card>
             </div>
             
             <div>
               <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-4">Active Personas</h3>
+                <h3 className="text-lg font-semibold mb-4 text-casa-navy">Active Personas</h3>
                 <div className="space-y-2">
-                  {personas.map((persona) => (
-                    <motion.div
-                      key={persona.id}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3 }}
+                  {['general', 'sales', 'technical', 'customer_service'].map((persona) => (
+                    <motion.button
+                      key={persona}
+                      className={`w-full px-4 py-2 rounded-lg text-left transition-all ${
+                        activePersona === persona 
+                          ? 'bg-casa-navy text-white' 
+                          : 'bg-white/10 hover:bg-white/20'
+                      }`}
+                      onClick={() => setActivePersona(persona)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <Button
-                        variant={activePersona === persona.id ? "default" : "outline"}
-                        className="w-full justify-start"
-                        onClick={() => setActivePersona(persona.id)}
-                      >
-                        <persona.icon className="w-4 h-4 mr-2" />
-                        {persona.name}
-                      </Button>
-                    </motion.div>
+                      <Brain className="w-4 h-4 inline-block mr-2" />
+                      {persona.charAt(0).toUpperCase() + persona.slice(1).replace('_', ' ')}
+                    </motion.button>
                   ))}
                 </div>
               </Card>
@@ -240,7 +150,7 @@ export function ChatbotManagement() {
         </TabsContent>
 
         <TabsContent value="analytics" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="p-4">
               <h3 className="text-lg font-semibold mb-4">Conversation Metrics</h3>
               <div className="space-y-4">
@@ -306,9 +216,13 @@ export function ChatbotManagement() {
                     {JSON.stringify(settings?.business_hours || {}, null, 2)}
                   </pre>
                 </div>
-                <Button variant="outline" className="w-full">
+                <motion.button
+                  className="w-full px-4 py-2 rounded-lg bg-casa-navy text-white hover:bg-casa-navy/90 transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   Update Settings
-                </Button>
+                </motion.button>
               </div>
             </Card>
 
@@ -322,9 +236,13 @@ export function ChatbotManagement() {
                       <p className="text-sm text-gray-500">{response.response}</p>
                     </div>
                   ))}
-                <Button variant="outline" className="w-full">
+                <motion.button
+                  className="w-full px-4 py-2 rounded-lg bg-casa-navy text-white hover:bg-casa-navy/90 transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   Add Custom Response
-                </Button>
+                </motion.button>
               </div>
             </Card>
           </div>
