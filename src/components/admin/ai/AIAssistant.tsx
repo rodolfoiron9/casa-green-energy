@@ -9,7 +9,7 @@ export function AIAssistant() {
   const [selectedModel, setSelectedModel] = useState<AIModel>("gemini");
 
   return (
-    <Card className="p-6 space-y-4">
+    <Card className="p-6 space-y-4 bg-white/5 backdrop-blur-sm border-casa-gold/20 hover:border-casa-gold/40 transition-all duration-300">
       <AIAssistantHeader />
       <ModelSelector 
         selectedModel={selectedModel}

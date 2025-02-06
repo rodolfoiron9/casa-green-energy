@@ -40,11 +40,11 @@ export const ChatInterface = ({ selectedModel }: ChatInterfaceProps) => {
         placeholder="Ask me anything about leads, marketing, or administrative tasks..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="min-h-[100px]"
+        className="min-h-[100px] bg-white/5 backdrop-blur-sm border-casa-gold/20 hover:border-casa-gold/40 transition-colors"
       />
 
       {response && (
-        <div className="p-4 bg-secondary rounded-lg">
+        <div className="p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-casa-gold/20">
           <p className="whitespace-pre-wrap">{response}</p>
         </div>
       )}
@@ -52,7 +52,7 @@ export const ChatInterface = ({ selectedModel }: ChatInterfaceProps) => {
       <Button 
         onClick={handleSubmit} 
         disabled={isLoading}
-        className="w-full"
+        className="w-full bg-gradient-to-r from-casa-navy to-casa-blue hover:from-casa-blue hover:to-casa-navy border border-casa-gold/20 hover:border-casa-gold/40 transition-all duration-300"
       >
         {isLoading ? (
           <>

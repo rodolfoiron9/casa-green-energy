@@ -6,11 +6,9 @@ export const ContentGrid = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <ContentGenerator />
-      <div>
+      <div className="space-y-6">
         <AIAssistant />
-        <div className="mt-6">
-          <AIContentList />
-        </div>
+        <AIContentList />
       </div>
     </div>
   );
