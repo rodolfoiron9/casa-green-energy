@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PoundSterling, FileText, CheckCircle, Clock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import AiChatDialog from "@/components/AiChatDialog";
 
 const GovernmentGrants = () => {
   const grants = [
@@ -96,6 +97,11 @@ const GovernmentGrants = () => {
             Get Started Today
           </a>
         </motion.div>
+
+        {/* Add AI Chat Dialog */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <AiChatDialog />
+        </div>
       </div>
     </div>
   );
