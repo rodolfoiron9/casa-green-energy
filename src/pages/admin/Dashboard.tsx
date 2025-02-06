@@ -9,8 +9,7 @@ import { ActivityLog } from "@/components/admin/ActivityLog";
 import { SettingsPanel } from "@/components/admin/SettingsPanel";
 import { MetricsCards } from "@/components/admin/dashboard/MetricsCards";
 import { ServiceStatus } from "@/components/admin/dashboard/ServiceStatus";
-import { ContentGenerator } from "@/components/admin/content/ContentGenerator";
-import { AIContentList } from "@/components/admin/content/AIContentList";
+import { ContentManagement } from "@/components/admin/content/ContentManagement";
 import { ChatbotManagement } from "@/components/admin/ChatbotManagement";
 import { BookingCalendar } from "@/components/admin/bookings/BookingCalendar";
 import { GuidesManager } from "@/components/admin/guides/GuidesManager";
@@ -132,18 +131,7 @@ const Dashboard = () => {
             </TabsContent>
 
             <TabsContent value="content">
-              <Card className="p-6">
-                <h2 className="text-2xl font-bold mb-4 text-casa-navy">Content Management</h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <ContentGenerator />
-                  <div>
-                    <AIAssistant />
-                    <div className="mt-6">
-                      <AIContentList />
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              <ContentManagement />
             </TabsContent>
 
             <TabsContent value="chatbot">
