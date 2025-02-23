@@ -1094,6 +1094,7 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          role: string | null
           updated_at: string
         }
         Insert: {
@@ -1101,6 +1102,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id: string
+          role?: string | null
           updated_at?: string
         }
         Update: {
@@ -1108,6 +1110,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          role?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1221,17 +1224,47 @@ export type Database = {
         }
         Returns: boolean
       }
-      update_ai_task_status: {
+      update_ai_task_status:
+        | {
+            Args: {
+              task_id: number
+              new_status: string
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              task_id: string
+              new_status: string
+            }
+            Returns: undefined
+          }
+      update_lead_conversion_score:
+        | {
+            Args: {
+              lead_id: number
+              conversion_score: number
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              lead_id: string
+              new_score: number
+            }
+            Returns: undefined
+          }
+      update_lead_last_interaction: {
         Args: {
-          task_id: number
-          new_status: string
+          lead_id: string
+          interaction_type: string
         }
         Returns: undefined
       }
-      update_lead_conversion_score: {
+      update_lead_score: {
         Args: {
-          lead_id: number
-          conversion_score: number
+          lead_id: string
+          new_score: number
         }
         Returns: undefined
       }
