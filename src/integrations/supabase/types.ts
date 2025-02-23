@@ -1217,6 +1217,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_admin_user: {
+        Args: {
+          user_id: string
+        }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           user_id: string

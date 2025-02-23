@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
@@ -33,6 +34,7 @@ const Dashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Fetch admin metrics
   const { data: metrics } = useQuery({
     queryKey: ['admin-metrics'],
     queryFn: async () => {
@@ -47,9 +49,28 @@ const Dashboard = () => {
     }
   });
 
-  useEffect(() => {
-    const checkAuth = async () => {
+  // Check if user has admin role
+  const { data: userRole } = useQuery({
+    queryKey: ['user-role'],
+    queryFn: async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) throw new Error('No session');
+
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .single();
+
+      if (error) throw error;
+      return data?.role;
+    }
+  });
+
+  useEffect(() => {
+    const checkAccess = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
       if (!session) {
         toast({
           variant: "destructive",
@@ -57,11 +78,32 @@ const Dashboard = () => {
           description: "Please login to access the dashboard",
         });
         navigate("/auth");
+        return;
+      }
+
+      if (userRole !== 'admin') {
+        toast({
+          variant: "destructive",
+          title: "Access Denied",
+          description: "You need admin privileges to access this area",
+        });
+        navigate("/");
       }
     };
 
-    checkAuth();
-  }, [navigate, toast]);
+    checkAccess();
+  }, [navigate, toast, userRole]);
+
+  if (!userRole) {
+    return <div className="flex items-center justify-center min-h-screen">
+      <Card className="p-6">
+        <div className="flex items-center gap-2 text-yellow-600">
+          <AlertCircle className="w-5 h-5" />
+          <p>Checking permissions...</p>
+        </div>
+      </Card>
+    </div>;
+  }
 
   return (
     <ProtectedRoute>
